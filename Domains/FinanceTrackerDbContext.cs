@@ -1,11 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using aa_finance_tracker.Domains;
+using Microsoft.EntityFrameworkCore;
 
 namespace aa_finance_tracker.Data
 {
     public class FinanceTrackerDbContext : DbContext
     {
         private readonly IConfiguration _configuration;
-        public DbSet<ExpenseTypes> ExpenseTypes { get; set; }
+        public DbSet<ExpenseType> ExpenseTypes { get; set; }
+
+        public DbSet<ExpenseCategory> ExpensesCategories { get; set; }
 
         public FinanceTrackerDbContext(IConfiguration configuration)
             : base(new DbContextOptionsBuilder<FinanceTrackerDbContext>()
@@ -19,8 +22,11 @@ namespace aa_finance_tracker.Data
         {                        
             base.OnModelCreating(modelBuilder);
             
-            modelBuilder.Entity<ExpenseTypes>()
-                .HasKey(e => e.Id);
+            modelBuilder.Entity<ExpenseType>()
+                .HasKey(e => e.Name);
+
+            modelBuilder.Entity<ExpenseCategory>()
+               .HasKey(e => e.Name);
         }
 
     }
