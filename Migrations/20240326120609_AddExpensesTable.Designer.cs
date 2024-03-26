@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using aa_finance_tracker.Data;
 
@@ -11,9 +12,11 @@ using aa_finance_tracker.Data;
 namespace aa_finance_tracker.Migrations
 {
     [DbContext(typeof(FinanceTrackerDbContext))]
-    partial class FinanceTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240326120609_AddExpensesTable")]
+    partial class AddExpensesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
