@@ -7,7 +7,9 @@ public class Expense
 {
     public int Id { get; set; }
     public DateTime Date { get; set; }
+    [ForeignKey("ExpenseCategory")]
     public ExpenseCategory Category { get; set; }
+    [ForeignKey("ExpenseType")]
     public ExpenseType Type { get; set; }    
     public decimal Amount { get; set; }
     public string Comments { get; set; }    

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AAFinanceTracker.API", "aa-finance-tracker\AAFinanceTracker.API.csproj", "{BB604C0B-76E9-4DB1-A17F-D06E3738380F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AAFinaceTracker.API.Tests", "AAFinaceAPITests\AAFinaceTracker.API.Tests.csproj", "{53D12316-1DE1-4407-8132-8458FD18135E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AAFinanceTracker.API.Tests", "AAFinaceAPITests\AAFinanceTracker.API.Tests.csproj", "{53D12316-1DE1-4407-8132-8458FD18135E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
