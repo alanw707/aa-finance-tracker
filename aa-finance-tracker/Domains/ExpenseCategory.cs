@@ -2,21 +2,6 @@
 {
     public class ExpenseCategory
     {
-        protected ExpenseCategory()
-        {
-        }
-
-        public ExpenseCategory(
-            string name,
-            string description,
-            decimal budget,
-            string colourHex)
-        {
-            Name = name;
-            Description = description;
-            Budget = budget;
-            ColourHex = colourHex;
-        }
 
         public string Name { get; set; }
         public string Description { get; set; }

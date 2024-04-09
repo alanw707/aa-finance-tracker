@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using aa_finance_tracker.Data;
 using aa_finance_tracker.Domains;
+using aa_finance_tracker.Models;
 
 namespace aa_finance_tracker.Controllers
 {
@@ -42,7 +43,7 @@ namespace aa_finance_tracker.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutExpense(int id, Expense expense)
         {
-            if (id != expense.Id)
+            if (id != expense.ExpenseId)
             {
                 return BadRequest();
             }
@@ -71,12 +72,20 @@ namespace aa_finance_tracker.Controllers
         // POST: api/Expenses
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Expense>> PostExpense(Expense expense)
+        public async Task<ActionResult<ExpenseModel>> PostExpense(ExpenseModel expenseModel)
         {
+            var expense = new Expense()
+            {
+                ExpenseCategoryName = expenseModel.CategoryName,
+                ExpenseTypeName = expenseModel.TypeName,
+                Comments = expenseModel.Comments,
+                Amount = expenseModel.Amount
+            };
+
             _context.Expenses.Add(expense);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetExpense", new { id = expense.Id }, expense);
+            return CreatedAtAction("GetExpense", new { id = expense.ExpenseId }, expense);
         }
 
         // DELETE: api/Expenses/5
@@ -97,7 +106,7 @@ namespace aa_finance_tracker.Controllers
 
         private bool ExpenseExists(int id)
         {
-            return _context.Expenses.Any(e => e.Id == id);
+            return _context.Expenses.Any(e => e.ExpenseId == id);
         }
     }
 }
