@@ -31,18 +31,18 @@ namespace aa_finance_tracker.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Expense>()
-                .HasKey(e => e.Id);
-
-            modelBuilder.Entity<ExpenseType>()
-                .HasKey(e => e.Name);
-
-            modelBuilder.Entity<ExpenseCategory>()
-               .HasKey(e => e.Name);
-
+                .HasKey(e => e.ExpenseId);
             modelBuilder.Entity<Expense>()
                 .Property(e => e.Amount)
                 .HasColumnType("decimal(18,2)")
                 .IsRequired();
+
+            modelBuilder.Entity<ExpenseType>()
+                .HasKey(e => e.Name);
+
+
+            modelBuilder.Entity<ExpenseCategory>()
+               .HasKey(e => e.Name);
 
             modelBuilder.Entity<ExpenseCategory>()
                 .Property(e => e.Budget)

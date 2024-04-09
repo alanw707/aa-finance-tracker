@@ -5,28 +5,15 @@ namespace aa_finance_tracker.Domains;
 
 public class Expense
 {
-    public int Id { get; set; }
+    public int ExpenseId { get; set; }
     public DateTime Date { get; set; }
-    public ExpenseCategory Category { get; set; }
-    public ExpenseType Type { get; set; }    
+    [ForeignKey("ExpenseCategoryName")]
+    public string ExpenseCategoryName { get; set; }
+    [ForeignKey("ExpenseTypeName")]
+    public string ExpenseTypeName { get; set; }    
     public decimal Amount { get; set; }
-    public string Comments { get; set; }    
+    public string? Comments { get; set; }
+    public ExpenseCategory ExpenseCategory { get; set; }
+    public ExpenseType ExpenseType { get; set; }
 
-    protected Expense()
-    {
-    }
-
-    public Expense(
-        DateTime date,
-        ExpenseCategory category,
-        ExpenseType type,
-        decimal amount,
-        string comments)
-    {
-        Date = date;
-        Category = category;
-        Type = type;
-        Amount = amount;
-        Comments = comments;        
-    }
 }

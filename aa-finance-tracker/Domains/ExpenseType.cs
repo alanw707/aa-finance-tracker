@@ -1,4 +1,6 @@
-﻿namespace aa_finance_tracker.Data
+﻿using aa_finance_tracker.Domains;
+
+namespace aa_finance_tracker.Data
 {
     public class ExpenseType
     {
@@ -7,10 +9,10 @@
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
 
-        public ExpenseType(string Name, string Description)
+        public ExpenseType(string name, string description)
         {
-            this.Name = Name;
-            this.Description = Description;
+            this.Name = name;
+            this.Description = description;
         }
     }
 }

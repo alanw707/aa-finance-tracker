@@ -12,8 +12,8 @@ using aa_finance_tracker.Data;
 namespace aa_finance_tracker.Migrations
 {
     [DbContext(typeof(FinanceTrackerDbContext))]
-    [Migration("20240326120609_AddExpensesTable")]
-    partial class AddExpensesTable
+    [Migration("20240406123541_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,35 +47,34 @@ namespace aa_finance_tracker.Migrations
 
             modelBuilder.Entity("aa_finance_tracker.Domains.Expense", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ExpenseId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExpenseId"));
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("CategoryName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Comments")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("TypeName")
+                    b.Property<string>("ExpenseCategoryName")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("ExpenseTypeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasIndex("CategoryName");
+                    b.HasKey("ExpenseId");
 
-                    b.HasIndex("TypeName");
+                    b.HasIndex("ExpenseCategoryName");
+
+                    b.HasIndex("ExpenseTypeName");
 
                     b.ToTable("Expenses");
                 });
@@ -109,21 +108,27 @@ namespace aa_finance_tracker.Migrations
 
             modelBuilder.Entity("aa_finance_tracker.Domains.Expense", b =>
                 {
-                    b.HasOne("aa_finance_tracker.Domains.ExpenseCategory", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryName")
+                    b.HasOne("aa_finance_tracker.Domains.ExpenseCategory", null)
+                        .WithMany("Expenses")
+                        .HasForeignKey("ExpenseCategoryName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("aa_finance_tracker.Data.ExpenseType", "Type")
-                        .WithMany()
-                        .HasForeignKey("TypeName")
+                    b.HasOne("aa_finance_tracker.Data.ExpenseType", null)
+                        .WithMany("Expenses")
+                        .HasForeignKey("ExpenseTypeName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
 
-                    b.Navigation("Category");
+            modelBuilder.Entity("aa_finance_tracker.Data.ExpenseType", b =>
+                {
+                    b.Navigation("Expenses");
+                });
 
-                    b.Navigation("Type");
+            modelBuilder.Entity("aa_finance_tracker.Domains.ExpenseCategory", b =>
+                {
+                    b.Navigation("Expenses");
                 });
 #pragma warning restore 612, 618
         }
