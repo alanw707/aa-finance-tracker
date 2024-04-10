@@ -1,7 +1,6 @@
-﻿using aa_finance_tracker.Data;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace aa_finance_tracker.Domains;
+namespace AAExpenseTracker.Domain.Entities;
 
 public class Expense
 {

@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AAExpenseTracker.Domain.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using aa_finance_tracker.Data;
-using aa_finance_tracker.Domains;
-using aa_finance_tracker.Models;
+using AAFinanceTracker.API.Models;
+using AAExpenseTracker.Domain.Entities;
 
-namespace aa_finance_tracker.Controllers
+namespace AAFinanceTracker.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

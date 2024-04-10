@@ -1,8 +1,8 @@
-﻿using System.CodeDom;
-using aa_finance_tracker.Domains;
+﻿using AAExpenseTracker.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
-namespace aa_finance_tracker.Data
+namespace AAExpenseTracker.Domain.Data
 {
     public class FinanceTrackerDbContext : DbContext
     {
@@ -15,7 +15,7 @@ namespace aa_finance_tracker.Data
 
         public FinanceTrackerDbContext()
         {
-            
+
         }
 
         public FinanceTrackerDbContext(IConfiguration configuration)

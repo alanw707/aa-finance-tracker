@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AAFinanceTracker.API", "aa-
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AAFinanceTracker.API.Tests", "AAFinaceAPITests\AAFinanceTracker.API.Tests.csproj", "{53D12316-1DE1-4407-8132-8458FD18135E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AAFinanceTracker.Infrastructure", "AAFinanceTracker.Infrastructure\AAFinanceTracker.Infrastructure.csproj", "{469DF666-7E71-49BF-BB75-4BD5D4E71854}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AAExpenseTracker.Domain", "AAExpenseTracker.Domain\AAExpenseTracker.Domain.csproj", "{21B75372-4413-4D6F-95FB-33F6F73F907D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{53D12316-1DE1-4407-8132-8458FD18135E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53D12316-1DE1-4407-8132-8458FD18135E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53D12316-1DE1-4407-8132-8458FD18135E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{469DF666-7E71-49BF-BB75-4BD5D4E71854}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{469DF666-7E71-49BF-BB75-4BD5D4E71854}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{469DF666-7E71-49BF-BB75-4BD5D4E71854}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{469DF666-7E71-49BF-BB75-4BD5D4E71854}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21B75372-4413-4D6F-95FB-33F6F73F907D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21B75372-4413-4D6F-95FB-33F6F73F907D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21B75372-4413-4D6F-95FB-33F6F73F907D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21B75372-4413-4D6F-95FB-33F6F73F907D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

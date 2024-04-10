@@ -1,8 +1,4 @@
-﻿using aa_finance_tracker.Data;
-using aa_finance_tracker.Domains;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace aa_finance_tracker.Models;
+﻿namespace AAFinanceTracker.API.Models;
 
 public class ExpenseModel
 {
