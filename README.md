@@ -9,11 +9,10 @@ Hi Welcome to my project! I created this project after Mint shutdown and I just 
 - [.NET 8.0](https://github.com/dotnet/core)
 - CQRS
   - [MediatR](https://github.com/jbogard/MediatR)
-  - [Entity Framework Core](https://github.com/aspnet/EntityFrameworkCore) on SQL Server 2022.  
-- [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) for Swagger
-- [ASP.NET Core JWT Bearer Authentication](https://github.com/aspnet/Security) for [JWT](https://jwt.io/) authentication with support for [refresh tokens](https://tools.ietf.org/html/rfc6749#section-1.5)
+  - [Entity Framework Core](https://github.com/aspnet/EntityFrameworkCore) on SQL Server 2022.
+- Repository Pattern
 
 ### Client Side
 
-- Phase 1 .NET MVC / Razor Pages 
+- Phase 1 .NET WEB API Backend
 - Phase 2 Angular

@@ -1,5 +1,6 @@
-using aa_finance_tracker.Controllers;
-using aa_finance_tracker.Data;
+using AAExpenseTracker.Domain.Data;
+using AAExpenseTracker.Domain.Entities;
+using AAFinanceTracker.API.Controllers;
 using Moq;
 using Moq.EntityFrameworkCore;
 
@@ -37,6 +38,5 @@ namespace AAFinaceAPITests
             Assert.NotNull(result);
             Assert.Equal(2, result.Count());
         }
-
     }
 }

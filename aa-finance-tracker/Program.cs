@@ -1,6 +1,4 @@
-using aa_finance_tracker.Data;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using AAExpenseTracker.Domain.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
