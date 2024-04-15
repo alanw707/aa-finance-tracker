@@ -1,14 +1,15 @@
-﻿using System.Linq.Expressions;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Linq.Expressions;
 
 namespace AAFinanceTracker.Infrastructure.Repositories;
 
-public interface IRepository<T>
+public interface IRepository<T> where T : class
 {
-    T Add(T entity);
+    Task<EntityEntry<T>> Add(T entity, CancellationToken token);
+    Task<List<T>> All(CancellationToken token);
     T Update(T entity);
     T Get(string id);
     void Delete(T entity);
-    IQueryable<T> All();
-    IQueryable<T> Find(Expression<Func<T,bool>> predicate);
-    void SaveChanges();
+    Task<List<T>> Find(Expression<Func<T,bool>> predicate, CancellationToken token);
+    Task<int> SaveChangesAsync(CancellationToken token);
 }

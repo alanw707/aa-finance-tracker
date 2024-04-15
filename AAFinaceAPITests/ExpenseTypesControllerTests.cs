@@ -1,6 +1,7 @@
 using AAExpenseTracker.Domain.Data;
 using AAExpenseTracker.Domain.Entities;
 using AAFinanceTracker.API.Controllers;
+using AAFinanceTracker.Infrastructure.Repositories;
 using Moq;
 using Moq.EntityFrameworkCore;
 
@@ -23,20 +24,28 @@ namespace AAFinaceAPITests
             };
 
             // Mock ExpenseTypes DbSet directly
-            _mockContext = new Mock<FinanceTrackerDbContext>();
+            var repo = new Mock<ExpenseTypeRepository>().Object;
 
-            _mockContext.Setup(x => x.ExpenseTypes)
-                .ReturnsDbSet(expenseTypes);
 
             // Inject mocked context into controller
-            _controller = new ExpenseTypesController(_mockContext.Object);
+            _controller = new ExpenseTypesController(repo);
 
             // Act
-            var result = (await _controller.GetExpenseTypes()).Value;
+            var result = (await _controller.GetExpenseTypes(new CancellationToken())).Value;
 
             // Assert
             Assert.NotNull(result);
             Assert.Equal(2, result.Count());
+        }
+        [Fact]
+        public void ExpenseTypesShouldHaveMoreThanOneRecord()
+        {
+            //arrange
+            var repo = new Mock<ExpenseTypeRepository>().Object;
+            //act
+            var result = repo.All(new CancellationToken());
+            //Assert
+            Assert.NotNull(result);
         }
     }
 }
