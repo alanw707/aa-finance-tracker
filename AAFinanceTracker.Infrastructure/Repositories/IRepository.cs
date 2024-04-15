@@ -1,53 +1,15 @@
-﻿using System.Linq.Expressions;
-using AAExpenseTracker.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Linq.Expressions;
 
 namespace AAFinanceTracker.Infrastructure.Repositories;
 
-public interface IRepository<T>
+public interface IRepository<T> where T : class
 {
-    T Add(T entity);
+    Task<EntityEntry<T>> Add(T entity, CancellationToken token);
+    Task<List<T>> All(CancellationToken token);
     T Update(T entity);
     T Get(string id);
-    T Delete(string id);
-    IEnumerable<T> All();
-    IEnumerable<T> Find(Expression<Func<T,bool>> predicate);
-    void SaveChanges();
-}
-
-public class ExpensesRepository : IRepository<Expense>
-{
-    public Expense Add(Expense entity)
-    {
-        throw new NotImplementedException();
-    }
-
-    public IEnumerable<Expense> All()
-    {
-        throw new NotImplementedException();
-    }
-
-    public Expense Delete(string id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public IEnumerable<Expense> Find(Expression<Func<Expense, bool>> predicate)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Expense Get(string id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void SaveChanges()
-    {
-        throw new NotImplementedException();
-    }
-
-    public Expense Update(Expense entity)
-    {
-        throw new NotImplementedException();
-    }
+    void Delete(T entity);
+    Task<List<T>> Find(Expression<Func<T,bool>> predicate, CancellationToken token);
+    Task<int> SaveChangesAsync(CancellationToken token);
 }

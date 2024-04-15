@@ -1,7 +1,7 @@
-﻿using AAExpenseTracker.Domain.Data;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AAExpenseTracker.Domain.Entities;
+using AAFinanceTracker.Infrastructure.Repositories;
 
 namespace AAFinanceTracker.API.Controllers
 {
@@ -9,26 +9,28 @@ namespace AAFinanceTracker.API.Controllers
     [ApiController]
     public class ExpenseCategoriesController : ControllerBase
     {
-        private readonly FinanceTrackerDbContext _context;
+        private readonly IRepository<ExpenseCategory> _expenseCategoriesRepository;
 
-        public ExpenseCategoriesController(FinanceTrackerDbContext context)
+        public ExpenseCategoriesController(IRepository<ExpenseCategory> expenseCategoriesRepository)
         {
-            _context = context;
+            _expenseCategoriesRepository = expenseCategoriesRepository;
         }
 
         // GET: api/ExpenseCategories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ExpenseCategory>>> GetExpensesCategories(CancellationToken cancellation)
+        public async Task<List<ExpenseCategory>> GetExpensesCategories(CancellationToken cancellationToken)
         {
-            return await _context.ExpensesCategories.ToListAsync(cancellation);
+            return await _expenseCategoriesRepository.All(cancellationToken);
         }
 
         // GET: api/ExpenseCategories/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ExpenseCategory>> GetExpenseCategory(string id, CancellationToken cancellation)
         {
-            var expenseCategory = await _context.ExpensesCategories.FindAsync(id,cancellation);
-
+            var expenseCategory = _expenseCategoriesRepository
+                .Find(c => c.Name == id, cancellation)
+                .Result.Single();
+            
             if (expenseCategory == null)
             {
                 return NotFound();
@@ -42,28 +44,18 @@ namespace AAFinanceTracker.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutExpenseCategory(string id, ExpenseCategory expenseCategory, CancellationToken cancellation)
         {
-            if (id != expenseCategory.Name)
+
+            var existingCategory = _expenseCategoriesRepository
+                .Find(ca => ca.Name == id, cancellation)
+                .Result.Single();
+
+            if (existingCategory is null)
             {
                 return BadRequest();
             }
 
-            _context.Entry(expenseCategory).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync(cancellation);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ExpenseCategoryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            _expenseCategoriesRepository.Update(expenseCategory);
+            await _expenseCategoriesRepository.SaveChangesAsync(cancellation);
 
             return NoContent();
         }
@@ -73,16 +65,16 @@ namespace AAFinanceTracker.API.Controllers
         [HttpPost]
         public async Task<ActionResult<ExpenseCategory>> PostExpenseCategory(ExpenseCategory expenseCategory, CancellationToken cancellation)
         {
-            _context.ExpensesCategories.Add(expenseCategory);
             try
             {
-                await _context.SaveChangesAsync(cancellation);
+                _expenseCategoriesRepository.Add(expenseCategory,cancellation);
+                await _expenseCategoriesRepository.SaveChangesAsync(cancellation);
             }
             catch (DbUpdateException)
             {
-                if (ExpenseCategoryExists(expenseCategory.Name))
+                if (ExpenseCategoryExists(expenseCategory.Name, cancellation))
                 {
-                    return Conflict();
+                    return BadRequest();
                 }
                 else
                 {
@@ -97,21 +89,24 @@ namespace AAFinanceTracker.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteExpenseCategory(string id, CancellationToken cancellation)
         {
-            var expenseCategory = await _context.ExpensesCategories.FindAsync(id);
+            var expenseCategory = _expenseCategoriesRepository
+                    .Find(ca => ca.Name == id,cancellation)
+                    .Result.Single();
+
             if (expenseCategory == null)
             {
                 return NotFound();
             }
 
-            _context.ExpensesCategories.Remove(expenseCategory);
-            await _context.SaveChangesAsync(cancellation);
+            await _expenseCategoriesRepository.SaveChangesAsync(cancellation);
 
             return NoContent();
         }
 
-        private bool ExpenseCategoryExists(string id)
+        private bool ExpenseCategoryExists(string id, CancellationToken token)
         {
-            return _context.ExpensesCategories.Any(e => e.Name == id);
+            return _expenseCategoriesRepository.Find(e => e.Name == id, token)
+                .Result.Count > 0;
         }
     }
 }

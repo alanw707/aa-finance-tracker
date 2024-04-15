@@ -1,4 +1,6 @@
 using AAExpenseTracker.Domain.Data;
+using AAExpenseTracker.Domain.Entities;
+using AAFinanceTracker.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
+builder.Services.AddTransient<IRepository<ExpenseCategory>, ExpenseCategoryRepository>();
+builder.Services.AddTransient<IRepository<ExpenseType>, ExpenseTypeRepository>();
 
 var app = builder.Build();
 

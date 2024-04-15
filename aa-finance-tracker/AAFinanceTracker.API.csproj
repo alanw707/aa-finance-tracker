@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>aa_finance_tracker</RootNamespace>
+    <RootNamespace>AAFinanceTracker</RootNamespace>
     <UserSecretsId>527bb670-920b-4ddf-b119-8e8dc2bcf28a</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>.</DockerfileContext>
