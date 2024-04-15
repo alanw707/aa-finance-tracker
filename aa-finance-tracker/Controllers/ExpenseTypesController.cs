@@ -1,9 +1,7 @@
-﻿using AAExpenseTracker.Domain.Data;
-using AAExpenseTracker.Domain.Entities;
+﻿using AAExpenseTracker.Domain.Entities;
 using AAFinanceTracker.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol.Core.Types;
 
 namespace AAFinanceTracker.API.Controllers
 {
@@ -77,6 +75,7 @@ namespace AAFinanceTracker.API.Controllers
             try
             {
                 await _repo.Add(expenseType, token);
+                await _repo.SaveChangesAsync(token);
             }
             catch (DbUpdateException)
             {

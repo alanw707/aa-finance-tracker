@@ -3,7 +3,6 @@ using AAExpenseTracker.Domain.Entities;
 using AAFinanceTracker.API.Controllers;
 using AAFinanceTracker.Infrastructure.Repositories;
 using Moq;
-using Moq.EntityFrameworkCore;
 
 namespace AAFinaceAPITests
 {
@@ -24,28 +23,17 @@ namespace AAFinaceAPITests
             };
 
             // Mock ExpenseTypes DbSet directly
-            var repo = new Mock<ExpenseTypeRepository>().Object;
-
+            var repo = new Mock<IRepository<ExpenseType>>();
 
             // Inject mocked context into controller
-            _controller = new ExpenseTypesController(repo);
+            _controller = new ExpenseTypesController(repo.Object);
 
             // Act
-            var result = (await _controller.GetExpenseTypes(new CancellationToken())).Value;
+            var result = await _controller.PostExpenseType(expenseTypes[0], new CancellationToken());
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(2, result.Count());
-        }
-        [Fact]
-        public void ExpenseTypesShouldHaveMoreThanOneRecord()
-        {
-            //arrange
-            var repo = new Mock<ExpenseTypeRepository>().Object;
-            //act
-            var result = repo.All(new CancellationToken());
-            //Assert
-            Assert.NotNull(result);
+            repo.Verify(r => r.Add(It.IsAny<ExpenseType>(),It.IsAny<CancellationToken>()),Times.Exactly(1));
         }
     }
 }
