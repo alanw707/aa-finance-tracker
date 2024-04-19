@@ -86,20 +86,42 @@ public class ExpenseTypesControllerTests
     public async Task DeleteExpenseType_NonExistingId_ReturnsNotFound()
     {
         // Arrange
-        var id = "nonExistingId"; // Replace with a non-existing ID
+        var typeName = "nonExistingId"; // Replace with a non-existing ID
         var repoMock = new Mock<IRepository<ExpenseType>>();
 
-        repoMock.Setup(r => r.Find(et=>et.Name==id, It.IsAny<CancellationToken>()))
+        repoMock.Setup(r => r.Find(et=>et.Name==typeName, It.IsAny<CancellationToken>()))
             .ReturnsAsync(new List<ExpenseType>()); // Simulate not finding any expense type
 
         var controller = new ExpenseTypesController(repoMock.Object);
 
         // Act
-        var result = await controller.DeleteExpenseType(id, CancellationToken.None);
+        var result = await controller.DeleteExpenseType(typeName, CancellationToken.None);
 
         // Assert
         Assert.IsType<NotFoundResult>(result);
         repoMock.Verify(r => r.Delete(It.IsAny<ExpenseType>()), Times.Never);
         repoMock.Verify(r => r.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
+    }
+
+    [Fact]
+    public async Task DeleteExpenseType_ExistingType_ReturnsNoContent()
+    {
+        // Arrange
+        var existingName = "Credit"; // Replace with a non-existing ID
+        var repoMock = new Mock<IRepository<ExpenseType>>();
+        var existingExpensetype = new ExpenseType (name: "Credit", description:"Credit" );
+
+        repoMock.Setup(r => r.Find(et => et.Name == existingName, It.IsAny<CancellationToken>()))
+            .ReturnsAsync([existingExpensetype]); // Simulate not finding any expense type
+
+        var controller = new ExpenseTypesController(repoMock.Object);
+
+        // Act
+        var result = await controller.DeleteExpenseType(existingName, CancellationToken.None);
+
+        // Assert
+        Assert.IsType<NoContentResult>(result);
+        repoMock.Verify(r => r.Delete(It.IsAny<ExpenseType>()), Times.Once);
+        repoMock.Verify(r => r.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
     }
 }
