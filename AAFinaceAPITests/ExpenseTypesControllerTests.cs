@@ -3,6 +3,7 @@ using AAFinanceTracker.API.Controllers;
 using AAFinanceTracker.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using System.Linq.Expressions;
 
 namespace AAFinanceTracker.API.Tests;
 
@@ -34,6 +35,29 @@ public class ExpenseTypesControllerTests
         repo.Verify(r => r.Add(It.IsAny<ExpenseType>(),It.IsAny<CancellationToken>()),Times.Exactly(1));
     }
 
+    [Fact]
+    public async Task GetExpenseTypes_ShouldReturn_ExistingExpenseTypes()
+    {
+        // Arrange
+        var existingExpenseTypeId = "Credit Card";
+        var existingExpenseType = new ExpenseType("Credit Card", "Credit Card");
+
+        var repo = new Mock<IRepository<ExpenseType>>();
+        repo.Setup(x => x.Find(It.IsAny<Expression<Func<ExpenseType, bool>>>(), It.IsAny<CancellationToken>()))
+            .Returns(Task.FromResult(new List<ExpenseType>() { existingExpenseType }));
+
+        var controller = new ExpenseTypesController(repo.Object);
+
+        // Act
+        var result = await controller.GetExpenseType(existingExpenseType.Name, new CancellationToken());
+
+        // Assert
+        repo.Verify(x 
+            => x.Find(It.IsAny<Expression<Func<ExpenseType, bool>>>(), It.IsAny<CancellationToken>()), Times.Once);
+
+        var okResult = Assert.IsType<ActionResult<ExpenseType>>(result);
+        Assert.Equal(existingExpenseType, ((OkObjectResult)okResult.Result!).Value);
+    }
     [Fact]
     public async Task GetExpenseTypes_ReturnsListOfExpenseTypes()
     {

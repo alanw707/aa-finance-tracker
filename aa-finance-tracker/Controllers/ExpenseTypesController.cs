@@ -22,12 +22,12 @@ namespace AAFinanceTracker.API.Controllers
         {
             var expenseType = await repo.Find(et => et.Name == id, token);
 
-            if (expenseType.Count == 0)
+            if (expenseType.Count() == 0)
             {
                 return NotFound();
             }
 
-            return Ok(expenseType);
+            return Ok(expenseType.FirstOrDefault());
         }
 
         [HttpPut("{id}")]
