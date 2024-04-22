@@ -2,6 +2,14 @@
 
 Hi Welcome to my project! I created this project after Mint shutdown and I just couldn't find an expense tracker application that I liked. 
 
+### Features
+
+- Expense Logging
+- Banking Integration
+- Budgeting Tools
+- Investment Tracking
+- Financial Planning
+
 # Tech Stack
 
 ## Server Side

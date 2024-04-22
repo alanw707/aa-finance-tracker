@@ -3,110 +3,97 @@ using Microsoft.EntityFrameworkCore;
 using AAExpenseTracker.Domain.Entities;
 using AAFinanceTracker.Infrastructure.Repositories;
 
-namespace AAFinanceTracker.API.Controllers
+namespace AAFinanceTracker.API.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class ExpenseCategoriesController(IRepository<ExpenseCategory> expenseCategoriesRepository) : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ExpenseCategoriesController : ControllerBase
+        
+    // GET: api/ExpenseCategories
+    [HttpGet]
+    public async Task<List<ExpenseCategory>> GetExpensesCategories(CancellationToken cancellationToken)
     {
-        private readonly IRepository<ExpenseCategory> _expenseCategoriesRepository;
+        return await expenseCategoriesRepository.All(cancellationToken);
+    }
 
-        public ExpenseCategoriesController(IRepository<ExpenseCategory> expenseCategoriesRepository)
+    // GET: api/ExpenseCategories/5
+    [HttpGet("{name}")]
+    public async Task<ActionResult<ExpenseCategory>> GetExpenseCategory(string name, CancellationToken cancellation)
+    {
+        var expenseCategory = expenseCategoriesRepository
+            .Find(c => c.Name == name, cancellation)
+            .Result.Single();
+        
+        return expenseCategory;
+    }
+
+    // PUT: api/ExpenseCategories/5
+    [HttpPut("{id}")]
+    public async Task<IActionResult> PutExpenseCategory(string id, ExpenseCategory expenseCategory, CancellationToken cancellation)
+    {
+
+        var existingCategory = expenseCategoriesRepository
+            .Find(ca => ca.Name == id, cancellation)
+            .Result.Single();
+
+        if (existingCategory is null)
         {
-            _expenseCategoriesRepository = expenseCategoriesRepository;
+            return BadRequest();
         }
 
-        // GET: api/ExpenseCategories
-        [HttpGet]
-        public async Task<List<ExpenseCategory>> GetExpensesCategories(CancellationToken cancellationToken)
+        expenseCategoriesRepository.Update(expenseCategory);
+        await expenseCategoriesRepository.SaveChangesAsync(cancellation);
+
+        return NoContent();
+    }
+
+    // POST: api/ExpenseCategories
+    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [HttpPost]
+    public async Task<ActionResult<ExpenseCategory>> PostExpenseCategory(ExpenseCategory expenseCategory, CancellationToken cancellation)
+    {
+        try
         {
-            return await _expenseCategoriesRepository.All(cancellationToken);
+            await expenseCategoriesRepository.Add(expenseCategory,cancellation);
+            await expenseCategoriesRepository.SaveChangesAsync(cancellation);
         }
-
-        // GET: api/ExpenseCategories/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ExpenseCategory>> GetExpenseCategory(string id, CancellationToken cancellation)
+        catch (DbUpdateException)
         {
-            var expenseCategory = _expenseCategoriesRepository
-                .Find(c => c.Name == id, cancellation)
-                .Result.Single();
-            
-            if (expenseCategory == null)
-            {
-                return NotFound();
-            }
-
-            return expenseCategory;
-        }
-
-        // PUT: api/ExpenseCategories/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutExpenseCategory(string id, ExpenseCategory expenseCategory, CancellationToken cancellation)
-        {
-
-            var existingCategory = _expenseCategoriesRepository
-                .Find(ca => ca.Name == id, cancellation)
-                .Result.Single();
-
-            if (existingCategory is null)
+            if (ExpenseCategoryExists(expenseCategory.Name, cancellation))
             {
                 return BadRequest();
             }
-
-            _expenseCategoriesRepository.Update(expenseCategory);
-            await _expenseCategoriesRepository.SaveChangesAsync(cancellation);
-
-            return NoContent();
-        }
-
-        // POST: api/ExpenseCategories
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<ExpenseCategory>> PostExpenseCategory(ExpenseCategory expenseCategory, CancellationToken cancellation)
-        {
-            try
+            else
             {
-                _expenseCategoriesRepository.Add(expenseCategory,cancellation);
-                await _expenseCategoriesRepository.SaveChangesAsync(cancellation);
+                throw;
             }
-            catch (DbUpdateException)
-            {
-                if (ExpenseCategoryExists(expenseCategory.Name, cancellation))
-                {
-                    return BadRequest();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtAction("GetExpenseCategory", new { id = expenseCategory.Name }, expenseCategory);
         }
 
-        // DELETE: api/ExpenseCategories/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteExpenseCategory(string id, CancellationToken cancellation)
+        return CreatedAtAction("GetExpenseCategory", new { id = expenseCategory.Name }, expenseCategory);
+    }
+
+    // DELETE: api/ExpenseCategories/5
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteExpenseCategory(string id, CancellationToken cancellation)
+    {
+        var expenseCategory = expenseCategoriesRepository
+            .Find(ca => ca.Name == id,cancellation)
+            .Result.Single();
+
+        if (expenseCategory == null)
         {
-            var expenseCategory = _expenseCategoriesRepository
-                    .Find(ca => ca.Name == id,cancellation)
-                    .Result.Single();
-
-            if (expenseCategory == null)
-            {
-                return NotFound();
-            }
-
-            await _expenseCategoriesRepository.SaveChangesAsync(cancellation);
-
-            return NoContent();
+            return NotFound();
         }
 
-        private bool ExpenseCategoryExists(string id, CancellationToken token)
-        {
-            return _expenseCategoriesRepository.Find(e => e.Name == id, token)
-                .Result.Count > 0;
-        }
+        await expenseCategoriesRepository.SaveChangesAsync(cancellation);
+
+        return NoContent();
+    }
+
+    private bool ExpenseCategoryExists(string id, CancellationToken token)
+    {
+        return expenseCategoriesRepository.Find(e => e.Name == id, token)
+            .Result.Count > 0;
     }
 }
