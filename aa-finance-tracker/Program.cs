@@ -14,6 +14,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<IRepository<ExpenseCategory>, ExpenseCategoryRepository>();
 builder.Services.AddTransient<IRepository<ExpenseType>, ExpenseTypeRepository>();
+builder.Services.AddTransient<IRepository<Expense>, ExpenseRepository>();
 
 var app = builder.Build();
 
