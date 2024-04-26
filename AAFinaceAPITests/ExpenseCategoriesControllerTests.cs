@@ -54,8 +54,7 @@ public class ExpenseCategoriesControllerTests
     [Fact]
     public async Task PutExpenseCategory_ExistingName_UpdatesAndReturnsNoContent()
     {
-        // Arrange
-        var existingCategoryName = "Travel";
+        // Arrange        
         var existingCategory = new ExpenseCategory { Name = "Travel" };
         var updatedCategory = new ExpenseCategory { Name = "Business Travel" };
 

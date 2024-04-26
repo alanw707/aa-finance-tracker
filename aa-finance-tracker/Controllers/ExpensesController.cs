@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AAFinanceTracker.API.Models;
 using AAExpenseTracker.Domain.Entities;
 using AAFinanceTracker.Infrastructure.Repositories;
@@ -36,7 +35,7 @@ namespace AAFinanceTracker.API.Controllers
         }
 
         // PUT: api/Expenses/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754              
         [HttpPut("{id}")]
         public async Task<IActionResult> PutExpense(int id, Expense expense, CancellationToken cancellationToken)
         {
@@ -47,7 +46,7 @@ namespace AAFinanceTracker.API.Controllers
 
             try
             {
-                _expenseRepository.Delete(expense);
+                _expenseRepository.Update(expense);
 
                 await _expenseRepository.SaveChangesAsync(cancellationToken);
 
@@ -73,13 +72,15 @@ namespace AAFinanceTracker.API.Controllers
         {
             var expense = new Expense()
             {
+                ExpenseCategory = new ExpenseCategory() { Name = expenseModel.CategoryName },
+                ExpenseType = new ExpenseType() { Name = expenseModel.TypeName },
                 ExpenseCategoryName = expenseModel.CategoryName,
                 ExpenseTypeName = expenseModel.TypeName,
                 Comments = expenseModel.Comments,
                 Amount = expenseModel.Amount
             };
 
-            var addedExpense = await _expenseRepository.Add(expense,cancellationToken);
+            await _expenseRepository.Add(expense, cancellationToken);
 
             await _expenseRepository.SaveChangesAsync(cancellationToken);
 
@@ -90,7 +91,7 @@ namespace AAFinanceTracker.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteExpense(int id, CancellationToken cancellationToken)
         {
-            var expense = await _expenseRepository.Find(e=>e.ExpenseId == id, cancellationToken);
+            var expense = await _expenseRepository.Find(e => e.ExpenseId == id, cancellationToken);
 
             if (expense == null)
             {

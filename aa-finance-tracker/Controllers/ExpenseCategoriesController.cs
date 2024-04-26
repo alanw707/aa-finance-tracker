@@ -21,11 +21,10 @@ public class ExpenseCategoriesController(IRepository<ExpenseCategory> expenseCat
     [HttpGet("{name}")]
     public async Task<ActionResult<ExpenseCategory>> GetExpenseCategory(string name, CancellationToken cancellation)
     {
-        var expenseCategory = expenseCategoriesRepository
-            .Find(c => c.Name == name, cancellation)
-            .Result.Single();
+        var expenseCategory = await expenseCategoriesRepository
+            .Find(c => c.Name == name, cancellation);            
         
-        return expenseCategory;
+        return expenseCategory.Single();
     }
 
     // PUT: api/ExpenseCategories/5
