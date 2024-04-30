@@ -13,17 +13,19 @@ namespace AAExpenseTracker.Domain.Data
 
         public DbSet<Expense> Expenses { get; set; }
 
+        public DbSet<Bank> Banks { get; set; }
+
+        public DbSet<Investment> Investments { get; set; }
+
+        public DbSet<InvestmentType> InvestmentsTypes { get; set; }
+
+
         public FinanceTrackerDbContext()
-        {
-
-        }
-
-        public FinanceTrackerDbContext(IConfiguration configuration)
             : base(new DbContextOptionsBuilder<FinanceTrackerDbContext>()
-                .UseSqlServer(configuration.GetConnectionString("LocalDockerSQL"))
+                .UseSqlServer("Server=192.168.1.45;Database=FinanceTracker;Trusted_Connection=False;User Id=SA;Password=Passw0rd#1;TrustServerCertificate=True")
                 .Options)
         {
-            _configuration = configuration;
+            //_configuration = configuration;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -48,6 +50,15 @@ namespace AAExpenseTracker.Domain.Data
                 .Property(e => e.Budget)
                 .HasColumnType("decimal(18,2)")
                 .IsRequired();
+
+            modelBuilder.Entity<Bank>()
+                .HasKey(k => k.Id);
+
+            modelBuilder.Entity<Investment>()
+                .HasKey(k => k.Id);
+
+            modelBuilder.Entity<InvestmentType>()
+                .HasKey(k => k.Type);
         }
 
     }
