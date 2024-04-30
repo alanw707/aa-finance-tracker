@@ -1,5 +1,5 @@
 ﻿
-namespace AAExpenseTracker.Domain;
+namespace AAExpenseTracker.Domain.Entities;
 
 public class Investment
 {
