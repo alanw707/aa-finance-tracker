@@ -18,9 +18,9 @@ public class ExpenseTypesControllerTests
         // Arrange
         var expenseTypes = new List<ExpenseType>
         {
-            new ("Credit", "Credit Card"),
-            new ("Debit","Debit Card")
-        };
+            new() {Name="Credit", Description="Credit Card"},
+            new() {Name="Debit", Description="Debit Card"}
+         };
 
         var repo = new Mock<IRepository<ExpenseType>>();
 
@@ -32,15 +32,14 @@ public class ExpenseTypesControllerTests
 
         // Assert
         Assert.NotNull(result);
-        repo.Verify(r => r.Add(It.IsAny<ExpenseType>(),It.IsAny<CancellationToken>()),Times.Exactly(1));
+        repo.Verify(r => r.Add(It.IsAny<ExpenseType>(), It.IsAny<CancellationToken>()), Times.Exactly(1));
     }
 
     [Fact]
     public async Task GetExpenseTypes_ShouldReturn_ExistingExpenseTypes()
     {
-        // Arrange
-        var existingExpenseTypeId = "Credit Card";
-        var existingExpenseType = new ExpenseType("Credit Card", "Credit Card");
+        // Arrange        
+        var existingExpenseType = new ExpenseType { Name = "Credit Card", Description = "Credit Card" };
 
         var repo = new Mock<IRepository<ExpenseType>>();
         repo.Setup(x => x.Find(It.IsAny<Expression<Func<ExpenseType, bool>>>(), It.IsAny<CancellationToken>()))
@@ -52,7 +51,7 @@ public class ExpenseTypesControllerTests
         var result = await controller.GetExpenseType(existingExpenseType.Name, new CancellationToken());
 
         // Assert
-        repo.Verify(x 
+        repo.Verify(x
             => x.Find(It.IsAny<Expression<Func<ExpenseType, bool>>>(), It.IsAny<CancellationToken>()), Times.Once);
 
         var okResult = Assert.IsType<ActionResult<ExpenseType>>(result);
@@ -64,8 +63,8 @@ public class ExpenseTypesControllerTests
         // Arrange
         var expenseTypes = new List<ExpenseType>
         {
-            new ("Credit", "Credit Card"),
-            new ("Debit","Debit Card")
+            new() { Name="Credit"},
+            new() { Name="Debit"}
         };
 
         var repoMock = new Mock<IRepository<ExpenseType>>();
@@ -87,8 +86,8 @@ public class ExpenseTypesControllerTests
     [Fact]
     public async Task PutExpenseType_ValidId_UpdatesExpenseType()
     {
-        // Arrange
-        var expenseType = new ExpenseType("Travel", "Travel" );
+        // Arrange        
+        var expenseType = new ExpenseType { Name = "Travel", Description = "Travel" };
 
         var repoMock = new Mock<IRepository<ExpenseType>>();
 
@@ -113,7 +112,7 @@ public class ExpenseTypesControllerTests
         var typeName = "nonExistingId"; // Replace with a non-existing ID
         var repoMock = new Mock<IRepository<ExpenseType>>();
 
-        repoMock.Setup(r => r.Find(et=>et.Name==typeName, It.IsAny<CancellationToken>()))
+        repoMock.Setup(r => r.Find(et => et.Name == typeName, It.IsAny<CancellationToken>()))
             .ReturnsAsync(new List<ExpenseType>()); // Simulate not finding any expense type
 
         var controller = new ExpenseTypesController(repoMock.Object);
@@ -133,11 +132,10 @@ public class ExpenseTypesControllerTests
         // Arrange
         var existingName = "Credit"; // Replace with a non-existing ID
         var repoMock = new Mock<IRepository<ExpenseType>>();
-        var existingExpensetype = new ExpenseType (name: "Credit", description:"Credit" );
+        var existingExpensetype = new ExpenseType() { Name = "Credit", Description = "Credit" };
 
         repoMock.Setup(r => r.Find(et => et.Name == existingName, It.IsAny<CancellationToken>()))
             .ReturnsAsync([existingExpensetype]); // Simulate not finding any expense type
-
         var controller = new ExpenseTypesController(repoMock.Object);
 
         // Act

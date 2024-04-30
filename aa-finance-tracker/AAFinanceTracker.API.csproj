@@ -34,10 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\AAExpenseTracker.Domain\AAExpenseTracker.Domain.csproj" />
     <ProjectReference Include="..\AAFinanceTracker.Infrastructure\AAFinanceTracker.Infrastructure.csproj" />
   </ItemGroup>

@@ -1,60 +1,58 @@
-﻿using AAExpenseTracker.Domain.Data;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using AAFinanceTracker.API.Models;
 using AAExpenseTracker.Domain.Entities;
+using AAFinanceTracker.Infrastructure.Repositories;
 
 namespace AAFinanceTracker.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ExpensesController : ControllerBase
+    public class ExpensesController(IRepository<Expense> _expenseRepository) : ControllerBase
     {
-        private readonly FinanceTrackerDbContext _context;
-
-        public ExpensesController(FinanceTrackerDbContext context)
-        {
-            _context = context;
-        }
 
         // GET: api/Expenses
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Expense>>> GetExpenses()
+        public async Task<ActionResult<IEnumerable<Expense>>> GetExpenses(CancellationToken cancellationToken)
         {
-            return await _context.Expenses.ToListAsync();
+            var expenses = await _expenseRepository.All(cancellationToken);
+
+            return expenses;
         }
 
         // GET: api/Expenses/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Expense>> GetExpense(int id)
+        [HttpGet("{expenseId}")]
+        public async Task<ActionResult<Expense>> GetExpense(int expenseId, CancellationToken cancellationToken)
         {
-            var expense = await _context.Expenses.FindAsync(id);
+            var expense = await _expenseRepository
+                .Find(e => e.ExpenseId == expenseId, cancellationToken);
 
-            if (expense == null)
+            if (expense.Count < 1)
             {
                 return NotFound();
             }
 
-            return expense;
+            return expense.Single();
         }
 
         // PUT: api/Expenses/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754              
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutExpense(int id, Expense expense)
+        public async Task<IActionResult> PutExpense(int id, Expense expense, CancellationToken cancellationToken)
         {
             if (id != expense.ExpenseId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(expense).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                _expenseRepository.Update(expense);
+
+                await _expenseRepository.SaveChangesAsync(cancellationToken);
+
+                return NoContent();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception)
             {
                 if (!ExpenseExists(id))
                 {
@@ -65,48 +63,50 @@ namespace AAFinanceTracker.API.Controllers
                     throw;
                 }
             }
-
-            return NoContent();
         }
 
         // POST: api/Expenses
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ExpenseModel>> PostExpense(ExpenseModel expenseModel)
+        public async Task<ActionResult<ExpenseModel>> PostExpense(ExpenseModel expenseModel, CancellationToken cancellationToken)
         {
             var expense = new Expense()
             {
+                ExpenseCategory = new ExpenseCategory() { Name = expenseModel.CategoryName },
+                ExpenseType = new ExpenseType() { Name = expenseModel.TypeName },
                 ExpenseCategoryName = expenseModel.CategoryName,
                 ExpenseTypeName = expenseModel.TypeName,
                 Comments = expenseModel.Comments,
                 Amount = expenseModel.Amount
             };
 
-            _context.Expenses.Add(expense);
-            await _context.SaveChangesAsync();
+            await _expenseRepository.Add(expense, cancellationToken);
 
-            return CreatedAtAction("GetExpense", new { id = expense.ExpenseId }, expense);
+            await _expenseRepository.SaveChangesAsync(cancellationToken);
+
+            return CreatedAtAction("GetExpense", new { expenseId = expense.ExpenseId }, expense);
         }
 
         // DELETE: api/Expenses/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteExpense(int id)
+        public async Task<IActionResult> DeleteExpense(int id, CancellationToken cancellationToken)
         {
-            var expense = await _context.Expenses.FindAsync(id);
+            var expense = await _expenseRepository.Find(e => e.ExpenseId == id, cancellationToken);
+
             if (expense == null)
             {
                 return NotFound();
             }
 
-            _context.Expenses.Remove(expense);
-            await _context.SaveChangesAsync();
+            _expenseRepository.Delete(expense.Single());
+            await _expenseRepository.SaveChangesAsync(cancellationToken);
 
             return NoContent();
         }
 
         private bool ExpenseExists(int id)
         {
-            return _context.Expenses.Any(e => e.ExpenseId == id);
+            return _expenseRepository.Find(e => e.ExpenseId == id, CancellationToken.None).Result.Count != 0;
         }
     }
 }
