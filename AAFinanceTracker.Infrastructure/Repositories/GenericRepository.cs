@@ -7,7 +7,7 @@ namespace AAFinanceTracker.Infrastructure.Repositories;
 public abstract class GenericRepository<T>(DbContext context) : IRepository<T> where T : class
 {
     public virtual async Task<EntityEntry<T>> Add(T entity, CancellationToken token)
-    { 
+    {
         return await context.AddAsync(entity, token);
     }
 
@@ -31,10 +31,13 @@ public abstract class GenericRepository<T>(DbContext context) : IRepository<T> w
             .ToListAsync(token);
     }
 
-    public virtual T Get(string id)
+    public virtual async Task<T> Get(string id, CancellationToken cancellationToken)
     {
-        return context.Find<T>(id);
+        T? entity = await context.FindAsync<T>(id, cancellationToken);
+
+        return entity!;
     }
+
 
     public async Task<int> SaveChangesAsync(CancellationToken token)
     {

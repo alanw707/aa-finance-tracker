@@ -3,22 +3,36 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace aa_finance_tracker.Migrations
+namespace AAExpenseTracker.Domain.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class ReInitialization : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Banks",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Banks", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ExpensesCategories",
                 columns: table => new
                 {
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Budget = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ColourHex = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ColourHex = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -39,6 +53,18 @@ namespace aa_finance_tracker.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ExpenseTypes", x => x.Name);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InvestmentsTypes",
+                columns: table => new
+                {
+                    TypeName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InvestmentsTypes", x => x.TypeName);
                 });
 
             migrationBuilder.CreateTable(
@@ -70,6 +96,34 @@ namespace aa_finance_tracker.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Investments",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TypeName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    BankId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    InitialInvestment = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DateAdded = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Investments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Investments_Banks_BankId",
+                        column: x => x.BankId,
+                        principalTable: "Banks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Investments_InvestmentsTypes_TypeName",
+                        column: x => x.TypeName,
+                        principalTable: "InvestmentsTypes",
+                        principalColumn: "TypeName",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Expenses_ExpenseCategoryName",
                 table: "Expenses",
@@ -79,6 +133,16 @@ namespace aa_finance_tracker.Migrations
                 name: "IX_Expenses_ExpenseTypeName",
                 table: "Expenses",
                 column: "ExpenseTypeName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Investments_BankId",
+                table: "Investments",
+                column: "BankId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Investments_TypeName",
+                table: "Investments",
+                column: "TypeName");
         }
 
         /// <inheritdoc />
@@ -88,10 +152,19 @@ namespace aa_finance_tracker.Migrations
                 name: "Expenses");
 
             migrationBuilder.DropTable(
+                name: "Investments");
+
+            migrationBuilder.DropTable(
                 name: "ExpenseTypes");
 
             migrationBuilder.DropTable(
                 name: "ExpensesCategories");
+
+            migrationBuilder.DropTable(
+                name: "Banks");
+
+            migrationBuilder.DropTable(
+                name: "InvestmentsTypes");
         }
     }
 }

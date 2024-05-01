@@ -8,8 +8,8 @@ public interface IRepository<T> where T : class
     Task<EntityEntry<T>> Add(T entity, CancellationToken token);
     Task<List<T>> All(CancellationToken token);
     T Update(T entity);
-    T Get(string id);
+    Task<T> Get(string id, CancellationToken token);
     void Delete(T entity);
-    Task<List<T>> Find(Expression<Func<T,bool>> predicate, CancellationToken token);
+    Task<List<T>> Find(Expression<Func<T, bool>> predicate, CancellationToken token);
     Task<int> SaveChangesAsync(CancellationToken token);
 }

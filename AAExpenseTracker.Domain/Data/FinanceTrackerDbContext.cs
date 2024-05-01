@@ -58,7 +58,7 @@ namespace AAExpenseTracker.Domain.Data
                 .HasKey(k => k.Id);
 
             modelBuilder.Entity<InvestmentType>()
-                .HasKey(k => k.Type);
+               .HasKey(k => k.TypeName);
         }
 
     }
