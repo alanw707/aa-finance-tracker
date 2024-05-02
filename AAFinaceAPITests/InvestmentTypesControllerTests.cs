@@ -47,4 +47,28 @@ public class InvestmentsTypesControllerTests
         // Assert
         Assert.IsType<NotFoundResult>(result.Result);
     }
+
+    [Fact]
+    public async Task GetInvestmentType_ReturnsOk_WhenInvestmentTypeExists()
+    {
+        // Arrange
+        var investmentType = new InvestmentType { TypeName = "Bonds" };
+        var investmentTypeRepositoryMock = new Mock<IRepository<InvestmentType>>();
+        investmentTypeRepositoryMock.Setup(r => r.Get("Bonds", It.IsAny<CancellationToken>()))
+            .ReturnsAsync(investmentType);
+
+        var controller = new InvestmentTypesController(investmentTypeRepositoryMock.Object);
+        var cancellationToken = CancellationToken.None;
+
+        // Act
+        var result = await controller.GetInvestmentType("Bonds", cancellationToken);
+
+        // Assert
+        Assert.NotNull(result);
+        var okResult = Assert.IsType<OkObjectResult>(result.Result);
+        Assert.Equal(200, okResult.StatusCode);
+        var returnedInvestmentType = okResult.Value;
+        Assert.Equal(investmentType, returnedInvestmentType);
+    }
+
 }

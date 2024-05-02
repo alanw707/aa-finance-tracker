@@ -36,7 +36,7 @@ namespace AAFinanceTracker.Controllers
                 return NotFound();
             }
 
-            return investmentType;
+            return Ok(investmentType);
         }
 
         // PUT: api/InvestmentTypes/5
