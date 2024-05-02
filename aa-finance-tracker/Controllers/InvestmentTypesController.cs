@@ -1,66 +1,63 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AAExpenseTracker.Domain.Data;
 using AAExpenseTracker.Domain.Entities;
+using AAFinanceTracker.Infrastructure.Repositories;
 
 namespace AAFinanceTracker.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class InvestmentTypesController : ControllerBase
+    public class InvestmentTypesController(IRepository<InvestmentType> _investmentTypeRepository) : ControllerBase
     {
-        private readonly FinanceTrackerDbContext _context;
-
-        public InvestmentTypesController(FinanceTrackerDbContext context)
-        {
-            _context = context;
-        }
-
         // GET: api/InvestmentTypes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<InvestmentType>>> GetInvestmentsTypes()
+        public async Task<ActionResult<IEnumerable<InvestmentType>>> GetInvestmentsTypes(CancellationToken cancellationToken)
         {
-            return await _context.InvestmentsTypes.ToListAsync();
+            var result = await _investmentTypeRepository.All(cancellationToken);
+
+            if (result.Any())
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         // GET: api/InvestmentTypes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<InvestmentType>> GetInvestmentType(int id)
+        public async Task<ActionResult<InvestmentType>> GetInvestmentType(string id, CancellationToken cancellationToken)
         {
-            var investmentType = await _context.InvestmentsTypes.FindAsync(id);
+            var investmentType = await _investmentTypeRepository.Get(id, cancellationToken);
 
-            if (investmentType == null)
+            if (investmentType is null)
             {
                 return NotFound();
             }
 
-            return investmentType;
+            return Ok(investmentType);
         }
 
         // PUT: api/InvestmentTypes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutInvestmentType(int id, InvestmentType investmentType)
+        [HttpPut("{type}")]
+        public async Task<IActionResult> PutInvestmentType(string typeName, InvestmentType investmentType, CancellationToken cancellationToken)
         {
-            if (id != investmentType.Type)
+            if (typeName != investmentType.TypeName)
             {
                 return BadRequest();
             }
 
-            _context.Entry(investmentType).State = EntityState.Modified;
+            _investmentTypeRepository.Update(investmentType);
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _investmentTypeRepository.SaveChangesAsync(cancellationToken);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!InvestmentTypeExists(id))
+                if (!InvestmentTypeExists(typeName, cancellationToken))
                 {
                     return NotFound();
                 }
@@ -76,33 +73,50 @@ namespace AAFinanceTracker.Controllers
         // POST: api/InvestmentTypes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<InvestmentType>> PostInvestmentType(InvestmentType investmentType)
+        public async Task<ActionResult<InvestmentType>> PostInvestmentType(InvestmentType investmentType, CancellationToken cancellationToken)
         {
-            _context.InvestmentsTypes.Add(investmentType);
-            await _context.SaveChangesAsync();
+            await _investmentTypeRepository.Add(investmentType, cancellationToken);
 
-            return CreatedAtAction("GetInvestmentType", new { id = investmentType.Type }, investmentType);
+            try
+            {
+                await _investmentTypeRepository.SaveChangesAsync(cancellationToken);
+            }
+            catch (DbUpdateException)
+            {
+                if (InvestmentTypeExists(investmentType.TypeName, cancellationToken))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return CreatedAtAction("GetInvestmentType", new { id = investmentType.TypeName }, investmentType);
         }
 
         // DELETE: api/InvestmentTypes/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteInvestmentType(int id)
+        [HttpDelete("{typeName}")]
+        public async Task<IActionResult> DeleteInvestmentType(string typeName, CancellationToken cancellationToken)
         {
-            var investmentType = await _context.InvestmentsTypes.FindAsync(id);
-            if (investmentType == null)
+            var investmentType = await _investmentTypeRepository.Get(typeName, cancellationToken);
+
+            if (investmentType is null)
             {
                 return NotFound();
             }
 
-            _context.InvestmentsTypes.Remove(investmentType);
-            await _context.SaveChangesAsync();
+            _investmentTypeRepository.Delete(investmentType);
+            await _investmentTypeRepository.SaveChangesAsync(cancellationToken);
 
             return NoContent();
         }
 
-        private bool InvestmentTypeExists(int id)
+        private bool InvestmentTypeExists(string typeName, CancellationToken cancellationToken)
         {
-            return _context.InvestmentsTypes.Any(e => e.Type == id);
+            return _investmentTypeRepository.Find(e => e.TypeName == typeName, cancellationToken)
+            .Result.Any();
         }
     }
 }
+

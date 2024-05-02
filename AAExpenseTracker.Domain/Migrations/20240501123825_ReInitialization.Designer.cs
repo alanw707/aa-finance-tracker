@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace aa_finance_tracker.Migrations
+namespace AAExpenseTracker.Domain.Migrations
 {
     [DbContext(typeof(FinanceTrackerDbContext))]
-    [Migration("20240430124417_Investments")]
-    partial class Investments
+    [Migration("20240501123825_ReInitialization")]
+    partial class ReInitialization
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace aa_finance_tracker.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AAExpenseTracker.Domain.Bank", b =>
+            modelBuilder.Entity("AAExpenseTracker.Domain.Entities.Bank", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -124,7 +124,7 @@ namespace aa_finance_tracker.Migrations
                     b.ToTable("ExpenseTypes");
                 });
 
-            modelBuilder.Entity("AAExpenseTracker.Domain.Investment", b =>
+            modelBuilder.Entity("AAExpenseTracker.Domain.Entities.Investment", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -143,30 +143,28 @@ namespace aa_finance_tracker.Migrations
                     b.Property<decimal>("InitialInvestment")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Type1")
-                        .HasColumnType("int");
+                    b.Property<string>("TypeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BankId");
 
-                    b.HasIndex("Type1");
+                    b.HasIndex("TypeName");
 
                     b.ToTable("Investments");
                 });
 
-            modelBuilder.Entity("AAExpenseTracker.Domain.InvestmentType", b =>
+            modelBuilder.Entity("AAExpenseTracker.Domain.Entities.InvestmentType", b =>
                 {
-                    b.Property<int>("Type")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Type"));
+                    b.Property<string>("TypeName")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Type");
+                    b.HasKey("TypeName");
 
                     b.ToTable("InvestmentsTypes");
                 });
@@ -190,17 +188,17 @@ namespace aa_finance_tracker.Migrations
                     b.Navigation("ExpenseType");
                 });
 
-            modelBuilder.Entity("AAExpenseTracker.Domain.Investment", b =>
+            modelBuilder.Entity("AAExpenseTracker.Domain.Entities.Investment", b =>
                 {
-                    b.HasOne("AAExpenseTracker.Domain.Bank", "Bank")
+                    b.HasOne("AAExpenseTracker.Domain.Entities.Bank", "Bank")
                         .WithMany()
                         .HasForeignKey("BankId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AAExpenseTracker.Domain.InvestmentType", "Type")
+                    b.HasOne("AAExpenseTracker.Domain.Entities.InvestmentType", "Type")
                         .WithMany()
-                        .HasForeignKey("Type1")
+                        .HasForeignKey("TypeName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

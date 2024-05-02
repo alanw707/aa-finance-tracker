@@ -1,66 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AAExpenseTracker.Domain.Data;
 using AAExpenseTracker.Domain.Entities;
+using AAFinanceTracker.Infrastructure.Repositories;
 
 namespace AAFinanceTracker.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class InvestmentsController : ControllerBase
+    public class InvestmentsController(IRepository<Investment> _investmentRepository) : ControllerBase
     {
-        private readonly FinanceTrackerDbContext _context;
-
-        public InvestmentsController(FinanceTrackerDbContext context)
-        {
-            _context = context;
-        }
-
         // GET: api/Investments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Investment>>> GetInvestments()
+        public async Task<ActionResult<IEnumerable<Investment>>> GetInvestments(CancellationToken cancellationToken)
         {
-            return await _context.Investments.ToListAsync();
+            var expenses = await _investmentRepository.All(cancellationToken);
+
+            return Ok(expenses);
         }
 
         // GET: api/Investments/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Investment>> GetInvestment(string id)
+        public async Task<ActionResult<Investment>> GetInvestment(string id, CancellationToken cancellationToken)
         {
-            var investment = await _context.Investments.FindAsync(id);
+            var investment = await _investmentRepository.Get(id, cancellationToken);
 
-            if (investment == null)
+            if (investment is null)
             {
                 return NotFound();
             }
 
-            return investment;
+            return Ok(investment);
         }
 
         // PUT: api/Investments/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutInvestment(string id, Investment investment)
+        public async Task<IActionResult> PutInvestment(string Id, Investment investment, CancellationToken cancellationToken)
         {
-            if (id != investment.Id)
+            if (Id != investment.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(investment).State = EntityState.Modified;
+            _investmentRepository.Update(investment);
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _investmentRepository.SaveChangesAsync(cancellationToken);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!InvestmentExists(id))
+                if (!InvestmentExists(Id, cancellationToken))
                 {
                     return NotFound();
                 }
@@ -76,16 +66,17 @@ namespace AAFinanceTracker.Controllers
         // POST: api/Investments
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Investment>> PostInvestment(Investment investment)
+        public async Task<ActionResult<Investment>> PostInvestment(Investment investment, CancellationToken cancellationToken)
         {
-            _context.Investments.Add(investment);
+            await _investmentRepository.Add(investment, cancellationToken);
+
             try
             {
-                await _context.SaveChangesAsync();
+                await _investmentRepository.SaveChangesAsync(cancellationToken);
             }
             catch (DbUpdateException)
             {
-                if (InvestmentExists(investment.Id))
+                if (InvestmentExists(investment.Id, cancellationToken))
                 {
                     return Conflict();
                 }
@@ -100,23 +91,26 @@ namespace AAFinanceTracker.Controllers
 
         // DELETE: api/Investments/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteInvestment(string id)
+        public async Task<IActionResult> DeleteInvestment(string id, CancellationToken cancellationToken)
         {
-            var investment = await _context.Investments.FindAsync(id);
+            var investment = await _investmentRepository.Get(id, cancellationToken);
+
             if (investment == null)
             {
                 return NotFound();
             }
 
-            _context.Investments.Remove(investment);
-            await _context.SaveChangesAsync();
+            _investmentRepository.Delete(investment);
+            await _investmentRepository.SaveChangesAsync(cancellationToken);
 
             return NoContent();
         }
 
-        private bool InvestmentExists(string id)
+        private bool InvestmentExists(string Id, CancellationToken cancellationToken)
         {
-            return _context.Investments.Any(e => e.Id == id);
+            return _investmentRepository.Find(e => e.Id == Id, cancellationToken)
+            .Result
+            .Any();
         }
     }
 }

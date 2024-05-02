@@ -5,7 +5,7 @@ using AAFinanceTracker.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 
-namespace AAFinanceTracker.API.Tests;
+namespace AAFinanceTracker.Controllers.Tests;
 public class ExpenseCategoriesControllerTests
 {
     private readonly Mock<IRepository<ExpenseCategory>> _expenseCategoriesRepositoryMock = new();
@@ -20,16 +20,19 @@ public class ExpenseCategoriesControllerTests
             new() { Name = "Transportation" }
         };
         _expenseCategoriesRepositoryMock.Setup(x => x.All(It.IsAny<CancellationToken>()))
-            .Returns(Task.FromResult(expectedCategories));
+            .ReturnsAsync(expectedCategories);
 
         var controller = new ExpenseCategoriesController(_expenseCategoriesRepositoryMock.Object);
 
         // Act
-        var actualCategories = await controller.GetExpensesCategories(CancellationToken.None);
+        var returnedResult = await controller.GetExpensesCategories(CancellationToken.None);
 
         // Assert
         _expenseCategoriesRepositoryMock.Verify(x => x.All(It.IsAny<CancellationToken>()), Times.Once);
-        Assert.Equal(expectedCategories, actualCategories);
+
+        var okResult = Assert.IsType<OkObjectResult>(returnedResult.Result);
+        var actualInvestmentsTypes = Assert.IsAssignableFrom<IEnumerable<ExpenseCategory>>(okResult.Value);
+        Assert.Equal(expectedCategories, actualInvestmentsTypes);
     }
 
     [Fact]
@@ -58,7 +61,7 @@ public class ExpenseCategoriesControllerTests
         var existingCategory = new ExpenseCategory { Name = "Travel" };
         var updatedCategory = new ExpenseCategory { Name = "Business Travel" };
 
-        _expenseCategoriesRepositoryMock.Setup(x 
+        _expenseCategoriesRepositoryMock.Setup(x
                 => x.Find(It.IsAny<Expression<Func<ExpenseCategory, bool>>>(), It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(new List<ExpenseCategory>() { existingCategory }));
 

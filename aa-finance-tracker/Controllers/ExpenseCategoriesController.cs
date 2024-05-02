@@ -9,12 +9,14 @@ namespace AAFinanceTracker.API.Controllers;
 [ApiController]
 public class ExpenseCategoriesController(IRepository<ExpenseCategory> expenseCategoriesRepository) : ControllerBase
 {
-        
+
     // GET: api/ExpenseCategories
     [HttpGet]
-    public async Task<List<ExpenseCategory>> GetExpensesCategories(CancellationToken cancellationToken)
+    public async Task<ActionResult<List<ExpenseCategory>>> GetExpensesCategories(CancellationToken cancellationToken)
     {
-        return await expenseCategoriesRepository.All(cancellationToken);
+        var result = await expenseCategoriesRepository.All(cancellationToken);
+
+        return Ok(result);
     }
 
     // GET: api/ExpenseCategories/5
@@ -22,8 +24,8 @@ public class ExpenseCategoriesController(IRepository<ExpenseCategory> expenseCat
     public async Task<ActionResult<ExpenseCategory>> GetExpenseCategory(string name, CancellationToken cancellation)
     {
         var expenseCategory = await expenseCategoriesRepository
-            .Find(c => c.Name == name, cancellation);            
-        
+            .Find(c => c.Name == name, cancellation);
+
         return expenseCategory.Single();
     }
 
@@ -54,7 +56,7 @@ public class ExpenseCategoriesController(IRepository<ExpenseCategory> expenseCat
     {
         try
         {
-            await expenseCategoriesRepository.Add(expenseCategory,cancellation);
+            await expenseCategoriesRepository.Add(expenseCategory, cancellation);
             await expenseCategoriesRepository.SaveChangesAsync(cancellation);
         }
         catch (DbUpdateException)
@@ -77,7 +79,7 @@ public class ExpenseCategoriesController(IRepository<ExpenseCategory> expenseCat
     public async Task<IActionResult> DeleteExpenseCategory(string id, CancellationToken cancellation)
     {
         var expenseCategory = expenseCategoriesRepository
-            .Find(ca => ca.Name == id,cancellation)
+            .Find(ca => ca.Name == id, cancellation)
             .Result.Single();
 
         if (expenseCategory == null)

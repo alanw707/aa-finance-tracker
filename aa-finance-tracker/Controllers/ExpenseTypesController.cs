@@ -9,12 +9,14 @@ namespace AAFinanceTracker.API.Controllers
     [ApiController]
     public class ExpenseTypesController(IRepository<ExpenseType> repo) : ControllerBase
     {
-        
+
         // GET: api/ExpenseTypes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ExpenseType>?>> GetExpenseTypes(CancellationToken token)
         {
-            return await repo.All(token);
+            var result = await repo.All(token);
+
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
@@ -70,7 +72,7 @@ namespace AAFinanceTracker.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteExpenseType(string id, CancellationToken token)
         {
-            var expenseType = repo.Find(et=>et.Name == id,token).Result.SingleOrDefault();
+            var expenseType = repo.Find(et => et.Name == id, token).Result.SingleOrDefault();
             if (expenseType == null)
             {
                 return NotFound();
@@ -84,7 +86,7 @@ namespace AAFinanceTracker.API.Controllers
 
         private bool ExpenseTypeExists(string id, CancellationToken token)
         {
-            return repo.Find(e => e.Name == id,token).Result.Count > 0;
+            return repo.Find(e => e.Name == id, token).Result.Count > 0;
         }
     }
 }

@@ -1,6 +1,0 @@
-@aa_finance_tracker_HostAddress = http://localhost:5145
-
-GET {{aa_finance_tracker_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

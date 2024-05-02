@@ -16,7 +16,7 @@ namespace AAFinanceTracker.API.Controllers
         {
             var expenses = await _expenseRepository.All(cancellationToken);
 
-            return expenses;
+            return Ok(expenses);
         }
 
         // GET: api/Expenses/5
