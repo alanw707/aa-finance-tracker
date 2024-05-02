@@ -1,11 +1,11 @@
+using System.Linq.Expressions;
 using AAExpenseTracker.Domain.Entities;
 using AAFinanceTracker.API.Controllers;
 using AAFinanceTracker.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System.Linq.Expressions;
 
-namespace AAFinanceTracker.Controllers.Tests;
+namespace AAFinanceTracker.API.Tests;
 
 public class ExpenseTypesControllerTests
 {

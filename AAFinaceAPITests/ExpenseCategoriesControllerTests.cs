@@ -1,11 +1,11 @@
-﻿using AAExpenseTracker.Domain.Entities;
+﻿using System.Linq.Expressions;
+using AAExpenseTracker.Domain.Entities;
 using AAFinanceTracker.API.Controllers;
-using Moq;
 using AAFinanceTracker.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq.Expressions;
+using Moq;
 
-namespace AAFinanceTracker.Controllers.Tests;
+namespace AAFinanceTracker.API.Tests;
 public class ExpenseCategoriesControllerTests
 {
     private readonly Mock<IRepository<ExpenseCategory>> _expenseCategoriesRepositoryMock = new();
@@ -95,15 +95,14 @@ public class ExpenseCategoriesControllerTests
 
         var createdResult = Assert.IsType<CreatedAtActionResult>(result.Result);
         Assert.Equal("GetExpenseCategory", createdResult.ActionName);
-        Assert.Equal(newCategory.Name, createdResult.RouteValues["id"]);
+        Assert.Equal(newCategory.Name, createdResult.RouteValues["name"]);
         Assert.Equal(newCategory, createdResult.Value);
     }
 
     [Fact]
     public async Task DeleteExpenseCategory_ExistingName_ReturnsNoContent()
     {
-        // Arrange
-        var existingCategoryId = "Office Supplies";
+        // Arrange        
         var existingCategory = new ExpenseCategory { Name = "Office Supplies" };
 
         _expenseCategoriesRepositoryMock.Setup(x => x.Find(It.IsAny<Expression<Func<ExpenseCategory, bool>>>(), It.IsAny<CancellationToken>()))

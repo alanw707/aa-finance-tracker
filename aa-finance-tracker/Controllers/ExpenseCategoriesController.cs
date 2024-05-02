@@ -71,7 +71,7 @@ public class ExpenseCategoriesController(IRepository<ExpenseCategory> expenseCat
             }
         }
 
-        return CreatedAtAction("GetExpenseCategory", new { id = expenseCategory.Name }, expenseCategory);
+        return CreatedAtAction("GetExpenseCategory", new { name = expenseCategory.Name }, expenseCategory);
     }
 
     // DELETE: api/ExpenseCategories/5
@@ -86,6 +86,8 @@ public class ExpenseCategoriesController(IRepository<ExpenseCategory> expenseCat
         {
             return NotFound();
         }
+
+        expenseCategoriesRepository.Delete(expenseCategory);
 
         await expenseCategoriesRepository.SaveChangesAsync(cancellation);
 
