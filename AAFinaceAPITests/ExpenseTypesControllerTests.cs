@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System.Linq.Expressions;
 
-namespace AAFinanceTracker.API.Tests;
+namespace AAFinanceTracker.Controllers.Tests;
 
 public class ExpenseTypesControllerTests
 {
@@ -69,7 +69,7 @@ public class ExpenseTypesControllerTests
 
         var repoMock = new Mock<IRepository<ExpenseType>>();
         repoMock.Setup(r => r.All(It.IsAny<CancellationToken>()))
-            .ReturnsAsync(expenseTypes); // Simulate fetching expense types
+            .ReturnsAsync(expenseTypes);
 
         var controller = new ExpenseTypesController(repoMock.Object);
 
@@ -77,7 +77,7 @@ public class ExpenseTypesControllerTests
         var result = await controller.GetExpenseTypes(CancellationToken.None);
 
         // Assert
-        var okResult = Assert.IsType<ActionResult<IEnumerable<ExpenseType>?>>(result);
+        var okResult = Assert.IsType<OkObjectResult>(result.Result);
         var returnedExpenseTypes = Assert.IsAssignableFrom<IEnumerable<ExpenseType>>(okResult.Value);
 
         Assert.Equal(expenseTypes.Count, returnedExpenseTypes.Count());

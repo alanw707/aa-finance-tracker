@@ -6,7 +6,7 @@ namespace AAFinanceTracker.Infrastructure.Repositories;
 public interface IRepository<T> where T : class
 {
     Task<EntityEntry<T>> Add(T entity, CancellationToken token);
-    Task<List<T>> All(CancellationToken token);
+    Task<IEnumerable<T>> All(CancellationToken token);
     T Update(T entity);
     Task<T> Get(string id, CancellationToken token);
     void Delete(T entity);

@@ -11,7 +11,7 @@ public abstract class GenericRepository<T>(DbContext context) : IRepository<T> w
         return await context.AddAsync(entity, token);
     }
 
-    public virtual async Task<List<T>> All(CancellationToken token)
+    public virtual async Task<IEnumerable<T>> All(CancellationToken token)
     {
         return await context.Set<T>()
             .AsQueryable()

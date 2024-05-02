@@ -13,7 +13,16 @@ namespace AAFinanceTracker.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<InvestmentType>>> GetInvestmentsTypes(CancellationToken cancellationToken)
         {
-            return await _investmentTypeRepository.All(cancellationToken);
+            var result = await _investmentTypeRepository.All(cancellationToken);
+
+            if (result.Any())
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         // GET: api/InvestmentTypes/5
@@ -22,7 +31,7 @@ namespace AAFinanceTracker.Controllers
         {
             var investmentType = await _investmentTypeRepository.Get(id, cancellationToken);
 
-            if (investmentType == null)
+            if (investmentType is null)
             {
                 return NotFound();
             }
@@ -35,10 +44,10 @@ namespace AAFinanceTracker.Controllers
         [HttpPut("{type}")]
         public async Task<IActionResult> PutInvestmentType(string typeName, InvestmentType investmentType, CancellationToken cancellationToken)
         {
-            // if (typeName != investmentType.Type)
-            // {
-            //     return BadRequest();
-            // }
+            if (typeName != investmentType.TypeName)
+            {
+                return BadRequest();
+            }
 
             _investmentTypeRepository.Update(investmentType);
 
@@ -48,14 +57,14 @@ namespace AAFinanceTracker.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                // if (!InvestmentTypeExists(typeName, cancellationToken))
-                // {
-                //     return NotFound();
-                // }
-                // else
-                // {
-                //     throw;
-                // }
+                if (!InvestmentTypeExists(typeName, cancellationToken))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
 
             return NoContent();
@@ -74,17 +83,16 @@ namespace AAFinanceTracker.Controllers
             }
             catch (DbUpdateException)
             {
-                // if (InvestmentTypeExists(investmentType.Type, cancellationToken))
-                // {
-                //     return Conflict();
-                // }
-                // else
-                // {
-                //     throw;
-                // }
+                if (InvestmentTypeExists(investmentType.TypeName, cancellationToken))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
             }
-            return NoContent();
-            // return CreatedAtAction("GetInvestmentType", new { id = investmentType.Type }, investmentType);
+            return CreatedAtAction("GetInvestmentType", new { id = investmentType.TypeName }, investmentType);
         }
 
         // DELETE: api/InvestmentTypes/5
@@ -104,11 +112,11 @@ namespace AAFinanceTracker.Controllers
             return NoContent();
         }
 
-        // private bool InvestmentTypeExists(string typeName, CancellationToken cancellationToken)
-        // {
-        //     return _investmentTypeRepository.Find(e => e.Type == typeName, cancellationToken)
-        //     .Result.Any();
-        // }
+        private bool InvestmentTypeExists(string typeName, CancellationToken cancellationToken)
+        {
+            return _investmentTypeRepository.Find(e => e.TypeName == typeName, cancellationToken)
+            .Result.Any();
+        }
     }
 }
 
