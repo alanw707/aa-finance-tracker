@@ -5,7 +5,7 @@ using AAFinanceTracker.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
-namespace AAFinanceTracker.API.Tests;
+namespace AAFinanceTracker.Controllers.Tests;
 
 public class ExpenseTypesControllerTests
 {

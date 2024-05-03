@@ -1,4 +1,4 @@
-﻿using AAExpenseTracker.Domain.Entities;
+using AAExpenseTracker.Domain.Entities;
 using AAFinanceTracker.Controllers;
 using AAFinanceTracker.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -72,8 +72,6 @@ public class InvestmentsTypesControllerTests
         var returnedInvestmentType = okResult.Value;
         Assert.Equal(investmentType, returnedInvestmentType);
     }
-
-
 
     [Fact]
     public async Task PutInvestmentType_ReturnsNoContent_WhenInvestmentTypeExistsAndIsUpdated()

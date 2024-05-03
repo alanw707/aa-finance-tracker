@@ -5,6 +5,7 @@ using AAFinanceTracker.API.Models;
 using AAFinanceTracker.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using AAFinanceTracker.API.Models;
 using Moq;
 
 namespace AAFinanceTracker.API.Tests;
