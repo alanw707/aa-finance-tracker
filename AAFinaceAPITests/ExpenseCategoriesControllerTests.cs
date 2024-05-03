@@ -1,9 +1,9 @@
-﻿using AAExpenseTracker.Domain.Entities;
+﻿using System.Linq.Expressions;
+using AAExpenseTracker.Domain.Entities;
 using AAFinanceTracker.API.Controllers;
-using Moq;
 using AAFinanceTracker.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq.Expressions;
+using Moq;
 
 namespace AAFinanceTracker.Controllers.Tests;
 public class ExpenseCategoriesControllerTests
@@ -95,19 +95,19 @@ public class ExpenseCategoriesControllerTests
 
         var createdResult = Assert.IsType<CreatedAtActionResult>(result.Result);
         Assert.Equal("GetExpenseCategory", createdResult.ActionName);
-        Assert.Equal(newCategory.Name, createdResult.RouteValues["id"]);
+        Assert.Equal(newCategory.Name, createdResult.RouteValues["name"]);
         Assert.Equal(newCategory, createdResult.Value);
     }
 
     [Fact]
-    public async Task DeleteExpenseCategory_ExistingName_ReturnsNoContent()
+    public async Task DeleteExpenseCategory_ReturnsNoContent_WhenCategoryExistsAndIsDeleted()
     {
         // Arrange
-        var existingCategoryId = "Office Supplies";
         var existingCategory = new ExpenseCategory { Name = "Office Supplies" };
-
         _expenseCategoriesRepositoryMock.Setup(x => x.Find(It.IsAny<Expression<Func<ExpenseCategory, bool>>>(), It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(new List<ExpenseCategory>() { existingCategory }));
+        _expenseCategoriesRepositoryMock.Setup(x => x.Delete(existingCategory))
+            .Verifiable(Times.Once);
         _expenseCategoriesRepositoryMock.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(1));
 
@@ -118,9 +118,11 @@ public class ExpenseCategoriesControllerTests
 
         // Assert
         _expenseCategoriesRepositoryMock.Verify(x => x.Find(It.IsAny<Expression<Func<ExpenseCategory, bool>>>(), It.IsAny<CancellationToken>()), Times.Once);
+        _expenseCategoriesRepositoryMock.Verify(x => x.Delete(existingCategory), Times.Once);
         _expenseCategoriesRepositoryMock.Verify(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
         Assert.IsType<NoContentResult>(result);
     }
+
 
 
 }
