@@ -114,8 +114,14 @@ namespace AAFinanceTracker.Controllers
 
         private bool InvestmentTypeExists(string typeName, CancellationToken cancellationToken)
         {
-            return _investmentTypeRepository.Find(e => e.TypeName == typeName, cancellationToken)
-            .Result.Any();
+            var foundTypes = _investmentTypeRepository.Find(e => e.TypeName == typeName, cancellationToken);
+
+            if (foundTypes.Result is null || !foundTypes.Result.Any())
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

@@ -100,13 +100,14 @@ public class ExpenseCategoriesControllerTests
     }
 
     [Fact]
-    public async Task DeleteExpenseCategory_ExistingName_ReturnsNoContent()
+    public async Task DeleteExpenseCategory_ReturnsNoContent_WhenCategoryExistsAndIsDeleted()
     {
-        // Arrange        
+        // Arrange
         var existingCategory = new ExpenseCategory { Name = "Office Supplies" };
-
         _expenseCategoriesRepositoryMock.Setup(x => x.Find(It.IsAny<Expression<Func<ExpenseCategory, bool>>>(), It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(new List<ExpenseCategory>() { existingCategory }));
+        _expenseCategoriesRepositoryMock.Setup(x => x.Delete(existingCategory))
+            .Verifiable(Times.Once);
         _expenseCategoriesRepositoryMock.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(1));
 
@@ -117,9 +118,11 @@ public class ExpenseCategoriesControllerTests
 
         // Assert
         _expenseCategoriesRepositoryMock.Verify(x => x.Find(It.IsAny<Expression<Func<ExpenseCategory, bool>>>(), It.IsAny<CancellationToken>()), Times.Once);
+        _expenseCategoriesRepositoryMock.Verify(x => x.Delete(existingCategory), Times.Once);
         _expenseCategoriesRepositoryMock.Verify(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
         Assert.IsType<NoContentResult>(result);
     }
+
 
 
 }

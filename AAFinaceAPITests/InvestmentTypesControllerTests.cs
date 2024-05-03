@@ -2,6 +2,7 @@
 using AAFinanceTracker.Controllers;
 using AAFinanceTracker.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 
 namespace AAFinanceTracker.API.Tests;
@@ -70,6 +71,79 @@ public class InvestmentsTypesControllerTests
         Assert.Equal(200, okResult.StatusCode);
         var returnedInvestmentType = okResult.Value;
         Assert.Equal(investmentType, returnedInvestmentType);
+    }
+
+
+
+    [Fact]
+    public async Task PutInvestmentType_ReturnsNoContent_WhenInvestmentTypeExistsAndIsUpdated()
+    {
+        // Arrange        
+        var updatedInvestmentType = new InvestmentType { TypeName = "Bonds" };
+        var investmentTypeRepositoryMock = new Mock<IRepository<InvestmentType>>();
+
+        investmentTypeRepositoryMock.Setup(x => x.Update(updatedInvestmentType))
+            .Verifiable(Times.Once);
+        investmentTypeRepositoryMock.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()))
+            .Returns(Task.FromResult(1));
+
+        var controller = new InvestmentTypesController(investmentTypeRepositoryMock.Object);
+
+        // Act
+        var result = await controller.PutInvestmentType(updatedInvestmentType.TypeName, updatedInvestmentType, CancellationToken.None);
+
+        // Assert        
+        investmentTypeRepositoryMock.Verify(x => x.Update(updatedInvestmentType), Times.Once);
+        investmentTypeRepositoryMock.Verify(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+        Assert.IsType<NoContentResult>(result);
+    }
+
+    [Fact]
+    public async Task PutInvestmentType_ReturnsNotFound_WhenInvestmentTypeDoesNotExist()
+    {
+        // Arrange
+        var nonExistingInvestmentType = new InvestmentType { TypeName = "Bonds" };
+
+        var investmentTypeRepositoryMock = new Mock<IRepository<InvestmentType>>();
+
+        investmentTypeRepositoryMock.Setup(x => x.Update(nonExistingInvestmentType))
+            .Returns((InvestmentType)null!);
+        investmentTypeRepositoryMock.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()))
+        .ThrowsAsync(new DbUpdateConcurrencyException());
+
+        var controller = new InvestmentTypesController(investmentTypeRepositoryMock.Object);
+
+        // Act
+        var result = await controller.PutInvestmentType(nonExistingInvestmentType.TypeName, nonExistingInvestmentType, CancellationToken.None);
+
+        // Assert        
+        investmentTypeRepositoryMock.Verify(x => x.Update(nonExistingInvestmentType), Times.Once);
+        investmentTypeRepositoryMock.Verify(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+        Assert.IsType<NotFoundResult>(result);
+    }
+
+    [Fact]
+    public async Task PutInvestmentType_ReturnsBadRequest_WhenIdInRequestBodyDoesntMatchIdInUrl()
+    {
+        // Arrange
+        var existingInvestmentType = new InvestmentType { TypeName = "Stocks" };
+        var updatedInvestmentType = new InvestmentType { TypeName = "Bonds" };
+
+        var investmentTypeRepositoryMock = new Mock<IRepository<InvestmentType>>();
+
+        investmentTypeRepositoryMock.Setup(x => x.Get(existingInvestmentType.TypeName, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(existingInvestmentType);
+
+        var controller = new InvestmentTypesController(investmentTypeRepositoryMock.Object);
+
+        // Act
+        var result = await controller.PutInvestmentType(existingInvestmentType.TypeName, updatedInvestmentType, CancellationToken.None);
+
+        // Assert
+        investmentTypeRepositoryMock.Verify(x => x.Get(existingInvestmentType.TypeName, It.IsAny<CancellationToken>()), Times.Never);
+        investmentTypeRepositoryMock.Verify(x => x.Update(updatedInvestmentType), Times.Never);
+        investmentTypeRepositoryMock.Verify(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
+        Assert.IsType<BadRequestResult>(result);
     }
 
 }
