@@ -5,7 +5,7 @@ using AAFinanceTracker.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
-namespace AAFinanceTracker.Controllers.Tests;
+namespace AAFinanceTracker.API.Tests;
 public class ExpenseCategoriesControllerTests
 {
     private readonly Mock<IRepository<ExpenseCategory>> _expenseCategoriesRepositoryMock = new();
