@@ -1,12 +1,15 @@
 using AAExpenseTracker.Domain.Data;
 using AAExpenseTracker.Domain.Entities;
 using AAFinanceTracker.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 // Add services to the container.
-builder.Services.AddDbContext<FinanceTrackerDbContext>();
+builder.Services.AddDbContext<FinanceTrackerDbContext>(
+    options => options.UseSqlServer(
+        builder.Configuration.GetConnectionString("LocalDockerSQL")));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

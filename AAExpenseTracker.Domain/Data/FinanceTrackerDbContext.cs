@@ -2,11 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
+
 namespace AAExpenseTracker.Domain.Data
 {
-    public class FinanceTrackerDbContext : DbContext
+    public class FinanceTrackerDbContext(IConfiguration _configuration, DbContextOptions<FinanceTrackerDbContext> options)
+            : DbContext(options)
     {
-        private readonly IConfiguration _configuration;
         public virtual DbSet<ExpenseType> ExpenseTypes { get; set; }
 
         public DbSet<ExpenseCategory> ExpensesCategories { get; set; }
@@ -19,13 +20,9 @@ namespace AAExpenseTracker.Domain.Data
 
         public DbSet<InvestmentType> InvestmentsTypes { get; set; }
 
-
-        public FinanceTrackerDbContext()
-            : base(new DbContextOptionsBuilder<FinanceTrackerDbContext>()
-                .UseSqlServer("Server=192.168.1.45;Database=FinanceTracker;Trusted_Connection=False;User Id=SA;Password=Passw0rd#1;TrustServerCertificate=True")
-                .Options)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //_configuration = configuration;
+            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("LocalDockerSQL"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

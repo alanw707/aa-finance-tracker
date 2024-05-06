@@ -7,7 +7,11 @@ public class Investment
 {
     public string Id { get; set; }
     public required InvestmentType Type { get; set; }
+    [ForeignKey("TypeName")]
+    public string InvestmentTypeName { get; set; }
     public required Bank Bank { get; set; }
+    [ForeignKey("BankId")]
+    public string BankId { get; set; }
     public string Description { get; set; }
     public decimal InitialInvestment { get; set; }
     public DateTime DateAdded { get; set; }
