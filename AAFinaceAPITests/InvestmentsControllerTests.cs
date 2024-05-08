@@ -1,7 +1,7 @@
 ﻿using AAExpenseTracker.Domain.Entities;
+using AAFinanceTracker.API.Models;
 using AAFinanceTracker.Controllers;
 using AAFinanceTracker.Infrastructure.Repositories;
-using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Moq;
@@ -72,9 +72,11 @@ public class InvestmentsControllerTests
     public async Task Post_ShouldCreateANewInvestment()
     {
         // Arrange
-        // Create a mock repository for investments
-        var investment = new Investment() { Id = 1, InvestmentTypeName = "Stock", InitialInvestment = 500 };
+        var investmentModel = new InvestmentModel() { InvestmentTypeName = "Stock", InitialInvestment = 500 };
+        var investment = new Investment() { InvestmentTypeName = "Stock", InitialInvestment = 500 };
+
         var mockInvestmentRepository = new Mock<IRepository<Investment>>();
+
         mockInvestmentRepository.Setup(repo => repo.Add(investment, It.IsAny<CancellationToken>()))
             .ReturnsAsync(It.IsAny<EntityEntry<Investment>>());
 
@@ -82,7 +84,7 @@ public class InvestmentsControllerTests
         var controller = new InvestmentsController(mockInvestmentRepository.Object);
 
         // Act                
-        var result = await controller.PostInvestment(investment, It.IsAny<CancellationToken>());
+        var result = await controller.PostInvestment(investmentModel, It.IsAny<CancellationToken>());
 
         // Assert        
         // Assert that the result is a successful CreatedAtActionResult
@@ -91,7 +93,7 @@ public class InvestmentsControllerTests
         // Assert that the result contains the correct investment
         var createdAtActionResult = result.Result as CreatedAtActionResult;
         Assert.NotNull(createdAtActionResult);
-        Assert.Equal(investment, createdAtActionResult.Value);
+        Assert.Equivalent(investment, createdAtActionResult.Value);
     }
 
     // // Test the Update method of the InvestmentController class

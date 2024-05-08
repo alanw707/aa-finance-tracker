@@ -5,7 +5,7 @@ namespace AAExpenseTracker.Domain.Entities;
 
 public class Investment
 {
-    public required int Id { get; set; }
+    public int Id { get; set; }
     public InvestmentType? Type { get; set; }
     [ForeignKey("TypeName")]
     public string? InvestmentTypeName { get; set; }
