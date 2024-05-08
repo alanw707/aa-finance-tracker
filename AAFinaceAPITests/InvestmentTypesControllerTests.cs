@@ -143,7 +143,7 @@ public class InvestmentsTypesControllerTests
         investmentTypeRepositoryMock.Verify(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
         Assert.IsType<BadRequestResult>(result);
     }
-
+  
     [Fact]
     public async Task DeleteInvestmentType_ValidName_ReturnsNoContent()
     {
@@ -184,5 +184,4 @@ public class InvestmentsTypesControllerTests
         investmentTypeRepositoryMock.Verify(r => r.Delete(It.IsAny<InvestmentType>()), Times.Never);
         investmentTypeRepositoryMock.Verify(r => r.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
     }
-
 }

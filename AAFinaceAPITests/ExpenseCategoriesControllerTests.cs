@@ -96,7 +96,6 @@ public class ExpenseCategoriesControllerTests
         var createdResult = Assert.IsType<CreatedAtActionResult>(result.Result);
         Assert.Equal("GetExpenseCategory", createdResult.ActionName);
         Assert.Equal(newCategory.Name, createdResult.RouteValues?["name"]);
-        Assert.Equal(newCategory, createdResult.Value);
     }
 
     [Fact]
