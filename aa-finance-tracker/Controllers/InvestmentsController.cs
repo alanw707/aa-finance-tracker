@@ -35,7 +35,7 @@ namespace AAFinanceTracker.Controllers
         // PUT: api/Investments/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutInvestment(string Id, Investment investment, CancellationToken cancellationToken)
+        public async Task<IActionResult> PutInvestment(int Id, Investment investment, CancellationToken cancellationToken)
         {
             if (Id != investment.Id)
             {
@@ -106,7 +106,7 @@ namespace AAFinanceTracker.Controllers
             return NoContent();
         }
 
-        private bool InvestmentExists(string Id, CancellationToken cancellationToken)
+        private bool InvestmentExists(int Id, CancellationToken cancellationToken)
         {
             return _investmentRepository.Find(e => e.Id == Id, cancellationToken)
             .Result

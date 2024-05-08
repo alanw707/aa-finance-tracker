@@ -14,8 +14,6 @@ namespace AAExpenseTracker.Domain.Data
 
         public DbSet<Expense> Expenses { get; set; }
 
-        public DbSet<Bank> Banks { get; set; }
-
         public DbSet<Investment> Investments { get; set; }
 
         public DbSet<InvestmentType> InvestmentsTypes { get; set; }
@@ -39,7 +37,6 @@ namespace AAExpenseTracker.Domain.Data
             modelBuilder.Entity<ExpenseType>()
                 .HasKey(e => e.Name);
 
-
             modelBuilder.Entity<ExpenseCategory>()
                .HasKey(e => e.Name);
 
@@ -48,11 +45,11 @@ namespace AAExpenseTracker.Domain.Data
                 .HasColumnType("decimal(18,2)")
                 .IsRequired();
 
-            modelBuilder.Entity<Bank>()
-                .HasKey(k => k.Id);
-
             modelBuilder.Entity<Investment>()
                 .HasKey(k => k.Id);
+            modelBuilder.Entity<Investment>()
+                .Property(k => k.InitialInvestment)
+                .HasColumnType("decimal(18,2)").IsRequired();
 
             modelBuilder.Entity<InvestmentType>()
                .HasKey(k => k.TypeName);

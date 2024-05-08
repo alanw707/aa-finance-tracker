@@ -6,25 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AAExpenseTracker.Domain.Migrations
 {
     /// <inheritdoc />
-    public partial class ReInitialization : Migration
+    public partial class ReInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Banks",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Banks", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "ExpensesCategories",
                 columns: table => new
@@ -100,10 +86,11 @@ namespace AAExpenseTracker.Domain.Migrations
                 name: "Investments",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    TypeName = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    BankId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TypeName = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    InvestmentTypeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     InitialInvestment = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     DateAdded = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -111,17 +98,10 @@ namespace AAExpenseTracker.Domain.Migrations
                 {
                     table.PrimaryKey("PK_Investments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Investments_Banks_BankId",
-                        column: x => x.BankId,
-                        principalTable: "Banks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Investments_InvestmentsTypes_TypeName",
                         column: x => x.TypeName,
                         principalTable: "InvestmentsTypes",
-                        principalColumn: "TypeName",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "TypeName");
                 });
 
             migrationBuilder.CreateIndex(
@@ -133,11 +113,6 @@ namespace AAExpenseTracker.Domain.Migrations
                 name: "IX_Expenses_ExpenseTypeName",
                 table: "Expenses",
                 column: "ExpenseTypeName");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Investments_BankId",
-                table: "Investments",
-                column: "BankId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Investments_TypeName",
@@ -159,9 +134,6 @@ namespace AAExpenseTracker.Domain.Migrations
 
             migrationBuilder.DropTable(
                 name: "ExpensesCategories");
-
-            migrationBuilder.DropTable(
-                name: "Banks");
 
             migrationBuilder.DropTable(
                 name: "InvestmentsTypes");
