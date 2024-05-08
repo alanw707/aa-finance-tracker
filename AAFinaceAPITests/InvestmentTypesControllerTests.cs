@@ -1,4 +1,4 @@
-using AAExpenseTracker.Domain.Entities;
+﻿using AAExpenseTracker.Domain.Entities;
 using AAFinanceTracker.Controllers;
 using AAFinanceTracker.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -143,5 +143,45 @@ public class InvestmentsTypesControllerTests
         investmentTypeRepositoryMock.Verify(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
         Assert.IsType<BadRequestResult>(result);
     }
+  
+    [Fact]
+    public async Task DeleteInvestmentType_ValidName_ReturnsNoContent()
+    {
+        // Arrange
+        var investmentType = new InvestmentType { TypeName = "TestType" };
+        var investmentTypeRepositoryMock = new Mock<IRepository<InvestmentType>>();
+        investmentTypeRepositoryMock
+            .Setup(repo => repo.Get(investmentType.TypeName, CancellationToken.None))
+            .ReturnsAsync(investmentType);
 
+        var controller = new InvestmentTypesController(investmentTypeRepositoryMock.Object);
+
+        // Act
+        var result = await controller.DeleteInvestmentType("TestType", CancellationToken.None);
+
+        // Assert
+        investmentTypeRepositoryMock.Verify(r => r.Delete(It.IsAny<InvestmentType>()), Times.Once);
+        investmentTypeRepositoryMock.Verify(r => r.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+        Assert.IsType<NoContentResult>(result);
+    }
+
+    [Fact]
+    public async Task DeleteInvestmentType_InvalidName_ReturnsNotFound()
+    {
+        // Arrange
+        var investmentTypeRepositoryMock = new Mock<IRepository<InvestmentType>>();
+        investmentTypeRepositoryMock
+            .Setup(repo => repo.Get("InvalidType", CancellationToken.None))
+            .ReturnsAsync((InvestmentType)null!);
+
+        var controller = new InvestmentTypesController(investmentTypeRepositoryMock.Object);
+
+        // Act
+        var result = await controller.DeleteInvestmentType("InvalidType", CancellationToken.None);
+
+        // Assert
+        Assert.IsType<NotFoundResult>(result);
+        investmentTypeRepositoryMock.Verify(r => r.Delete(It.IsAny<InvestmentType>()), Times.Never);
+        investmentTypeRepositoryMock.Verify(r => r.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
+    }
 }

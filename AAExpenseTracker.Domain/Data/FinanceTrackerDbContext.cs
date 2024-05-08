@@ -2,30 +2,25 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
+
 namespace AAExpenseTracker.Domain.Data
 {
-    public class FinanceTrackerDbContext : DbContext
+    public class FinanceTrackerDbContext(IConfiguration _configuration, DbContextOptions<FinanceTrackerDbContext> options)
+            : DbContext(options)
     {
-        private readonly IConfiguration _configuration;
         public virtual DbSet<ExpenseType> ExpenseTypes { get; set; }
 
         public DbSet<ExpenseCategory> ExpensesCategories { get; set; }
 
         public DbSet<Expense> Expenses { get; set; }
 
-        public DbSet<Bank> Banks { get; set; }
-
         public DbSet<Investment> Investments { get; set; }
 
         public DbSet<InvestmentType> InvestmentsTypes { get; set; }
 
-
-        public FinanceTrackerDbContext()
-            : base(new DbContextOptionsBuilder<FinanceTrackerDbContext>()
-                .UseSqlServer("Server=192.168.1.45;Database=FinanceTracker;Trusted_Connection=False;User Id=SA;Password=Passw0rd#1;TrustServerCertificate=True")
-                .Options)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //_configuration = configuration;
+            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("LocalDockerSQL"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -42,7 +37,6 @@ namespace AAExpenseTracker.Domain.Data
             modelBuilder.Entity<ExpenseType>()
                 .HasKey(e => e.Name);
 
-
             modelBuilder.Entity<ExpenseCategory>()
                .HasKey(e => e.Name);
 
@@ -51,11 +45,11 @@ namespace AAExpenseTracker.Domain.Data
                 .HasColumnType("decimal(18,2)")
                 .IsRequired();
 
-            modelBuilder.Entity<Bank>()
-                .HasKey(k => k.Id);
-
             modelBuilder.Entity<Investment>()
                 .HasKey(k => k.Id);
+            modelBuilder.Entity<Investment>()
+                .Property(k => k.InitialInvestment)
+                .HasColumnType("decimal(18,2)").IsRequired();
 
             modelBuilder.Entity<InvestmentType>()
                .HasKey(k => k.TypeName);

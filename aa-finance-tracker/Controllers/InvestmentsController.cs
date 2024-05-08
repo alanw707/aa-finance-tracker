@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using AAExpenseTracker.Domain.Entities;
 using AAFinanceTracker.Infrastructure.Repositories;
+using AAFinanceTracker.API.Models;
 
 namespace AAFinanceTracker.Controllers
 {
@@ -35,7 +36,7 @@ namespace AAFinanceTracker.Controllers
         // PUT: api/Investments/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutInvestment(string Id, Investment investment, CancellationToken cancellationToken)
+        public async Task<IActionResult> PutInvestment(int Id, Investment investment, CancellationToken cancellationToken)
         {
             if (Id != investment.Id)
             {
@@ -63,11 +64,16 @@ namespace AAFinanceTracker.Controllers
             return NoContent();
         }
 
-        // POST: api/Investments
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: api/Investments        
         [HttpPost]
-        public async Task<ActionResult<Investment>> PostInvestment(Investment investment, CancellationToken cancellationToken)
+        public async Task<ActionResult<Investment>> PostInvestment(InvestmentModel investmentModel, CancellationToken cancellationToken)
         {
+            var investment = new Investment()
+            {
+                InvestmentTypeName = investmentModel.InvestmentTypeName,
+                InitialInvestment = investmentModel.InitialInvestment
+            };
+
             await _investmentRepository.Add(investment, cancellationToken);
 
             try
@@ -106,7 +112,7 @@ namespace AAFinanceTracker.Controllers
             return NoContent();
         }
 
-        private bool InvestmentExists(string Id, CancellationToken cancellationToken)
+        private bool InvestmentExists(int Id, CancellationToken cancellationToken)
         {
             return _investmentRepository.Find(e => e.Id == Id, cancellationToken)
             .Result

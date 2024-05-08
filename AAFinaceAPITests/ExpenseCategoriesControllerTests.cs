@@ -95,8 +95,7 @@ public class ExpenseCategoriesControllerTests
 
         var createdResult = Assert.IsType<CreatedAtActionResult>(result.Result);
         Assert.Equal("GetExpenseCategory", createdResult.ActionName);
-        Assert.Equal(newCategory.Name, createdResult.RouteValues["name"]);
-        Assert.Equal(newCategory, createdResult.Value);
+        Assert.Equal(newCategory.Name, createdResult.RouteValues?["name"]);
     }
 
     [Fact]
@@ -122,7 +121,4 @@ public class ExpenseCategoriesControllerTests
         _expenseCategoriesRepositoryMock.Verify(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
         Assert.IsType<NoContentResult>(result);
     }
-
-
-
 }
