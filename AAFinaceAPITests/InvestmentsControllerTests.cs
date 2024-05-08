@@ -1,7 +1,9 @@
 ﻿using AAExpenseTracker.Domain.Entities;
 using AAFinanceTracker.Controllers;
 using AAFinanceTracker.Infrastructure.Repositories;
+using Humanizer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Moq;
 
 namespace AAFinanceTracker.API.Tests;
@@ -15,8 +17,8 @@ public class InvestmentsControllerTests
         // Arrange        
         var investments = new List<Investment>()
                 {
-                    new Investment (new InvestmentType(){ TypeName = "Stocks"},1000),
-                    new Investment (new InvestmentType(){ TypeName = "Bonds"},500)
+                    new() { Id = "1", InvestmentTypeName = "Stocks", InitialInvestment = 1000 },
+                    new() { Id = "2", InvestmentTypeName = "Bonds", InitialInvestment = 500 }
                 };
 
         var mockInvestmentRepository = new Mock<IRepository<Investment>>();
@@ -37,76 +39,76 @@ public class InvestmentsControllerTests
     }
 
     // Test the GetById method of the InvestmentController class
-    // [Fact]
-    // public async Task GetById_ShouldReturnTheInvestmentWithTheGivenId()
-    // {
-    //     // Arrange
-    //     // Create a mock repository for investments
-    //     var investment = new Investment { Id = 1, Name = "Stock XYZ", AmountInvested = 1000 };
-    //     var mockInvestmentRepository = new Mock<IInvestmentRepository>();
-    //     mockInvestmentRepository.Setup(repo => repo.GetById(1)).ReturnsAsync(investment);
+    [Fact]
+    public async Task GetInvestment_ShouldReturnTheInvestmentWithTheGivenId()
+    {
+        // Arrange        
+        var investment = new Investment() { Id = "1", InvestmentTypeName = "Stock", InitialInvestment=500 };
 
-    //     // Create an instance of the InvestmentController
-    //     var controller = new InvestmentController(mockInvestmentRepository.Object);
+        var mockInvestmentRepository = new Mock<IRepository<Investment>>();
 
-    //     // Act
-    //     // Call the GetById method with the id of the investment we want to find
-    //     var result = await controller.GetById(1);
+        mockInvestmentRepository.Setup(repo => repo.Get("1", It.IsAny<CancellationToken>()))
+        .ReturnsAsync(investment);
+        
+        var controller = new InvestmentsController(mockInvestmentRepository.Object);
 
-    //     // Assert
-    //     // Assert that the result is a successful OkObjectResult
-    //     Assert.IsType<OkObjectResult>(result);
+        // Act
+        // Call the GetById method with the id of the investment we want to find
+        var result = await controller.GetInvestment("1",It.IsAny<CancellationToken>());
 
-    //     // Assert that the result contains the correct investment
-    //     var okResult = result as OkObjectResult;
-    //     Assert.Equal(investment, okResult.Value);
-    // }
+
+        // Assert
+        // Assert that the result is a successful OkObjectResult
+        Assert.IsType<OkObjectResult>(result.Result);
+
+        // Assert that the result contains the correct investment
+        var okResult = result.Result as OkObjectResult;
+        Assert.NotNull(okResult);
+        Assert.Equal(investment, okResult.Value);
+    }
 
     // // Test the Create method of the InvestmentController class
-    // [Fact]
-    // public async Task Create_ShouldCreateANewInvestment()
-    // {
-    //     // Arrange
-    //     // Create a mock repository for investments
-    //     var investment = new Investment { Name = "Stock XYZ", AmountInvested = 1000 };
-    //     var mockInvestmentRepository = new Mock<IInvestmentRepository>();
-    //     mockInvestmentRepository.Setup(repo => repo.Create(investment)).ReturnsAsync(investment);
+    [Fact]
+    public async Task Post_ShouldCreateANewInvestment()
+    {
+        // Arrange
+        // Create a mock repository for investments
+        var investment = new Investment() { Id = "1", InvestmentTypeName = "Stock", InitialInvestment=500 };        
+        var mockInvestmentRepository = new Mock<IRepository<Investment>>();
+        mockInvestmentRepository.Setup(repo => repo.Add(investment, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(It.IsAny<EntityEntry<Investment>>());
 
-    //     // Create an instance of the InvestmentController
-    //     var controller = new InvestmentController(mockInvestmentRepository.Object);
+        // Create an instance of the InvestmentController
+        var controller = new InvestmentsController(mockInvestmentRepository.Object);
 
-    //     // Act
-    //     // Call the Create method with the investment we want to create
-    //     var result = await controller.Create(investment);
+        // Act                
+        var result = await controller.PostInvestment(investment, It.IsAny<CancellationToken>());
+               
+        // Assert        
+        // Assert that the result is a successful CreatedAtActionResult
+        Assert.IsType<CreatedAtActionResult>(result.Result);
 
-    //     // Assert
-    //     // Assert that the result is a successful CreatedAtActionResult
-    //     Assert.IsType<CreatedAtActionResult>(result);
-
-    //     // Assert that the result contains the correct investment
-    //     var createdAtActionResult = result as CreatedAtActionResult;
-    //     Assert.Equal(investment, createdAtActionResult.Value);
-    // }
+        // Assert that the result contains the correct investment
+        var createdAtActionResult = result.Result as CreatedAtActionResult;
+        Assert.NotNull(createdAtActionResult);
+        Assert.Equal(investment, createdAtActionResult.Value);
+    }
 
     // // Test the Update method of the InvestmentController class
-    // [Fact]
-    // public async Task Update_ShouldUpdateTheInvestmentWithTheGivenId()
-    // {
-    //     // Arrange
-    //     // Create a mock repository for investments
-    //     var investment = new Investment { Id = 1, Name = "Stock XYZ", AmountInvested = 1000 };
-    //     var mockInvestmentRepository = new Mock<IInvestmentRepository>();
-    //     mockInvestmentRepository.Setup(repo => repo.Update(investment)).ReturnsAsync(investment);
-
-    //     // Create an instance of the InvestmentController
-    //     var controller = new InvestmentController(mockInvestmentRepository.Object);
-
-    //     // Act
-    //     // Call the Update method with the investment we want to update
-    //     var result = await controller.Update(investment.Id, investment);
-
-    //     // Assert
-    //     // Assert that the result is a successful NoContentResult
-    //     Assert.IsType<NoContentResult>(result);
-    // }
+    [Fact]
+    public async Task Update_ShouldUpdateTheInvestmentWithTheGivenId()
+    {   
+        // Arrange                
+        var investment = new Investment { Id = "1", InvestmentTypeName = "Stock", InitialInvestment = 500 };            
+        var mockInvestmentRepository = new Mock<IRepository<Investment>>();        // Corrected the repository type to IRepository<Investment>        
+        mockInvestmentRepository.Setup(repo => repo.Update(It.IsAny<Investment>()))
+        .Returns(investment);
+    
+        var controller = new InvestmentsController(mockInvestmentRepository.Object);        // Corrected the controller type to InvestmentsController                
+        // Act                
+        var result = await controller.PutInvestment(investment.Id, investment, CancellationToken.None);        // Corrected the method signature to match the controller method        
+        // Assert                
+        Assert.IsType<NoContentResult>(result);
+    }
+    
 }
