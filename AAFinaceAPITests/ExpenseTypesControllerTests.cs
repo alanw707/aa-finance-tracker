@@ -3,6 +3,7 @@ using AAExpenseTracker.Domain.Entities;
 using AAFinanceTracker.API.Controllers;
 using AAFinanceTracker.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Moq;
 
 namespace AAFinanceTracker.API.Tests;
@@ -13,26 +14,27 @@ public class ExpenseTypesControllerTests
     private ExpenseTypesController? _controller;
 
     [Fact]
-    public async Task AddExpenseTypesShouldCallExpensesTypeRepository()
+    public async Task PostExpenseTypesShouldCallExpensesTypeRepository()
     {
         // Arrange
-        var expenseTypes = new List<ExpenseType>
-        {
-            new() {Name="Credit", Description="Credit Card"},
-            new() {Name="Debit", Description="Debit Card"}
-         };
+        var expenseType = new ExpenseType() { Name = "Credit", Description = "Credit Card" };
 
         var repo = new Mock<IRepository<ExpenseType>>();
-
+        repo.Setup(repo => repo.Add(It.IsAny<ExpenseType>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(It.IsAny<EntityEntry<ExpenseType>>())
+            .Verifiable(Times.Once);
         // Inject mocked context into controller
         _controller = new ExpenseTypesController(repo.Object);
 
         // Act
-        var result = await _controller.PostExpenseType(expenseTypes[0], new CancellationToken());
+        var result = await _controller.PostExpenseType(expenseType, new CancellationToken());
 
-        // Assert
-        Assert.NotNull(result);
-        repo.Verify(r => r.Add(It.IsAny<ExpenseType>(), It.IsAny<CancellationToken>()), Times.Exactly(1));
+        // Assert        
+        Assert.IsType<CreatedAtActionResult>(result.Result);
+        var createdAtActionResult = result.Result as CreatedAtActionResult;
+        Assert.NotNull(createdAtActionResult);
+        Assert.Equivalent(expenseType, createdAtActionResult.Value);
+        repo.Verify(r => r.Add(It.IsAny<ExpenseType>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
