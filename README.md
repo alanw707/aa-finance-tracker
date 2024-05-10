@@ -45,6 +45,7 @@ Hi Welcome to my project! I created this project after Mint shutdown and I just 
 
 - EF Core is a new technology for me and it is a bit finicky, it is often difficult when working with it to understand the error messages and find the cause of the error. I am still learning the best practices for using it and I am confident that I will be able to overcome these challenges as I continue to work on the project.
 
+  - CLI tool is not user friendly
   - Updating Database Schemas
   - Working with Forien Keys
 
