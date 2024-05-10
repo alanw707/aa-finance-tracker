@@ -3,6 +3,7 @@ using AAFinanceTracker.Controllers;
 using AAFinanceTracker.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Moq;
 
 namespace AAFinanceTracker.API.Tests;
@@ -143,7 +144,7 @@ public class InvestmentsTypesControllerTests
         investmentTypeRepositoryMock.Verify(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
         Assert.IsType<BadRequestResult>(result);
     }
-  
+
     [Fact]
     public async Task DeleteInvestmentType_ValidName_ReturnsNoContent()
     {
@@ -183,5 +184,30 @@ public class InvestmentsTypesControllerTests
         Assert.IsType<NotFoundResult>(result);
         investmentTypeRepositoryMock.Verify(r => r.Delete(It.IsAny<InvestmentType>()), Times.Never);
         investmentTypeRepositoryMock.Verify(r => r.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
+    }
+
+    // Implement logic in this comment section for a unit test for the InvestmentTypes Post controller.
+    [Fact]
+    public async Task PostInvestmentType_ValidModel_ReturnsCreatedAtActionResult()
+    {
+        // Arrange
+        var newInvestmentType = new InvestmentType { TypeName = "NewType" };
+        var investmentTypeRepositoryMock = new Mock<IRepository<InvestmentType>>();
+        investmentTypeRepositoryMock
+            .Setup(repo => repo.Add(newInvestmentType, CancellationToken.None))
+            .ReturnsAsync(It.IsAny<EntityEntry<InvestmentType>>());
+        investmentTypeRepositoryMock
+            .Setup(repo => repo.SaveChangesAsync(CancellationToken.None))
+            .ReturnsAsync(1);
+        var controller = new InvestmentTypesController(investmentTypeRepositoryMock.Object);
+
+        // Act
+        var result = await controller.PostInvestmentType(newInvestmentType, CancellationToken.None);
+
+        // Assert
+        investmentTypeRepositoryMock.Verify(r => r.Add(newInvestmentType, CancellationToken.None), Times.Once);
+        investmentTypeRepositoryMock.Verify(r => r.SaveChangesAsync(CancellationToken.None), Times.Once);
+        Assert.IsType<CreatedAtActionResult>(result.Result);
+        Assert.Equal(newInvestmentType, (result.Result as CreatedAtActionResult)?.Value);
     }
 }
