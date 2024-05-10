@@ -72,11 +72,16 @@ public class InvestmentsControllerTests
     public async Task Post_ShouldCreateANewInvestment()
     {
         // Arrange
-        var investmentModel = new InvestmentModel() { InvestmentTypeName = "Stock", InitialInvestment = 500 };
-        var investment = new Investment() { InvestmentTypeName = "Stock", InitialInvestment = 500 };
+        var investmentType = new InvestmentType() { TypeName = "Stock" };
+        var investmentModel = new InvestmentModel() { InvestmentType = investmentType, InitialInvestment = 500 };
+
+        var investment = new Investment() { Type = investmentType, InitialInvestment = 500 };
 
         var mockInvestmentRepository = new Mock<IRepository<Investment>>();
+        var mockInvestmentTypeRepository = new Mock<IRepository<InvestmentType>>();
 
+        mockInvestmentTypeRepository.Setup(repo => repo.Get(investmentType.TypeName, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(investmentType);
         mockInvestmentRepository.Setup(repo => repo.Add(investment, It.IsAny<CancellationToken>()))
             .ReturnsAsync(It.IsAny<EntityEntry<Investment>>());
 
@@ -84,7 +89,7 @@ public class InvestmentsControllerTests
         var controller = new InvestmentsController(mockInvestmentRepository.Object);
 
         // Act                
-        var result = await controller.PostInvestment(investmentModel, It.IsAny<CancellationToken>());
+        var result = await controller.PostInvestment(investmentModel, mockInvestmentTypeRepository.Object, It.IsAny<CancellationToken>());
 
         // Assert        
         // Assert that the result is a successful CreatedAtActionResult
@@ -93,7 +98,7 @@ public class InvestmentsControllerTests
         // Assert that the result contains the correct investment
         var createdAtActionResult = result.Result as CreatedAtActionResult;
         Assert.NotNull(createdAtActionResult);
-        Assert.Equivalent(investment, createdAtActionResult.Value);
+        Assert.Equal(investment.Type.TypeName, ((Investment)createdAtActionResult.Value!).InvestmentTypeName);
     }
 
     // // Test the Update method of the InvestmentController class
@@ -108,7 +113,7 @@ public class InvestmentsControllerTests
 
         var controller = new InvestmentsController(mockInvestmentRepository.Object);        // Corrected the controller type to InvestmentsController                
         // Act                
-        var result = await controller.PutInvestment(investment.Id, investment, CancellationToken.None);        // Corrected the method signature to match the controller method        
+        var result = await controller.PutInvestment(investment.Id, investment, CancellationToken.None);
         // Assert                
         Assert.IsType<NoContentResult>(result);
     }

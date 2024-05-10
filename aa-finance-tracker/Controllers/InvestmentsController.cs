@@ -66,13 +66,25 @@ namespace AAFinanceTracker.Controllers
 
         // POST: api/Investments        
         [HttpPost]
-        public async Task<ActionResult<Investment>> PostInvestment(InvestmentModel investmentModel, CancellationToken cancellationToken)
+        public async Task<ActionResult<Investment>> PostInvestment(InvestmentModel investmentModel, [FromServices] IRepository<InvestmentType> _investmentTypesRepsitory, CancellationToken cancellationToken)
         {
+            // Check if the investment type already exists
+            if (investmentModel is null) return BadRequest("Investment model is null");
+
             var investment = new Investment()
             {
-                InvestmentTypeName = investmentModel.InvestmentTypeName,
+                DateAdded = DateTime.Now,
                 InitialInvestment = investmentModel.InitialInvestment
             };
+
+            if (await _investmentTypesRepsitory.Get(investmentModel.InvestmentType.TypeName, cancellationToken) is not null)
+            {
+                investment.InvestmentTypeName = investmentModel.InvestmentType.TypeName;
+            }
+            else
+            {
+                investment.Type = investmentModel.InvestmentType;
+            }
 
             await _investmentRepository.Add(investment, cancellationToken);
 

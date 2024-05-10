@@ -16,7 +16,7 @@ namespace AAExpenseTracker.Domain.Data
 
         public DbSet<Investment> Investments { get; set; }
 
-        public DbSet<InvestmentType> InvestmentsTypes { get; set; }
+        public DbSet<InvestmentType> InvestmentTypes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
