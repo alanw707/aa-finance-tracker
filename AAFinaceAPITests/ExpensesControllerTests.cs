@@ -135,17 +135,24 @@ public class ExpensesControllerTests
         };
 
         var mockExpenseRepository = new Mock<IRepository<Expense>>();
-
         mockExpenseRepository
          .Setup(repo => repo.Add(It.IsAny<Expense>(), CancellationToken.None))
          .ReturnsAsync(It.IsAny<EntityEntry<Expense>>());
 
+        var mockExpenseCategoryRepository = new Mock<IRepository<ExpenseCategory>>();
+        mockExpenseCategoryRepository.Setup(repo => repo.Get(expectedModel.CategoryName, It.IsAny<CancellationToken>()))
+        .ReturnsAsync(new ExpenseCategory { Name = expectedModel.CategoryName });
+
+        var mockExpenseTypeRepository = new Mock<IRepository<ExpenseType>>();
+        mockExpenseTypeRepository.Setup(repo => repo.Get(expectedModel.TypeName, It.IsAny<CancellationToken>()))
+        .ReturnsAsync(new ExpenseType { Name = expectedModel.TypeName });
 
         var controller = new ExpensesController(mockExpenseRepository.Object);
 
-        // Act
-        var result = await controller.PostExpense(expectedModel, new CancellationToken());
-
+        var result = await controller.PostExpense(expectedModel,
+        mockExpenseTypeRepository.Object,
+        mockExpenseCategoryRepository.Object,
+        CancellationToken.None);
         // Assert        
         mockExpenseRepository.Verify(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
 

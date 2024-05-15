@@ -81,18 +81,14 @@ namespace AAFinanceTracker.API.Controllers
                 Amount = expenseModel.Amount
             };
 
-            var existingExpenseType = (await expenseTypesRepo
-                .Find(c => c.Name == expenseModel.TypeName, cancellationToken))
-                .SingleOrDefault();
+            var existingExpenseType = await expenseTypesRepo.Get(expenseModel.CategoryName, cancellationToken);
 
             if (existingExpenseType != null)
             {
                 expense.ExpenseType = existingExpenseType;
             }
 
-            var existingExpenseCategory = (await expenseCategoryRepo
-               .Find(c => c.Name == expenseModel.CategoryName, cancellationToken))
-               .SingleOrDefault();
+            var existingExpenseCategory = await expenseCategoryRepo.Get(expenseModel.CategoryName, cancellationToken);
 
             if (existingExpenseCategory != null)
             {
