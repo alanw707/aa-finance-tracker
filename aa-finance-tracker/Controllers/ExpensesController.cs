@@ -68,17 +68,36 @@ namespace AAFinanceTracker.API.Controllers
         // POST: api/Expenses
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ExpenseModel>> PostExpense(ExpenseModel expenseModel, CancellationToken cancellationToken)
+        public async Task<ActionResult<ExpenseModel>> PostExpense(ExpenseModel expenseModel, [FromServices] IRepository<ExpenseType> expenseTypesRepo, [FromServices] IRepository<ExpenseCategory> expenseCategoryRepo, CancellationToken cancellationToken)
         {
+
+            if (expenseModel is null) { return BadRequest("ExpenseModel is null"); }
+
             var expense = new Expense()
             {
-                ExpenseCategory = new ExpenseCategory() { Name = expenseModel.CategoryName },
-                ExpenseType = new ExpenseType() { Name = expenseModel.TypeName },
                 ExpenseCategoryName = expenseModel.CategoryName,
                 ExpenseTypeName = expenseModel.TypeName,
                 Comments = expenseModel.Comments,
                 Amount = expenseModel.Amount
             };
+
+            var existingExpenseType = (await expenseTypesRepo
+                .Find(c => c.Name == expenseModel.TypeName, cancellationToken))
+                .SingleOrDefault();
+
+            if (existingExpenseType != null)
+            {
+                expense.ExpenseType = existingExpenseType;
+            }
+
+            var existingExpenseCategory = (await expenseCategoryRepo
+               .Find(c => c.Name == expenseModel.CategoryName, cancellationToken))
+               .SingleOrDefault();
+
+            if (existingExpenseCategory != null)
+            {
+                expense.ExpenseCategory = existingExpenseCategory;
+            }
 
             await _expenseRepository.Add(expense, cancellationToken);
 
