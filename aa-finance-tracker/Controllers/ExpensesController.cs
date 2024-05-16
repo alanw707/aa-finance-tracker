@@ -17,7 +17,8 @@ namespace AAFinanceTracker.API.Controllers
             var expenseRepository = services.GetRequiredService<IExpenseRepository>();
             var expenses = await expenseRepository.GetExpensesByTimeframe(startDate, endDate, cancellationToken);
 
-            if (expenses.Count == 0) return NotFound(); // Handle not found scenario here.
+            if (expenses.Count() == 0) return NotFound(); // Handle not found scenario here.
+
 
             return Ok(expenses);
         }
@@ -74,12 +75,13 @@ namespace AAFinanceTracker.API.Controllers
         // POST: api/Expenses
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ExpenseModel>> PostExpense(ExpenseModel expenseModel, [FromServices] IRepository<ExpenseType> expenseTypesRepo, [FromServices] IRepository<ExpenseCategory> expenseCategoryRepo, CancellationToken cancellationToken)
+        public async Task<ActionResult<ExpenseModel>> PostExpense(ExpenseModel expenseModel, CancellationToken cancellationToken)
         {
 
             var expenseRepository = services.GetRequiredService<IRepository<Expense>>();
             var expenseTypesRepo = services.GetRequiredService<IRepository<ExpenseType>>();
             var expenseCategoryRepo = services.GetRequiredService<IRepository<ExpenseCategory>>();
+
 
             if (expenseModel is null) { return BadRequest("ExpenseModel is null"); }
 
@@ -133,6 +135,8 @@ namespace AAFinanceTracker.API.Controllers
                 return NotFound();
             }
 
+            expenseRepository.Delete(expense.Single());
+            await expenseRepository.SaveChangesAsync(cancellationToken);
             expenseRepository.Delete(expense.Single());
             await expenseRepository.SaveChangesAsync(cancellationToken);
 
