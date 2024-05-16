@@ -45,7 +45,7 @@ Hi Welcome to my project! I created this project after Mint shutdown and I just 
 
   - CLI tool is not user friendly
   - Updating Database Schemas
-  - Working with Forien Keys
+  - Working with Forien Keys while saving entity with relationships
 
 - Unit Testing
   - Test driven development
