@@ -19,9 +19,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IRepository<ExpenseCategory>, ExpenseCategoryRepository>();
 builder.Services.AddTransient<IRepository<ExpenseType>, ExpenseTypeRepository>();
 builder.Services.AddTransient<IRepository<Expense>, ExpenseRepository>();
+builder.Services.AddTransient<IExpenseRepository, ExpenseRepository>();
 builder.Services.AddTransient<IRepository<Investment>, InvestmentRepository>();
 builder.Services.AddTransient<IRepository<InvestmentType>, InvestmentTypeRepository>();
-
+// ... other services and configurations ...
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
