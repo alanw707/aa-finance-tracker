@@ -17,6 +17,8 @@ namespace AAFinanceTracker.API.Controllers
             var expenseRepository = services.GetRequiredService<IExpenseRepository>();
             var expenses = await expenseRepository.GetExpensesByTimeframe(startDate, endDate, cancellationToken);
 
+            if (expenses.Count == 0) return NotFound(); // Handle not found scenario here.
+
             return Ok(expenses);
         }
 
@@ -86,14 +88,19 @@ namespace AAFinanceTracker.API.Controllers
                 ExpenseCategoryName = expenseModel.CategoryName,
                 ExpenseTypeName = expenseModel.TypeName,
                 Comments = expenseModel.Comments,
-                Amount = expenseModel.Amount
+                Amount = expenseModel.Amount,
+                Date = DateTime.Now
             };
 
-            var existingExpenseType = await expenseTypesRepo.Get(expenseModel.CategoryName, cancellationToken);
+            var existingExpenseType = await expenseTypesRepo.Get(expenseModel.TypeName, cancellationToken);
 
             if (existingExpenseType != null)
             {
                 expense.ExpenseType = existingExpenseType;
+            }
+            else
+            {
+                expense.ExpenseType = new ExpenseType() { Name = expenseModel.TypeName };
             }
 
             var existingExpenseCategory = await expenseCategoryRepo.Get(expenseModel.CategoryName, cancellationToken);
@@ -101,6 +108,10 @@ namespace AAFinanceTracker.API.Controllers
             if (existingExpenseCategory != null)
             {
                 expense.ExpenseCategory = existingExpenseCategory;
+            }
+            else
+            {
+                expense.ExpenseCategory = new ExpenseCategory() { Name = expenseModel.CategoryName };
             }
 
             await expenseRepository.Add(expense, cancellationToken);
