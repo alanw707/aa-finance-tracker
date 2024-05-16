@@ -115,7 +115,7 @@ public class ExpenseTypesControllerTests
         var repoMock = new Mock<IRepository<ExpenseType>>();
 
         repoMock.Setup(r => r.Find(et => et.Name == typeName, It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new List<ExpenseType>()); // Simulate not finding any expense type
+            .ReturnsAsync([]); // Simulate not finding any expense type
 
         var controller = new ExpenseTypesController(repoMock.Object);
 
