@@ -38,6 +38,7 @@ Hi Welcome to my project! I created this project after Mint shutdown and I just 
   - Implement Budgeting Tools with Charts and Graphs.
   - Implement Financial Planning with Goal Setting and Budgeting.
   - Implement Security and Authentication.
+  - Implement Dapper instead of EF Core (Possibly)
 
 ## Challenges
 
@@ -46,6 +47,7 @@ Hi Welcome to my project! I created this project after Mint shutdown and I just 
   - CLI tool is not user friendly
   - Updating Database Schemas
   - Working with Forien Keys while saving entity with relationships
+  - Considering switching to Dapper in Phase 2
 
 - Unit Testing
   - Test driven development
