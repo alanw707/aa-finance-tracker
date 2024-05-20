@@ -2,6 +2,7 @@
 using AAFinanceTracker.API.Controllers;
 using AAFinanceTracker.API.Models;
 using AAFinanceTracker.Infrastructure.Repositories;
+using AAFinanceTracker.Infrastructure.Repositories.Expense;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.DependencyInjection;

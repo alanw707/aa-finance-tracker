@@ -1,6 +1,7 @@
 using AAExpenseTracker.Domain.Entities;
 using AAFinanceTracker.Infrastructure.Repositories;
 using AAFinanceTracker.API.Controllers;
+using AAFinanceTracker.Infrastructure.Repositories.Expense;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
@@ -37,11 +38,9 @@ public class ExpenseStatsControllerTests
         // Act
         var result = await expenseStatsController.GetExpensesByCategoryYear(categoryName, year, CancellationToken.None);
 
-        // Assert
-        Assert.IsType<OkObjectResult>(result.Result);
+        // Assert        
         Assert.NotNull(result);
-        var okResult = result.Result as OkObjectResult;
-        Assert.NotNull(okResult);
+        var okResult = Assert.IsAssignableFrom<OkObjectResult>(result.Result);
         Assert.Equal(expenses, okResult.Value);
     }
 
@@ -53,12 +52,12 @@ public class ExpenseStatsControllerTests
         int year = 2023;
 
         expenseRepository.Setup(repo => repo.GetExpensesByCategoryYear(category, year, CancellationToken.None))
-             .ReturnsAsync(new List<Expense>());        
+             .ReturnsAsync(new List<Expense>());
 
         // Act
         var result = await expenseStatsController.GetExpensesByCategoryYear(category, year, CancellationToken.None);
 
         // Assert
         Assert.IsType<NotFoundResult>(result.Result);
-    }  
+    }
 }
