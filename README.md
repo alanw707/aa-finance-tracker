@@ -40,15 +40,26 @@ Hi Welcome to my project! I created this project after Mint shutdown and I just 
   - Implement Security and Authentication.
   - Implement Dapper instead of EF Core (Possibly)
 
-## Challenges
+## AIP Topics and Challenges
 
-- EF Core is a new technology for me and it is a bit finicky, it is often difficult when working with it to understand the error messages and find the cause of the error. I am still learning the best practices for using it and I am confident that I will be able to overcome these challenges as I continue to work on the project.
-
+### EF Core
+  - Makes creating database and query database very easy if done right
   - CLI tool is not user friendly
   - Updating Database Schemas
   - Working with Forien Keys while saving entity with relationships
   - Considering switching to Dapper in Phase 2
 
-- Unit Testing
-  - Test driven development
-  - Figuring out how to plan and what to implement each test case from Arrange, Act to Assert.
+### Repository Pattern
+- It provides a layer of abstraction between the application's business logic and the underlying data layer, allowing for more flexibility in changing the underlying technology.
+- With a Repository pattern in place, it becomes easier to test the application's business logic independently of the underlying data storage mechanism
+- Can over-engineering things if not done correctly
+- Data Retrieval Complexity: When implementing a Repository pattern, you may encounter difficulties in retrieving specific data or performing complex queries, which can lead to additional complexity and maintenance costs.
+
+### Unit Test
+- Test driven development
+- Figuring out how to plan and what to implement each test case from Arrange, Act to Assert.
+
+### Dependency Injection
+- DI helps reduce coupling between components, making it easier to modify or replace individual parts without affecting other components.
+- DI enables better testability by allowing you to isolate dependencies and mock them for testing purposes.
+- High learning curve, Dependency inversion concept is hard to wrap your head around for new developers.
