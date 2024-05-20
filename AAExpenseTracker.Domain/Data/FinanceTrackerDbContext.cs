@@ -8,15 +8,15 @@ namespace AAExpenseTracker.Domain.Data
     public class FinanceTrackerDbContext(IConfiguration _configuration, DbContextOptions<FinanceTrackerDbContext> options)
             : DbContext(options)
     {
-        public virtual DbSet<ExpenseType> ExpenseTypes { get; set; }
+        public virtual DbSet<ExpenseType>? ExpenseTypes { get; set; }
 
-        public DbSet<ExpenseCategory> ExpensesCategories { get; set; }
+        public DbSet<ExpenseCategory>? ExpensesCategories { get; set; }
 
-        public DbSet<Expense> Expenses { get; set; }
+        public DbSet<Expense>? Expenses { get; set; }
 
-        public DbSet<Investment> Investments { get; set; }
+        public DbSet<Investment>? Investments { get; set; }
 
-        public DbSet<InvestmentType> InvestmentTypes { get; set; }
+        public DbSet<InvestmentType>? InvestmentTypes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
