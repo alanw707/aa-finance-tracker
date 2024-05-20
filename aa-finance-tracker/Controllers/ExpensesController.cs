@@ -19,8 +19,6 @@ public class ExpensesController(IServiceProvider services) : ControllerBase
         var expenses = await expenseRepository.GetExpensesByTimeframe(startDate, endDate, cancellationToken);
 
         if (expenses.Count == 0) return NotFound(); // Handle not found scenario here.
-        if (expenses.Count() == 0) return NotFound(); // Handle not found scenario here.
-
 
         return Ok(expenses);
     }
@@ -77,7 +75,7 @@ public class ExpensesController(IServiceProvider services) : ControllerBase
     // POST: api/Expenses
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPost]
-    public async Task<ActionResult<ExpenseModel>> PostExpense(ExpenseModel expenseModel, CancellationToken cancellationToken)
+    public async Task<ActionResult<ExpenseModel>> PostExpense(ExpenseModel? expenseModel, CancellationToken cancellationToken)
     {
 
         var expenseRepository = services.GetRequiredService<IRepository<Expense>>();
@@ -98,14 +96,7 @@ public class ExpensesController(IServiceProvider services) : ControllerBase
 
         var existingExpenseType = await expenseTypesRepo.Get(expenseModel.TypeName, cancellationToken);
 
-        if (existingExpenseType != null)
-        {
-            expense.ExpenseType = existingExpenseType;
-        }
-        else
-        {
-            expense.ExpenseType = new ExpenseType() { Name = expenseModel.TypeName };
-        }
+        expense.ExpenseType = existingExpenseType ?? new ExpenseType() { Name = expenseModel.TypeName };
 
         var existingExpenseCategory = await expenseCategoryRepo.Get(expenseModel.CategoryName, cancellationToken);
 
@@ -137,10 +128,6 @@ public class ExpensesController(IServiceProvider services) : ControllerBase
             return NotFound();
         }
 
-        expenseRepository.Delete(expense.Single());
-        await expenseRepository.SaveChangesAsync(cancellationToken);
-        expenseRepository.Delete(expense.Single());
-        await expenseRepository.SaveChangesAsync(cancellationToken);
         expenseRepository.Delete(expense.Single());
         await expenseRepository.SaveChangesAsync(cancellationToken);
 
