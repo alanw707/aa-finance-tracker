@@ -2,6 +2,7 @@
 using AAFinanceTracker.API.Models;
 using AAExpenseTracker.Domain.Entities;
 using AAFinanceTracker.Infrastructure.Repositories;
+using AAFinanceTracker.Infrastructure.Repositories.Expense;
 
 namespace AAFinanceTracker.API.Controllers;
 

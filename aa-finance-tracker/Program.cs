@@ -1,6 +1,7 @@
 using AAExpenseTracker.Domain.Data;
 using AAExpenseTracker.Domain.Entities;
 using AAFinanceTracker.Infrastructure.Repositories;
+using AAFinanceTracker.Infrastructure.Repositories.Expense;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
