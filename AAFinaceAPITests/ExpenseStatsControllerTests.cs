@@ -1,5 +1,4 @@
 using AAExpenseTracker.Domain.Entities;
-using AAFinanceTracker.Infrastructure.Repositories;
 using AAFinanceTracker.API.Controllers;
 using AAFinanceTracker.Infrastructure.Repositories.Expense;
 using Microsoft.AspNetCore.Mvc;
@@ -26,11 +25,11 @@ public class ExpenseStatsControllerTests
         // Arrange
         string categoryName = "Food";
         int year = 2023;
-        List<Expense> expenses = new List<Expense>()
-        {
-            new Expense { ExpenseCategoryName = categoryName, ExpenseTypeName = "Credit", Amount = 100, Date = new DateTime(year, 10, 15) },
-            new Expense { ExpenseCategoryName = categoryName, ExpenseTypeName = "Cash", Amount = 50, Date = new DateTime(year, 10, 20) }
-        };
+        List<Expense> expenses =
+        [
+            new() { ExpenseCategoryName = categoryName, ExpenseTypeName = "Credit", Amount = 100, Date = new DateTime(year, 10, 15,0,0,0, DateTimeKind.Local) },
+            new() { ExpenseCategoryName = categoryName, ExpenseTypeName = "Cash", Amount = 50, Date = new DateTime(year, 10, 20,0,0,0,DateTimeKind.Local) }
+        ];
 
         expenseRepository.Setup(repo => repo.GetExpensesByCategoryYear(categoryName, year, CancellationToken.None))
             .ReturnsAsync(expenses);
@@ -52,7 +51,7 @@ public class ExpenseStatsControllerTests
         int year = 2023;
 
         expenseRepository.Setup(repo => repo.GetExpensesByCategoryYear(category, year, CancellationToken.None))
-             .ReturnsAsync(new List<Expense>());
+             .ReturnsAsync([]);
 
         // Act
         var result = await expenseStatsController.GetExpensesByCategoryYear(category, year, CancellationToken.None);

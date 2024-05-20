@@ -16,8 +16,8 @@ public class InvestmentsTypesControllerTests
         // Arrange
         var expectedInvestmentTypes = new List<InvestmentType>()
         {
-            new InvestmentType { TypeName = "Stocks" },
-            new InvestmentType { TypeName = "Bonds" }
+            new() { TypeName = "Stocks" },
+            new() { TypeName = "Bonds" }
         };
 
         var mockRepository = new Mock<IRepository<InvestmentType>>();

@@ -19,8 +19,6 @@ public class ExpensesController(IServiceProvider services) : ControllerBase
         var expenses = await expenseRepository.GetExpensesByTimeframe(startDate, endDate, cancellationToken);
 
         if (expenses.Count == 0) return NotFound(); // Handle not found scenario here.
-        if (expenses.Count() == 0) return NotFound(); // Handle not found scenario here.
-
 
         return Ok(expenses);
     }
@@ -147,7 +145,7 @@ public class ExpensesController(IServiceProvider services) : ControllerBase
         return NoContent();
     }
 
-    private bool ExpenseExists(int id, IRepository<Expense> expenseRepository)
+    private static bool ExpenseExists(int id, IRepository<Expense> expenseRepository)
     {
         return expenseRepository.Find(e => e.ExpenseId == id, CancellationToken.None).Result.Count != 0;
     }

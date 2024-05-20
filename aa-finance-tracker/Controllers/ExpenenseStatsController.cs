@@ -1,5 +1,4 @@
 ﻿using AAExpenseTracker.Domain.Entities;
-using AAFinanceTracker.Infrastructure.Repositories;
 using AAFinanceTracker.Infrastructure.Repositories.Expense;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,15 +6,8 @@ namespace AAFinanceTracker.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ExpenseStatsController : ControllerBase
+public class ExpenseStatsController(IExpenseRepository _expenseRepository) : ControllerBase
 {
-    private readonly IExpenseRepository _expenseRepository;
-
-    public ExpenseStatsController(IExpenseRepository expenseRepository)
-    {
-        _expenseRepository = expenseRepository;
-    }
-
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Expense>>> GetExpensesByCategoryYear(string category, int year, CancellationToken cancellationToken)
     {

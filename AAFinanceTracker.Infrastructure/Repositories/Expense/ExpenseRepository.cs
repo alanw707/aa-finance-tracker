@@ -1,5 +1,5 @@
-﻿using AAExpenseTracker.Domain.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using AAExpenseTracker.Domain.Data;
 
 namespace AAFinanceTracker.Infrastructure.Repositories.Expense;
 
