@@ -128,6 +128,6 @@ public class InvestmentsController(IRepository<Investment> _investmentRepository
     {
         return _investmentRepository.Find(e => e.Id == Id, cancellationToken)
         .Result
-        .Any();
+        .Count != 0;
     }
 }

@@ -24,7 +24,7 @@ public class ExpenseTypesController(IRepository<ExpenseType> repo) : ControllerB
     {
         var expenseType = await repo.Find(et => et.Name == id, token);
 
-        if (expenseType.Count() == 0)
+        if (expenseType.Count == 0)
         {
             return NotFound();
         }

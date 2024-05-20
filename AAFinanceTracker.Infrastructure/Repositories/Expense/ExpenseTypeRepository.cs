@@ -1,10 +1,10 @@
 ﻿using AAExpenseTracker.Domain.Data;
 using AAExpenseTracker.Domain.Entities;
 
-namespace AAFinanceTracker.Infrastructure.Repositories.Expense
+namespace AAFinanceTracker.Infrastructure.Repositories.Expense;
+
+public class ExpenseTypeRepository(FinanceTrackerDbContext context) 
+    : GenericRepository<ExpenseType>(context)
 {
-    public class ExpenseTypeRepository(FinanceTrackerDbContext context) 
-        : GenericRepository<ExpenseType>(context)
-    {
-    }
 }
+

@@ -40,8 +40,8 @@ public class InvestmentTypesController(IRepository<InvestmentType> _investmentTy
     }
 
     // PUT: api/InvestmentTypes/5
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    [HttpPut("{type}")]
+    // To protect from over-posting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [HttpPut("{typeName}")]
     public async Task<IActionResult> PutInvestmentType(string typeName, InvestmentType investmentType, CancellationToken cancellationToken)
     {
         if (typeName != investmentType.TypeName)
@@ -116,7 +116,7 @@ public class InvestmentTypesController(IRepository<InvestmentType> _investmentTy
     {
         var foundTypes = _investmentTypeRepository.Find(e => e.TypeName == typeName, cancellationToken);
 
-        if (foundTypes.Result is null || !foundTypes.Result.Any())
+        if (foundTypes.Result is null || foundTypes.Result.Count == 0)
         {
             return false;
         }
