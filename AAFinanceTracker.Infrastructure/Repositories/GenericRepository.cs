@@ -31,9 +31,9 @@ public abstract class GenericRepository<T>(DbContext context) : IRepository<T> w
             .ToListAsync(token);
     }
 
-    public virtual async Task<T> Get(string id, CancellationToken cancellationToken)
+    public virtual async Task<T> Get(string id, CancellationToken token)
     {
-        T? entity = await context.FindAsync<T>(id, cancellationToken);
+        var entity = await context.FindAsync<T>(id, token);
 
         return entity!;
     }

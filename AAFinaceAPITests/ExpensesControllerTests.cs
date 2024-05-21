@@ -1,4 +1,5 @@
-﻿using AAExpenseTracker.Domain.Entities;
+﻿using System.Globalization;
+using AAExpenseTracker.Domain.Entities;
 using AAFinanceTracker.API.Controllers;
 using AAFinanceTracker.API.Models;
 using AAFinanceTracker.Infrastructure.Repositories;
@@ -12,11 +13,11 @@ namespace AAFinanceTracker.API.Tests;
 
 public class ExpensesControllerTests
 {
-    private Mock<IExpenseRepository> expenseRepositoryMock;
-    private Mock<IRepository<Expense>> expenseGenericRepoMock;
-    private Mock<IRepository<ExpenseType>> expenseTypesRepoMock;
-    private Mock<IRepository<ExpenseCategory>> expenseCategoryRepoMock;
-    private ExpensesController expensesController;
+    private readonly Mock<IExpenseRepository> expenseRepositoryMock;
+    private readonly Mock<IRepository<Expense>> expenseGenericRepoMock;
+    private readonly Mock<IRepository<ExpenseType>> expenseTypesRepoMock;
+    private readonly Mock<IRepository<ExpenseCategory>> expenseCategoryRepoMock;
+    private readonly ExpensesController expensesController;
 
     public ExpensesControllerTests()
     {
@@ -37,13 +38,13 @@ public class ExpensesControllerTests
     public async Task GetExpenses_ValidDateRange_ReturnsOkResult()
     {
         // Arrange
-        DateTime startDate = new DateTime(2023, 10, 1);
-        DateTime endDate = new DateTime(2023, 10, 31);
-        List<Expense> expenses = new List<Expense>()
-            {
+        DateTime startDate = new(2023, 10, 1);
+        DateTime endDate = new(2023, 10, 31);
+        List<Expense> expenses =
+            [
                 new Expense { ExpenseId = 1, Amount = 100, Date = new DateTime(2023, 10, 15), ExpenseCategoryName = "Travel", ExpenseTypeName="Credit Card" },
                 new Expense { ExpenseId = 2, Amount = 50, Date = new DateTime(2023, 10, 20), ExpenseCategoryName = "Grocery", ExpenseTypeName="Cash" }
-            };
+            ];
         expenseRepositoryMock.Setup(repo => repo.GetExpensesByTimeframe(startDate, endDate, It.IsAny<CancellationToken>()))
             .ReturnsAsync(expenses);
 
@@ -61,8 +62,8 @@ public class ExpensesControllerTests
     public async Task GetExpenses_InvalidDateRange_ReturnsNotFoundResult()
     {
         // Arrange
-        DateTime startDate = new DateTime(2023, 11, 1);
-        DateTime endDate = new DateTime(2023, 11, 30);
+        DateTime startDate = new(2023, 11, 1, 0, 0, 0, DateTimeKind.Local);
+        DateTime endDate = new(2023, 11, 30, 0, 0, 0, DateTimeKind.Local);
         expenseRepositoryMock.Setup(repo => repo.GetExpensesByTimeframe(startDate, endDate, It.IsAny<CancellationToken>()))
             .ReturnsAsync([]);
 
