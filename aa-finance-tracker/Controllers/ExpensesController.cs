@@ -137,10 +137,6 @@ public class ExpensesController(IServiceProvider services) : ControllerBase
 
         expenseRepository.Delete(expense.Single());
         await expenseRepository.SaveChangesAsync(cancellationToken);
-        expenseRepository.Delete(expense.Single());
-        await expenseRepository.SaveChangesAsync(cancellationToken);
-        expenseRepository.Delete(expense.Single());
-        await expenseRepository.SaveChangesAsync(cancellationToken);
 
         return NoContent();
     }
