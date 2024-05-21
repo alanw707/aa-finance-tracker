@@ -29,10 +29,10 @@ Hi Welcome to my project! I created this project after Mint shutdown and I just 
   - Enitiy Frameowork Code First (EF Core) for data persistence.
   - .NET WEB API with basic CRUD
   - Implement Repository Pattern
-  - Implement Unit Testing and Code Coverage.
+  - Implement Unit Testing and increase code coverage.
 
 - Phase 2
-  - Implement CQRS
+  - Implement CQRS (Possibly)
   - Implement Client UI
   - Implement Banking Integration with Plaid API and Financial Data Providers API's.
   - Implement Budgeting Tools with Charts and Graphs.
