@@ -6,10 +6,12 @@ namespace AAFinanceTracker.Infrastructure.Repositories.Expense;
 public class ExpenseRepository(FinanceTrackerDbContext context)
 : GenericRepository<AAExpenseTracker.Domain.Entities.Expense>(context), IExpenseRepository
 {
-    public async Task<List<AAExpenseTracker.Domain.Entities.Expense>> GetExpensesByCategoryYear(string categoryName, int year, CancellationToken cancellationToken)
+    public async Task<List<AAExpenseTracker.Domain.Entities.Expense>> GetExpensesByCategoryYearMonth(string categoryName, int year,int? month, CancellationToken cancellationToken)
     {
         return await context.Set<AAExpenseTracker.Domain.Entities.Expense>()
-            .Where(expense => expense.ExpenseCategoryName == categoryName && expense.Date.Year == year)
+            .Where(expense => expense.ExpenseCategoryName == categoryName && 
+                    expense.Date.Year == year && 
+                    (month == null || expense.Date.Month == month))
             .ToListAsync(cancellationToken);
     }
 
