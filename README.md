@@ -32,13 +32,15 @@ Hi Welcome to my project! I created this project after Mint shutdown and I just 
   - Implement Unit Testing and increase code coverage.
 
 - Phase 2
-  - Implement CQRS
-  - Implement Caching
-  - Implement Client UI
   - Implement Banking Integration with Plaid API and Financial Data Providers API's.
+  - Implement CQRS  
+  - Implement Client UI  
   - Implement Budgeting Tools with Charts and Graphs.
+  - 
+- Phase 3
   - Implement Financial Planning with Goal Setting and Budgeting.
   - Implement Security and Authentication.
+  - Implement Caching
   - Implement Dapper instead of EF Core (Possibly)
 
 ## AIP Topics and Challenges
