@@ -32,7 +32,8 @@ Hi Welcome to my project! I created this project after Mint shutdown and I just 
   - Implement Unit Testing and increase code coverage.
 
 - Phase 2
-  - Implement CQRS (Possibly)
+  - Implement CQRS
+  - Implement Caching
   - Implement Client UI
   - Implement Banking Integration with Plaid API and Financial Data Providers API's.
   - Implement Budgeting Tools with Charts and Graphs.
