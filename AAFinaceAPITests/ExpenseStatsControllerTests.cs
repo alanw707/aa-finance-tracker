@@ -25,17 +25,18 @@ public class ExpenseStatsControllerTests
         // Arrange
         string categoryName = "Food";
         int year = 2023;
+        int month = 5;
         List<Expense> expenses =
         [
             new() { ExpenseCategoryName = categoryName, ExpenseTypeName = "Credit", Amount = 100, Date = new DateTime(year, 10, 15,0,0,0, DateTimeKind.Local) },
             new() { ExpenseCategoryName = categoryName, ExpenseTypeName = "Cash", Amount = 50, Date = new DateTime(year, 10, 20,0,0,0,DateTimeKind.Local) }
         ];
 
-        expenseRepository.Setup(repo => repo.GetExpensesByCategoryYear(categoryName, year, CancellationToken.None))
+        expenseRepository.Setup(repo => repo.GetExpensesByCategoryYearMonth(categoryName, year, month, CancellationToken.None))
             .ReturnsAsync(expenses);
 
         // Act
-        var result = await expenseStatsController.GetExpensesByCategoryYear(categoryName, year, CancellationToken.None);
+        var result = await expenseStatsController.GetExpensesByCategoryYearMonth(categoryName, year, month, CancellationToken.None);
 
         // Assert        
         Assert.NotNull(result);
@@ -50,11 +51,11 @@ public class ExpenseStatsControllerTests
         string category = "InvalidCategory";
         int year = 2023;
 
-        expenseRepository.Setup(repo => repo.GetExpensesByCategoryYear(category, year, CancellationToken.None))
+        expenseRepository.Setup(repo => repo.GetExpensesByCategoryYearMonth(category, year, null, CancellationToken.None))
              .ReturnsAsync([]);
 
         // Act
-        var result = await expenseStatsController.GetExpensesByCategoryYear(category, year, CancellationToken.None);
+        var result = await expenseStatsController.GetExpensesByCategoryYearMonth(category, year,null, CancellationToken.None);
 
         // Assert
         Assert.IsType<NotFoundResult>(result.Result);

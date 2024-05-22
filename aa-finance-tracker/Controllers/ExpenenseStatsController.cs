@@ -9,9 +9,9 @@ namespace AAFinanceTracker.API.Controllers;
 public class ExpenseStatsController(IExpenseRepository _expenseRepository) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Expense>>> GetExpensesByCategoryYear(string category, int year, CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<Expense>>> GetExpensesByCategoryYearMonth(string category, int year, int? month, CancellationToken cancellationToken)
     {
-        var expenses = await _expenseRepository.GetExpensesByCategoryYear(category, year, cancellationToken);
+        var expenses = await _expenseRepository.GetExpensesByCategoryYearMonth(category, year, month, cancellationToken);
 
         if (expenses.Count == 0)
         {
