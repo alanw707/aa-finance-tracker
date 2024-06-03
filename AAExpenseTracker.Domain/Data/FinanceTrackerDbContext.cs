@@ -9,13 +9,10 @@ namespace AAExpenseTracker.Domain.Data
             : DbContext(options)
     {
         public virtual DbSet<ExpenseType>? ExpenseTypes { get; set; }
-
         public DbSet<ExpenseCategory>? ExpensesCategories { get; set; }
-
         public DbSet<Expense>? Expenses { get; set; }
-
         public DbSet<Investment>? Investments { get; set; }
-
+        public DbSet<CustodianBank>? CustodianBanks { get; set; }
         public DbSet<InvestmentType>? InvestmentTypes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -53,6 +50,13 @@ namespace AAExpenseTracker.Domain.Data
 
             modelBuilder.Entity<InvestmentType>()
                .HasKey(k => k.TypeName);
+
+            modelBuilder.Entity<CustodianBank>()
+                .HasKey(k => k.Id);
+            modelBuilder.Entity<CustodianBank>()
+                .Property(c => c.Balance)
+                .HasColumnType("decimal(18,2)")
+                .IsRequired();
         }
 
     }
