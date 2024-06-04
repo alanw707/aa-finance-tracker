@@ -1,9 +1,25 @@
 ﻿using AAExpenseTracker.Domain.Data;
-using AAExpenseTracker.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Entities = AAExpenseTracker.Domain.Entities;
 
-namespace AAFinanceTracker.Infrastructure.Repositories;
+namespace AAFinanceTracker.Infrastructure.Repositories.Investment;
 
 public class InvestmentRepository(FinanceTrackerDbContext context)
-        : GenericRepository<Investment>(context)
-{ }
+        : GenericRepository<Entities.Investment>(context), IInvestmentRepository
+{             
+    public async Task<List<Entities.Investment>> GetInvestmentsByTypeYearMonth(string typeName, int year, int? month, CancellationToken cancellationToken)
+    {
+         return await context.Set<Entities.Investment>()
+            .Where(investment => investment.InvestmentTypeName == typeName && 
+                    investment.DateAdded.Year == year && (month == null || investment.DateAdded.Month == month))
+            .ToListAsync(cancellationToken);
+    }
+
+    public async Task<List<Entities.Investment>> GetInvestmentsTimeframe(DateTime startDate, DateTime endDate, CancellationToken cancellationToken)
+    {
+          return await context.Set<Entities.Investment>()
+            .Where(e => e.DateAdded >= startDate && e.DateAdded <= endDate)
+            .ToListAsync(cancellationToken);
+    }
+}
 

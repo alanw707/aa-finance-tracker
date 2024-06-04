@@ -7,6 +7,7 @@ public class Investment
 {
     public int Id { get; set; }
     public InvestmentType? Type { get; set; }
+
     [ForeignKey("TypeName")]
     public string? InvestmentTypeName { get; set; }
     public string? Description { get; set; }

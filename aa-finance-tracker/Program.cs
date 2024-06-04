@@ -1,7 +1,8 @@
 using AAExpenseTracker.Domain.Data;
-using AAExpenseTracker.Domain.Entities;
+using Entities = AAExpenseTracker.Domain.Entities;
 using AAFinanceTracker.Infrastructure.Repositories;
 using AAFinanceTracker.Infrastructure.Repositories.Expense;
+using AAFinanceTracker.Infrastructure.Repositories.Investment;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,13 +18,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<IRepository<ExpenseCategory>, ExpenseCategoryRepository>();
-builder.Services.AddTransient<IRepository<ExpenseType>, ExpenseTypeRepository>();
-builder.Services.AddTransient<IRepository<Expense>, ExpenseRepository>();
+builder.Services.AddTransient<IRepository<Entities.ExpenseCategory>, ExpenseCategoryRepository>();
+builder.Services.AddTransient<IRepository<Entities.ExpenseType>, ExpenseTypeRepository>();
+builder.Services.AddTransient<IRepository<Entities.Expense>, ExpenseRepository>();
+
 builder.Services.AddTransient<IExpenseRepository, ExpenseRepository>();
-builder.Services.AddTransient<IRepository<Investment>, InvestmentRepository>();
-builder.Services.AddTransient<IRepository<InvestmentType>, InvestmentTypeRepository>();
-// ... other services and configurations ...
+builder.Services.AddTransient<IRepository<Entities.Investment>, InvestmentRepository>();
+builder.Services.AddTransient<IRepository<Entities.InvestmentType>, InvestmentRepository>();
+// builder.Services.AddTransient<IInvestmentRepository, InvestmentRepository>();
+
+// Add repositories for other entities here
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
