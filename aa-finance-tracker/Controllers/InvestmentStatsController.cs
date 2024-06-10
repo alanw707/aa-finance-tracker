@@ -15,6 +15,11 @@ public class InvestmentStatsController : ControllerBase
     {
         var investments = await _investmentRepo.GetInvestmentsByTypeYearMonth(type, year, month, cancellationToken);
 
+        if (investments.Count == 0)
+        {
+            return NotFound();
+        }
+
         return Ok(investments);
     }
 }

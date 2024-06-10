@@ -24,8 +24,8 @@ builder.Services.AddTransient<IRepository<Entities.Expense>, ExpenseRepository>(
 
 builder.Services.AddTransient<IExpenseRepository, ExpenseRepository>();
 builder.Services.AddTransient<IRepository<Entities.Investment>, InvestmentRepository>();
-builder.Services.AddTransient<IRepository<Entities.InvestmentType>, InvestmentRepository>();
-// builder.Services.AddTransient<IInvestmentRepository, InvestmentRepository>();
+builder.Services.AddTransient<IRepository<Entities.InvestmentType>, InvestmentTypeRepository>();
+builder.Services.AddTransient<IInvestmentRepository, InvestmentRepository>();
 
 // Add repositories for other entities here
 var app = builder.Build();
