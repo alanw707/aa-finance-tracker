@@ -16,8 +16,8 @@ public class InvestmentsTypesControllerTests
         // Arrange
         var expectedInvestmentTypes = new List<InvestmentType>()
         {
-            new() { TypeName = "Stocks" },
-            new() { TypeName = "Bonds" }
+            new() { Name = "Stocks" },
+            new() { Name = "Bonds" }
         };
 
         var mockRepository = new Mock<IRepository<InvestmentType>>();
@@ -55,7 +55,7 @@ public class InvestmentsTypesControllerTests
     public async Task GetInvestmentType_ReturnsOk_WhenInvestmentTypeExists()
     {
         // Arrange
-        var investmentType = new InvestmentType { TypeName = "Bonds" };
+        var investmentType = new InvestmentType { Name = "Bonds" };
         var investmentTypeRepositoryMock = new Mock<IRepository<InvestmentType>>();
         investmentTypeRepositoryMock.Setup(r => r.Get("Bonds", It.IsAny<CancellationToken>()))
             .ReturnsAsync(investmentType);
@@ -78,7 +78,7 @@ public class InvestmentsTypesControllerTests
     public async Task PutInvestmentType_ReturnsNoContent_WhenInvestmentTypeExistsAndIsUpdated()
     {
         // Arrange        
-        var updatedInvestmentType = new InvestmentType { TypeName = "Bonds" };
+        var updatedInvestmentType = new InvestmentType { Name = "Bonds" };
         var investmentTypeRepositoryMock = new Mock<IRepository<InvestmentType>>();
 
         investmentTypeRepositoryMock.Setup(x => x.Update(updatedInvestmentType))
@@ -89,7 +89,7 @@ public class InvestmentsTypesControllerTests
         var controller = new InvestmentTypesController(investmentTypeRepositoryMock.Object);
 
         // Act
-        var result = await controller.PutInvestmentType(updatedInvestmentType.TypeName, updatedInvestmentType, CancellationToken.None);
+        var result = await controller.PutInvestmentType(updatedInvestmentType.Name, updatedInvestmentType, CancellationToken.None);
 
         // Assert        
         investmentTypeRepositoryMock.Verify(x => x.Update(updatedInvestmentType), Times.Once);
@@ -101,7 +101,7 @@ public class InvestmentsTypesControllerTests
     public async Task PutInvestmentType_ReturnsNotFound_WhenInvestmentTypeDoesNotExist()
     {
         // Arrange
-        var nonExistingInvestmentType = new InvestmentType { TypeName = "Bonds" };
+        var nonExistingInvestmentType = new InvestmentType { Name = "Bonds" };
 
         var investmentTypeRepositoryMock = new Mock<IRepository<InvestmentType>>();
 
@@ -113,7 +113,7 @@ public class InvestmentsTypesControllerTests
         var controller = new InvestmentTypesController(investmentTypeRepositoryMock.Object);
 
         // Act
-        var result = await controller.PutInvestmentType(nonExistingInvestmentType.TypeName, nonExistingInvestmentType, CancellationToken.None);
+        var result = await controller.PutInvestmentType(nonExistingInvestmentType.Name, nonExistingInvestmentType, CancellationToken.None);
 
         // Assert        
         investmentTypeRepositoryMock.Verify(x => x.Update(nonExistingInvestmentType), Times.Once);
@@ -125,21 +125,21 @@ public class InvestmentsTypesControllerTests
     public async Task PutInvestmentType_ReturnsBadRequest_WhenIdInRequestBodyDoesntMatchIdInUrl()
     {
         // Arrange
-        var existingInvestmentType = new InvestmentType { TypeName = "Stocks" };
-        var updatedInvestmentType = new InvestmentType { TypeName = "Bonds" };
+        var existingInvestmentType = new InvestmentType { Name = "Stocks" };
+        var updatedInvestmentType = new InvestmentType { Name = "Bonds" };
 
         var investmentTypeRepositoryMock = new Mock<IRepository<InvestmentType>>();
 
-        investmentTypeRepositoryMock.Setup(x => x.Get(existingInvestmentType.TypeName, It.IsAny<CancellationToken>()))
+        investmentTypeRepositoryMock.Setup(x => x.Get(existingInvestmentType.Name, It.IsAny<CancellationToken>()))
             .ReturnsAsync(existingInvestmentType);
 
         var controller = new InvestmentTypesController(investmentTypeRepositoryMock.Object);
 
         // Act
-        var result = await controller.PutInvestmentType(existingInvestmentType.TypeName, updatedInvestmentType, CancellationToken.None);
+        var result = await controller.PutInvestmentType(existingInvestmentType.Name, updatedInvestmentType, CancellationToken.None);
 
         // Assert
-        investmentTypeRepositoryMock.Verify(x => x.Get(existingInvestmentType.TypeName, It.IsAny<CancellationToken>()), Times.Never);
+        investmentTypeRepositoryMock.Verify(x => x.Get(existingInvestmentType.Name, It.IsAny<CancellationToken>()), Times.Never);
         investmentTypeRepositoryMock.Verify(x => x.Update(updatedInvestmentType), Times.Never);
         investmentTypeRepositoryMock.Verify(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
         Assert.IsType<BadRequestResult>(result);
@@ -149,10 +149,10 @@ public class InvestmentsTypesControllerTests
     public async Task DeleteInvestmentType_ValidName_ReturnsNoContent()
     {
         // Arrange
-        var investmentType = new InvestmentType { TypeName = "TestType" };
+        var investmentType = new InvestmentType { Name = "TestType" };
         var investmentTypeRepositoryMock = new Mock<IRepository<InvestmentType>>();
         investmentTypeRepositoryMock
-            .Setup(repo => repo.Get(investmentType.TypeName, CancellationToken.None))
+            .Setup(repo => repo.Get(investmentType.Name, CancellationToken.None))
             .ReturnsAsync(investmentType);
 
         var controller = new InvestmentTypesController(investmentTypeRepositoryMock.Object);
@@ -191,7 +191,7 @@ public class InvestmentsTypesControllerTests
     public async Task PostInvestmentType_ValidModel_ReturnsCreatedAtActionResult()
     {
         // Arrange
-        var newInvestmentType = new InvestmentType { TypeName = "NewType" };
+        var newInvestmentType = new InvestmentType { Name = "NewType" };
         var investmentTypeRepositoryMock = new Mock<IRepository<InvestmentType>>();
         investmentTypeRepositoryMock
             .Setup(repo => repo.Add(newInvestmentType, CancellationToken.None))

@@ -44,7 +44,7 @@ public class InvestmentTypesController(IRepository<InvestmentType> _investmentTy
     [HttpPut("{typeName}")]
     public async Task<IActionResult> PutInvestmentType(string typeName, InvestmentType investmentType, CancellationToken cancellationToken)
     {
-        if (typeName != investmentType.TypeName)
+        if (typeName != investmentType.Name)
         {
             return BadRequest();
         }
@@ -83,7 +83,7 @@ public class InvestmentTypesController(IRepository<InvestmentType> _investmentTy
         }
         catch (DbUpdateException)
         {
-            if (InvestmentTypeExists(investmentType.TypeName, cancellationToken))
+            if (InvestmentTypeExists(investmentType.Name, cancellationToken))
             {
                 return Conflict();
             }
@@ -92,7 +92,7 @@ public class InvestmentTypesController(IRepository<InvestmentType> _investmentTy
                 throw;
             }
         }
-        return CreatedAtAction("GetInvestmentType", new { id = investmentType.TypeName }, investmentType);
+        return CreatedAtAction("GetInvestmentType", new { id = investmentType.Name }, investmentType);
     }
 
     // DELETE: api/InvestmentTypes/5
@@ -114,7 +114,7 @@ public class InvestmentTypesController(IRepository<InvestmentType> _investmentTy
 
     private bool InvestmentTypeExists(string typeName, CancellationToken cancellationToken)
     {
-        var foundTypes = _investmentTypeRepository.Find(e => e.TypeName == typeName, cancellationToken);
+        var foundTypes = _investmentTypeRepository.Find(e => e.Name == typeName, cancellationToken);
 
         if (foundTypes.Result is null || foundTypes.Result.Count == 0)
         {

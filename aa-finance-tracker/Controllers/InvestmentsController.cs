@@ -3,27 +3,30 @@ using Microsoft.EntityFrameworkCore;
 using AAExpenseTracker.Domain.Entities;
 using AAFinanceTracker.Infrastructure.Repositories;
 using AAFinanceTracker.API.Models;
+using AAFinanceTracker.Infrastructure.Repositories.Investment;
 
 namespace AAFinanceTracker.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class InvestmentsController(IRepository<Investment> _investmentRepository) : ControllerBase
+public class InvestmentsController(IServiceProvider _services) : ControllerBase
 {
     // GET: api/Investments
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Investment>>> GetInvestments(CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<Investment>>> GetInvestments(DateTime startDate, DateTime endDate, CancellationToken cancellationToken)
     {
-        var expenses = await _investmentRepository.All(cancellationToken);
+        var investmentRepo = _services.GetRequiredService<IInvestmentRepository>();
+        var investments = await investmentRepo.GetInvestmentsTimeframe(startDate, endDate, cancellationToken);
 
-        return Ok(expenses);
+        return Ok(investments);
     }
 
     // GET: api/Investments/5
     [HttpGet("{id}")]
     public async Task<ActionResult<Investment>> GetInvestment(string id, CancellationToken cancellationToken)
     {
-        var investment = await _investmentRepository.Get(id, cancellationToken);
+        var investmentRepo = _services.GetRequiredService<IRepository<Investment>>();
+        var investment = await investmentRepo.Get(id, cancellationToken);
 
         if (investment is null)
         {
@@ -43,11 +46,12 @@ public class InvestmentsController(IRepository<Investment> _investmentRepository
             return BadRequest();
         }
 
-        _investmentRepository.Update(investment);
+        var investmentRepo = _services.GetRequiredService<IRepository<Investment>>();
+        investmentRepo.Update(investment);
 
         try
         {
-            await _investmentRepository.SaveChangesAsync(cancellationToken);
+            await investmentRepo.SaveChangesAsync(cancellationToken);
         }
         catch (DbUpdateConcurrencyException)
         {
@@ -71,26 +75,28 @@ public class InvestmentsController(IRepository<Investment> _investmentRepository
         // Check if the investment type already exists
         if (investmentModel is null) return BadRequest("Investment model is null");
 
-        var investment = new Investment()
-        {
-            DateAdded = DateTime.Now,
-            InitialInvestment = investmentModel.InitialInvestment
+        var investment = new Investment() { 
+            InvestmentTypeName=investmentModel.InvestmentType.Name,
+            CustodianBankId = investmentModel.CustodianBankId,
+            DateAdded = DateTime.Now, InitialInvestment = investmentModel.InitialInvestment 
         };
 
-        if (await _investmentTypesRepsitory.Get(investmentModel.InvestmentType.TypeName, cancellationToken) is not null)
+        if (await _investmentTypesRepsitory.Get(investmentModel.InvestmentType.Name, cancellationToken) is not null)
         {
-            investment.InvestmentTypeName = investmentModel.InvestmentType.TypeName;
+            investment.InvestmentTypeName = investmentModel.InvestmentType.Name;
         }
         else
         {
-            investment.Type = investmentModel.InvestmentType;
+            investment.InvestmentType = investmentModel.InvestmentType;
         }
 
-        await _investmentRepository.Add(investment, cancellationToken);
+        var investmentRepo = _services.GetRequiredService<IRepository<Investment>>();
+
+        await investmentRepo.Add(investment, cancellationToken);
 
         try
         {
-            await _investmentRepository.SaveChangesAsync(cancellationToken);
+            await investmentRepo.SaveChangesAsync(cancellationToken);
         }
         catch (DbUpdateException)
         {
@@ -111,22 +117,25 @@ public class InvestmentsController(IRepository<Investment> _investmentRepository
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteInvestment(string id, CancellationToken cancellationToken)
     {
-        var investment = await _investmentRepository.Get(id, cancellationToken);
+
+        var investmentRepo = _services.GetRequiredService<IRepository<Investment>>();
+        var investment = await investmentRepo.Get(id, cancellationToken);
 
         if (investment == null)
         {
             return NotFound();
         }
 
-        _investmentRepository.Delete(investment);
-        await _investmentRepository.SaveChangesAsync(cancellationToken);
+        investmentRepo.Delete(investment);
+        await investmentRepo.SaveChangesAsync(cancellationToken);
 
         return NoContent();
     }
 
     private bool InvestmentExists(int Id, CancellationToken cancellationToken)
     {
-        return _investmentRepository.Find(e => e.Id == Id, cancellationToken)
+        var investmentRepo = _services.GetRequiredService<IRepository<Investment>>();
+        return investmentRepo.Find(e => e.Id == Id, cancellationToken)
         .Result
         .Count != 0;
     }

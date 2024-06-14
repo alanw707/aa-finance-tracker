@@ -28,8 +28,8 @@ public class InvestmentStatsControllerTests
         int month = 5;
         List<Investment> investments =
         [
-            new() { InvestmentTypeName = investmentType, InitialInvestment = 10000, CustodianBankName = "Fidelity" },
-            new() { InvestmentTypeName = investmentType, InitialInvestment = 20000, CustodianBankName = "TastyTrade" },
+            new() { InvestmentTypeName = investmentType, InitialInvestment = 10000, CustodianBankId = 1 },
+            new() { InvestmentTypeName = investmentType, InitialInvestment = 20000, CustodianBankId = 2 },
         ];
 
         investmentRepository.Setup(repo => repo.GetInvestmentsByTypeYearMonth(investmentType, year, month, CancellationToken.None))

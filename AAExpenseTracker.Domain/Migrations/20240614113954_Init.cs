@@ -6,11 +6,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AAExpenseTracker.Domain.Migrations
 {
     /// <inheritdoc />
-    public partial class ReInit : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "CustodianBanks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Balance = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustodianBanks", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "ExpensesCategories",
                 columns: table => new
@@ -18,7 +32,6 @@ namespace AAExpenseTracker.Domain.Migrations
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Budget = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ColourHex = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -32,7 +45,7 @@ namespace AAExpenseTracker.Domain.Migrations
                 columns: table => new
                 {
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -42,15 +55,15 @@ namespace AAExpenseTracker.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "InvestmentsTypes",
+                name: "InvestmentTypes",
                 columns: table => new
                 {
-                    TypeName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InvestmentsTypes", x => x.TypeName);
+                    table.PrimaryKey("PK_InvestmentTypes", x => x.Name);
                 });
 
             migrationBuilder.CreateTable(
@@ -88,20 +101,27 @@ namespace AAExpenseTracker.Domain.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TypeName = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    InvestmentTypeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     InitialInvestment = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    DateAdded = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DateAdded = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    InvestmentTypeName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CustodianBankId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Investments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Investments_InvestmentsTypes_TypeName",
-                        column: x => x.TypeName,
-                        principalTable: "InvestmentsTypes",
-                        principalColumn: "TypeName");
+                        name: "FK_Investments_CustodianBanks_CustodianBankId",
+                        column: x => x.CustodianBankId,
+                        principalTable: "CustodianBanks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Investments_InvestmentTypes_InvestmentTypeName",
+                        column: x => x.InvestmentTypeName,
+                        principalTable: "InvestmentTypes",
+                        principalColumn: "Name",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -115,9 +135,14 @@ namespace AAExpenseTracker.Domain.Migrations
                 column: "ExpenseTypeName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Investments_TypeName",
+                name: "IX_Investments_CustodianBankId",
                 table: "Investments",
-                column: "TypeName");
+                column: "CustodianBankId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Investments_InvestmentTypeName",
+                table: "Investments",
+                column: "InvestmentTypeName");
         }
 
         /// <inheritdoc />
@@ -136,7 +161,10 @@ namespace AAExpenseTracker.Domain.Migrations
                 name: "ExpensesCategories");
 
             migrationBuilder.DropTable(
-                name: "InvestmentsTypes");
+                name: "CustodianBanks");
+
+            migrationBuilder.DropTable(
+                name: "InvestmentTypes");
         }
     }
 }

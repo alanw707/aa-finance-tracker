@@ -12,18 +12,35 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AAExpenseTracker.Domain.Migrations
 {
     [DbContext(typeof(FinanceTrackerDbContext))]
-    [Migration("20240517112545_RemoveColorFromExpenseCategory")]
-    partial class RemoveColorFromExpenseCategory
+    [Migration("20240614114556_FixCustodianBank")]
+    partial class FixCustodianBank
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("AAExpenseTracker.Domain.Entities.CustodianBank", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CustodianBanks");
+                });
 
             modelBuilder.Entity("AAExpenseTracker.Domain.Entities.Expense", b =>
                 {
@@ -108,6 +125,9 @@ namespace AAExpenseTracker.Domain.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CustodianBankId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("datetime2");
 
@@ -118,27 +138,27 @@ namespace AAExpenseTracker.Domain.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("InvestmentTypeName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TypeName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TypeName");
+                    b.HasIndex("CustodianBankId");
+
+                    b.HasIndex("InvestmentTypeName");
 
                     b.ToTable("Investments");
                 });
 
             modelBuilder.Entity("AAExpenseTracker.Domain.Entities.InvestmentType", b =>
                 {
-                    b.Property<string>("TypeName")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("TypeName");
+                    b.HasKey("Name");
 
                     b.ToTable("InvestmentTypes");
                 });
@@ -164,11 +184,21 @@ namespace AAExpenseTracker.Domain.Migrations
 
             modelBuilder.Entity("AAExpenseTracker.Domain.Entities.Investment", b =>
                 {
-                    b.HasOne("AAExpenseTracker.Domain.Entities.InvestmentType", "Type")
+                    b.HasOne("AAExpenseTracker.Domain.Entities.CustodianBank", "CustodianBank")
                         .WithMany()
-                        .HasForeignKey("TypeName");
+                        .HasForeignKey("CustodianBankId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Type");
+                    b.HasOne("AAExpenseTracker.Domain.Entities.InvestmentType", "InvestmentType")
+                        .WithMany()
+                        .HasForeignKey("InvestmentTypeName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CustodianBank");
+
+                    b.Navigation("InvestmentType");
                 });
 #pragma warning restore 612, 618
         }

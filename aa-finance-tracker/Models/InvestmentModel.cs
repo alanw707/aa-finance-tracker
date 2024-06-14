@@ -8,4 +8,5 @@ public class InvestmentModel
     public required InvestmentType InvestmentType { get; set; }
     public string? Description { get; set; }
     public decimal InitialInvestment { get; set; }
+    public int CustodianBankId { get; set; }
 }
