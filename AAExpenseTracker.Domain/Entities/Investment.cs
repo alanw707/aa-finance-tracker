@@ -5,15 +5,13 @@ namespace AAExpenseTracker.Domain.Entities;
 
 public class Investment
 {
-    public int Id { get; set; }
-    public InvestmentType? Type { get; set; }
-
-    [ForeignKey("TypeName")]
-    public string? InvestmentTypeName { get; set; }
+    public int Id { get; set; }        
     public string? Description { get; set; }
     public decimal InitialInvestment { get; set; }
-    public DateTime DateAdded { get; set; }
+    public DateTime DateAdded { get; set; }            
+    public required string InvestmentTypeName { get; set; }    
+    public required int CustodianBankId { get; set; }
+
     public CustodianBank? CustodianBank { get; set; }
-    [ForeignKey("Name")]
-    public string? CustodianBankName { get; set; } = string.Empty;
+    public InvestmentType? InvestmentType { get; set; }
 }

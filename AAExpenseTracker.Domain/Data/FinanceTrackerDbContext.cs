@@ -49,14 +49,10 @@ namespace AAExpenseTracker.Domain.Data
                 .HasColumnType("decimal(18,2)").IsRequired();
 
             modelBuilder.Entity<InvestmentType>()
-               .HasKey(k => k.TypeName);
+               .HasKey(k => k.Name);
 
             modelBuilder.Entity<CustodianBank>()
-                .HasKey(k => k.Id);
-            modelBuilder.Entity<CustodianBank>()
-                .Property(c => c.Balance)
-                .HasColumnType("decimal(18,2)")
-                .IsRequired();
+                .HasKey(k => k.Id);            
         }
 
     }

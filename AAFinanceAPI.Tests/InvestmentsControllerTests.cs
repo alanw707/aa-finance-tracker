@@ -38,8 +38,8 @@ public class InvestmentsControllerTests
         DateTime endDate = new(2023, 10, 31);
         var investments = new List<Investment>()
                 {
-                    new() { Id = 1, InvestmentTypeName = "Stocks", InitialInvestment = 1000, DateAdded = new DateTime(2023, 10, 15) },
-                    new() { Id = 2, InvestmentTypeName = "Bonds", InitialInvestment = 500, DateAdded = new DateTime(2023, 10, 20) }
+                    new() { Id = 1, CustodianBankId = 1, InvestmentTypeName = "Stocks", InitialInvestment = 1000, DateAdded = new DateTime(2023, 10, 15) },
+                    new() { Id = 2, CustodianBankId = 2, InvestmentTypeName = "Bonds", InitialInvestment = 500, DateAdded = new DateTime(2023, 10, 20) }
                 };        
 
         investmentRepositoryMock.Setup(repo => repo.GetInvestmentsTimeframe(startDate, endDate, It.IsAny<CancellationToken>()))
@@ -58,7 +58,7 @@ public class InvestmentsControllerTests
     public async Task GetInvestment_ShouldReturnTheInvestmentWithTheGivenId()
     {
         // Arrange        
-        var investment = new Investment() { Id = 1, InvestmentTypeName = "Stock", InitialInvestment = 500 };
+        var investment = new Investment() { Id = 1, CustodianBankId = 1, InvestmentTypeName = "Stock", InitialInvestment = 500 };
     
         investmentGenericRepoMock.Setup(repo => repo.Get("1", It.IsAny<CancellationToken>()))
         .ReturnsAsync(investment);
@@ -82,12 +82,12 @@ public class InvestmentsControllerTests
     public async Task Post_ShouldCreateANewInvestment()
     {
         // Arrange
-        var investmentType = new InvestmentType() { TypeName = "Stock" };
+        var investmentType = new InvestmentType() { Name = "Stock" };
         var investmentModel = new InvestmentModel() { InvestmentType = investmentType, InitialInvestment = 500 };
 
-        var investment = new Investment() { Type = investmentType, InitialInvestment = 500 };        
+        var investment = new Investment() { CustodianBankId=1, InvestmentType= investmentType, InvestmentTypeName = investmentType.Name, InitialInvestment = 500 };        
 
-        investmentTypeRepoMock.Setup(repo => repo.Get(investmentType.TypeName, It.IsAny<CancellationToken>()))
+        investmentTypeRepoMock.Setup(repo => repo.Get(investmentType.Name, It.IsAny<CancellationToken>()))
             .ReturnsAsync(investmentType);
         investmentGenericRepoMock.Setup(repo => repo.Add(investment, It.IsAny<CancellationToken>()))
             .ReturnsAsync(It.IsAny<EntityEntry<Investment>>());                
@@ -102,7 +102,7 @@ public class InvestmentsControllerTests
         // Assert that the result contains the correct investment
         var createdAtActionResult = result.Result as CreatedAtActionResult;
         Assert.NotNull(createdAtActionResult);
-        Assert.Equal(investment.Type.TypeName, ((Investment)createdAtActionResult.Value!).InvestmentTypeName);
+        Assert.Equal(investment.InvestmentType.Name, ((Investment)createdAtActionResult.Value!).InvestmentTypeName);
     }
 
     // // Test the Update method of the InvestmentController class
@@ -110,7 +110,7 @@ public class InvestmentsControllerTests
     public async Task Update_ShouldUpdateTheInvestmentWithTheGivenId()
     {
         // Arrange                
-        var investment = new Investment { Id = 1, InvestmentTypeName = "Stock", InitialInvestment = 500 };
+        var investment = new Investment { Id = 1, CustodianBankId = 1, InvestmentTypeName = "Stock", InitialInvestment = 500 };
         // Corrected the repository type to IRepository<Investment>        
 
         investmentGenericRepoMock.Setup(repo => repo.Update(It.IsAny<Investment>()))

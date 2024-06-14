@@ -75,19 +75,19 @@ public class InvestmentsController(IServiceProvider _services) : ControllerBase
         // Check if the investment type already exists
         if (investmentModel is null) return BadRequest("Investment model is null");
 
-        var investment = new Investment()
-        {
-            DateAdded = DateTime.Now,
-            InitialInvestment = investmentModel.InitialInvestment
+        var investment = new Investment() { 
+            InvestmentTypeName=investmentModel.InvestmentType.Name,
+            CustodianBankId = investmentModel.CustodianBankId,
+            DateAdded = DateTime.Now, InitialInvestment = investmentModel.InitialInvestment 
         };
 
-        if (await _investmentTypesRepsitory.Get(investmentModel.InvestmentType.TypeName, cancellationToken) is not null)
+        if (await _investmentTypesRepsitory.Get(investmentModel.InvestmentType.Name, cancellationToken) is not null)
         {
-            investment.InvestmentTypeName = investmentModel.InvestmentType.TypeName;
+            investment.InvestmentTypeName = investmentModel.InvestmentType.Name;
         }
         else
         {
-            investment.Type = investmentModel.InvestmentType;
+            investment.InvestmentType = investmentModel.InvestmentType;
         }
 
         var investmentRepo = _services.GetRequiredService<IRepository<Investment>>();

@@ -5,24 +5,25 @@
 namespace AAExpenseTracker.Domain.Migrations
 {
     /// <inheritdoc />
-    public partial class RemoveColorFromExpenseCategory : Migration
+    public partial class FixCustodianBank : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "ColourHex",
-                table: "ExpensesCategories");
+                name: "Balance",
+                table: "CustodianBanks");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "ColourHex",
-                table: "ExpensesCategories",
-                type: "nvarchar(max)",
-                nullable: true);
+            migrationBuilder.AddColumn<decimal>(
+                name: "Balance",
+                table: "CustodianBanks",
+                type: "decimal(18,2)",
+                nullable: false,
+                defaultValue: 0m);
         }
     }
 }

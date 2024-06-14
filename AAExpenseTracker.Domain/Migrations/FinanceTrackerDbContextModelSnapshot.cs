@@ -30,9 +30,6 @@ namespace AAExpenseTracker.Domain.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("Balance")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -125,11 +122,8 @@ namespace AAExpenseTracker.Domain.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CustodianBankId")
+                    b.Property<int>("CustodianBankId")
                         .HasColumnType("int");
-
-                    b.Property<string>("CustodianBankName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("datetime2");
@@ -141,29 +135,27 @@ namespace AAExpenseTracker.Domain.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("InvestmentTypeName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TypeName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CustodianBankId");
 
-                    b.HasIndex("TypeName");
+                    b.HasIndex("InvestmentTypeName");
 
                     b.ToTable("Investments");
                 });
 
             modelBuilder.Entity("AAExpenseTracker.Domain.Entities.InvestmentType", b =>
                 {
-                    b.Property<string>("TypeName")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("TypeName");
+                    b.HasKey("Name");
 
                     b.ToTable("InvestmentTypes");
                 });
@@ -191,15 +183,19 @@ namespace AAExpenseTracker.Domain.Migrations
                 {
                     b.HasOne("AAExpenseTracker.Domain.Entities.CustodianBank", "CustodianBank")
                         .WithMany()
-                        .HasForeignKey("CustodianBankId");
+                        .HasForeignKey("CustodianBankId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("AAExpenseTracker.Domain.Entities.InvestmentType", "Type")
+                    b.HasOne("AAExpenseTracker.Domain.Entities.InvestmentType", "InvestmentType")
                         .WithMany()
-                        .HasForeignKey("TypeName");
+                        .HasForeignKey("InvestmentTypeName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("CustodianBank");
 
-                    b.Navigation("Type");
+                    b.Navigation("InvestmentType");
                 });
 #pragma warning restore 612, 618
         }
