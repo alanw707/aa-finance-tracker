@@ -1,6 +1,6 @@
-SF:D:\projects\AIP\aa-finance-tracker\AAExpenseTracker.Domain\Migrations\20240508114113_ReInit.cs
-FN:12,System.Void AAExpenseTracker.Domain.Migrations.ReInit::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
-FNDA:0,System.Void AAExpenseTracker.Domain.Migrations.ReInit::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Domain\Migrations\20240508114113_ReInit.cs
+FN:12,System.Void AAFinanceTracker.Domain.Migrations.ReInit::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+FNDA:0,System.Void AAFinanceTracker.Domain.Migrations.ReInit::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
 DA:13,0
 DA:14,0
 DA:15,0
@@ -103,8 +103,8 @@ DA:118,0
 DA:119,0
 DA:120,0
 DA:121,0
-FN:124,System.Void AAExpenseTracker.Domain.Migrations.ReInit::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
-FNDA:0,System.Void AAExpenseTracker.Domain.Migrations.ReInit::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+FN:124,System.Void AAFinanceTracker.Domain.Migrations.ReInit::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+FNDA:0,System.Void AAFinanceTracker.Domain.Migrations.ReInit::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
 DA:125,0
 DA:126,0
 DA:127,0
@@ -124,9 +124,9 @@ BRH:0
 FNF:2
 FNH:0
 end_of_record
-SF:D:\projects\AIP\aa-finance-tracker\AAExpenseTracker.Domain\Migrations\20240508114113_ReInit.Designer.cs
-FN:19,System.Void AAExpenseTracker.Domain.Migrations.ReInit::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
-FNDA:0,System.Void AAExpenseTracker.Domain.Migrations.ReInit::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
+SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Domain\Migrations\20240508114113_ReInit.Designer.cs
+FN:19,System.Void AAFinanceTracker.Domain.Migrations.ReInit::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
+FNDA:0,System.Void AAFinanceTracker.Domain.Migrations.ReInit::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
 DA:20,0
 DA:22,0
 DA:23,0
@@ -283,9 +283,9 @@ BRH:0
 FNF:1
 FNH:0
 end_of_record
-SF:D:\projects\AIP\aa-finance-tracker\AAExpenseTracker.Domain\Migrations\20240510121208_UpdateInvestmentTypes.cs
-FN:11,System.Void AAExpenseTracker.Domain.Migrations.UpdateInvestmentTypes::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
-FNDA:0,System.Void AAExpenseTracker.Domain.Migrations.UpdateInvestmentTypes::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Domain\Migrations\20240510121208_UpdateInvestmentTypes.cs
+FN:11,System.Void AAFinanceTracker.Domain.Migrations.UpdateInvestmentTypes::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+FNDA:0,System.Void AAFinanceTracker.Domain.Migrations.UpdateInvestmentTypes::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
 DA:12,0
 DA:13,0
 DA:14,0
@@ -307,8 +307,8 @@ DA:33,0
 DA:34,0
 DA:35,0
 DA:36,0
-FN:39,System.Void AAExpenseTracker.Domain.Migrations.UpdateInvestmentTypes::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
-FNDA:0,System.Void AAExpenseTracker.Domain.Migrations.UpdateInvestmentTypes::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+FN:39,System.Void AAFinanceTracker.Domain.Migrations.UpdateInvestmentTypes::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+FNDA:0,System.Void AAFinanceTracker.Domain.Migrations.UpdateInvestmentTypes::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
 DA:40,0
 DA:41,0
 DA:42,0
@@ -337,9 +337,9 @@ BRH:0
 FNF:2
 FNH:0
 end_of_record
-SF:D:\projects\AIP\aa-finance-tracker\AAExpenseTracker.Domain\Migrations\20240510121208_UpdateInvestmentTypes.Designer.cs
-FN:19,System.Void AAExpenseTracker.Domain.Migrations.UpdateInvestmentTypes::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
-FNDA:0,System.Void AAExpenseTracker.Domain.Migrations.UpdateInvestmentTypes::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
+SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Domain\Migrations\20240510121208_UpdateInvestmentTypes.Designer.cs
+FN:19,System.Void AAFinanceTracker.Domain.Migrations.UpdateInvestmentTypes::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
+FNDA:0,System.Void AAFinanceTracker.Domain.Migrations.UpdateInvestmentTypes::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
 DA:20,0
 DA:22,0
 DA:23,0
@@ -496,9 +496,9 @@ BRH:0
 FNF:1
 FNH:0
 end_of_record
-SF:D:\projects\AIP\aa-finance-tracker\AAExpenseTracker.Domain\Migrations\20240516170036_UpdateExpenseDescriptionColumn.cs
-FN:11,System.Void AAExpenseTracker.Domain.Migrations.UpdateExpenseDescriptionColumn::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
-FNDA:0,System.Void AAExpenseTracker.Domain.Migrations.UpdateExpenseDescriptionColumn::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Domain\Migrations\20240516170036_UpdateExpenseDescriptionColumn.cs
+FN:11,System.Void AAFinanceTracker.Domain.Migrations.UpdateExpenseDescriptionColumn::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+FNDA:0,System.Void AAFinanceTracker.Domain.Migrations.UpdateExpenseDescriptionColumn::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
 DA:12,0
 DA:13,0
 DA:14,0
@@ -508,8 +508,8 @@ DA:17,0
 DA:18,0
 DA:19,0
 DA:20,0
-FN:23,System.Void AAExpenseTracker.Domain.Migrations.UpdateExpenseDescriptionColumn::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
-FNDA:0,System.Void AAExpenseTracker.Domain.Migrations.UpdateExpenseDescriptionColumn::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+FN:23,System.Void AAFinanceTracker.Domain.Migrations.UpdateExpenseDescriptionColumn::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+FNDA:0,System.Void AAFinanceTracker.Domain.Migrations.UpdateExpenseDescriptionColumn::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
 DA:24,0
 DA:25,0
 DA:26,0
@@ -528,9 +528,9 @@ BRH:0
 FNF:2
 FNH:0
 end_of_record
-SF:D:\projects\AIP\aa-finance-tracker\AAExpenseTracker.Domain\Migrations\20240516170036_UpdateExpenseDescriptionColumn.Designer.cs
-FN:19,System.Void AAExpenseTracker.Domain.Migrations.UpdateExpenseDescriptionColumn::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
-FNDA:0,System.Void AAExpenseTracker.Domain.Migrations.UpdateExpenseDescriptionColumn::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
+SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Domain\Migrations\20240516170036_UpdateExpenseDescriptionColumn.Designer.cs
+FN:19,System.Void AAFinanceTracker.Domain.Migrations.UpdateExpenseDescriptionColumn::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
+FNDA:0,System.Void AAFinanceTracker.Domain.Migrations.UpdateExpenseDescriptionColumn::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
 DA:20,0
 DA:22,0
 DA:23,0
@@ -686,16 +686,16 @@ BRH:0
 FNF:1
 FNH:0
 end_of_record
-SF:D:\projects\AIP\aa-finance-tracker\AAExpenseTracker.Domain\Migrations\20240517112545_RemoveColorFromExpenseCategory.cs
-FN:11,System.Void AAExpenseTracker.Domain.Migrations.RemoveColorFromExpenseCategory::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
-FNDA:0,System.Void AAExpenseTracker.Domain.Migrations.RemoveColorFromExpenseCategory::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Domain\Migrations\20240517112545_RemoveColorFromExpenseCategory.cs
+FN:11,System.Void AAFinanceTracker.Domain.Migrations.RemoveColorFromExpenseCategory::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+FNDA:0,System.Void AAFinanceTracker.Domain.Migrations.RemoveColorFromExpenseCategory::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
 DA:12,0
 DA:13,0
 DA:14,0
 DA:15,0
 DA:16,0
-FN:19,System.Void AAExpenseTracker.Domain.Migrations.RemoveColorFromExpenseCategory::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
-FNDA:0,System.Void AAExpenseTracker.Domain.Migrations.RemoveColorFromExpenseCategory::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+FN:19,System.Void AAFinanceTracker.Domain.Migrations.RemoveColorFromExpenseCategory::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+FNDA:0,System.Void AAFinanceTracker.Domain.Migrations.RemoveColorFromExpenseCategory::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
 DA:20,0
 DA:21,0
 DA:22,0
@@ -710,9 +710,9 @@ BRH:0
 FNF:2
 FNH:0
 end_of_record
-SF:D:\projects\AIP\aa-finance-tracker\AAExpenseTracker.Domain\Migrations\20240517112545_RemoveColorFromExpenseCategory.Designer.cs
-FN:19,System.Void AAExpenseTracker.Domain.Migrations.RemoveColorFromExpenseCategory::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
-FNDA:0,System.Void AAExpenseTracker.Domain.Migrations.RemoveColorFromExpenseCategory::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
+SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Domain\Migrations\20240517112545_RemoveColorFromExpenseCategory.Designer.cs
+FN:19,System.Void AAFinanceTracker.Domain.Migrations.RemoveColorFromExpenseCategory::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
+FNDA:0,System.Void AAFinanceTracker.Domain.Migrations.RemoveColorFromExpenseCategory::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
 DA:20,0
 DA:22,0
 DA:23,0
@@ -865,9 +865,9 @@ BRH:0
 FNF:1
 FNH:0
 end_of_record
-SF:D:\projects\AIP\aa-finance-tracker\AAExpenseTracker.Domain\Migrations\20240531113939_AddCustodianBank.cs
-FN:11,System.Void AAExpenseTracker.Domain.Migrations.AddCustodianBank::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
-FNDA:0,System.Void AAExpenseTracker.Domain.Migrations.AddCustodianBank::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Domain\Migrations\20240531113939_AddCustodianBank.cs
+FN:11,System.Void AAFinanceTracker.Domain.Migrations.AddCustodianBank::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+FNDA:0,System.Void AAFinanceTracker.Domain.Migrations.AddCustodianBank::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
 DA:12,0
 DA:13,0
 DA:14,0
@@ -903,8 +903,8 @@ DA:47,0
 DA:48,0
 DA:49,0
 DA:50,0
-FN:53,System.Void AAExpenseTracker.Domain.Migrations.AddCustodianBank::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
-FNDA:0,System.Void AAExpenseTracker.Domain.Migrations.AddCustodianBank::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+FN:53,System.Void AAFinanceTracker.Domain.Migrations.AddCustodianBank::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
+FNDA:0,System.Void AAFinanceTracker.Domain.Migrations.AddCustodianBank::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)
 DA:54,0
 DA:55,0
 DA:56,0
@@ -928,9 +928,9 @@ BRH:0
 FNF:2
 FNH:0
 end_of_record
-SF:D:\projects\AIP\aa-finance-tracker\AAExpenseTracker.Domain\Migrations\20240531113939_AddCustodianBank.Designer.cs
-FN:19,System.Void AAExpenseTracker.Domain.Migrations.AddCustodianBank::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
-FNDA:0,System.Void AAExpenseTracker.Domain.Migrations.AddCustodianBank::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
+SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Domain\Migrations\20240531113939_AddCustodianBank.Designer.cs
+FN:19,System.Void AAFinanceTracker.Domain.Migrations.AddCustodianBank::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
+FNDA:0,System.Void AAFinanceTracker.Domain.Migrations.AddCustodianBank::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)
 DA:20,0
 DA:22,0
 DA:23,0
@@ -1116,9 +1116,9 @@ BRH:0
 FNF:1
 FNH:0
 end_of_record
-SF:D:\projects\AIP\aa-finance-tracker\AAExpenseTracker.Domain\Migrations\FinanceTrackerDbContextModelSnapshot.cs
-FN:16,System.Void AAExpenseTracker.Domain.Migrations.FinanceTrackerDbContextModelSnapshot::BuildModel(Microsoft.EntityFrameworkCore.ModelBuilder)
-FNDA:0,System.Void AAExpenseTracker.Domain.Migrations.FinanceTrackerDbContextModelSnapshot::BuildModel(Microsoft.EntityFrameworkCore.ModelBuilder)
+SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Domain\Migrations\FinanceTrackerDbContextModelSnapshot.cs
+FN:16,System.Void AAFinanceTracker.Domain.Migrations.FinanceTrackerDbContextModelSnapshot::BuildModel(Microsoft.EntityFrameworkCore.ModelBuilder)
+FNDA:0,System.Void AAFinanceTracker.Domain.Migrations.FinanceTrackerDbContextModelSnapshot::BuildModel(Microsoft.EntityFrameworkCore.ModelBuilder)
 DA:17,0
 DA:19,0
 DA:20,0
@@ -1304,15 +1304,15 @@ BRH:0
 FNF:1
 FNH:0
 end_of_record
-SF:D:\projects\AIP\aa-finance-tracker\AAExpenseTracker.Domain\Entities\CustodianBank.cs
-FN:4,System.Int32 AAExpenseTracker.Domain.Entities.CustodianBank::get_Id()
-FNDA:0,System.Int32 AAExpenseTracker.Domain.Entities.CustodianBank::get_Id()
+SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Domain\Entities\CustodianBank.cs
+FN:4,System.Int32 AAFinanceTracker.Domain.Entities.CustodianBank::get_Id()
+FNDA:0,System.Int32 AAFinanceTracker.Domain.Entities.CustodianBank::get_Id()
 DA:5,0
-FN:5,System.String AAExpenseTracker.Domain.Entities.CustodianBank::get_Name()
-FNDA:0,System.String AAExpenseTracker.Domain.Entities.CustodianBank::get_Name()
+FN:5,System.String AAFinanceTracker.Domain.Entities.CustodianBank::get_Name()
+FNDA:0,System.String AAFinanceTracker.Domain.Entities.CustodianBank::get_Name()
 DA:6,0
-FN:6,System.Decimal AAExpenseTracker.Domain.Entities.CustodianBank::get_Balance()
-FNDA:0,System.Decimal AAExpenseTracker.Domain.Entities.CustodianBank::get_Balance()
+FN:6,System.Decimal AAFinanceTracker.Domain.Entities.CustodianBank::get_Balance()
+FNDA:0,System.Decimal AAFinanceTracker.Domain.Entities.CustodianBank::get_Balance()
 DA:7,0
 LF:3
 LH:0
@@ -1321,30 +1321,30 @@ BRH:0
 FNF:3
 FNH:0
 end_of_record
-SF:D:\projects\AIP\aa-finance-tracker\AAExpenseTracker.Domain\Entities\Expense.cs
-FN:6,System.Int32 AAExpenseTracker.Domain.Entities.Expense::get_ExpenseId()
-FNDA:3,System.Int32 AAExpenseTracker.Domain.Entities.Expense::get_ExpenseId()
+SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Domain\Entities\Expense.cs
+FN:6,System.Int32 AAFinanceTracker.Domain.Entities.Expense::get_ExpenseId()
+FNDA:3,System.Int32 AAFinanceTracker.Domain.Entities.Expense::get_ExpenseId()
 DA:7,3
-FN:7,System.DateTime AAExpenseTracker.Domain.Entities.Expense::get_Date()
-FNDA:5,System.DateTime AAExpenseTracker.Domain.Entities.Expense::get_Date()
+FN:7,System.DateTime AAFinanceTracker.Domain.Entities.Expense::get_Date()
+FNDA:5,System.DateTime AAFinanceTracker.Domain.Entities.Expense::get_Date()
 DA:8,5
-FN:9,System.String AAExpenseTracker.Domain.Entities.Expense::get_ExpenseCategoryName()
-FNDA:8,System.String AAExpenseTracker.Domain.Entities.Expense::get_ExpenseCategoryName()
+FN:9,System.String AAFinanceTracker.Domain.Entities.Expense::get_ExpenseCategoryName()
+FNDA:8,System.String AAFinanceTracker.Domain.Entities.Expense::get_ExpenseCategoryName()
 DA:10,8
-FN:11,System.String AAExpenseTracker.Domain.Entities.Expense::get_ExpenseTypeName()
-FNDA:8,System.String AAExpenseTracker.Domain.Entities.Expense::get_ExpenseTypeName()
+FN:11,System.String AAFinanceTracker.Domain.Entities.Expense::get_ExpenseTypeName()
+FNDA:8,System.String AAFinanceTracker.Domain.Entities.Expense::get_ExpenseTypeName()
 DA:12,8
-FN:12,System.Decimal AAExpenseTracker.Domain.Entities.Expense::get_Amount()
-FNDA:6,System.Decimal AAExpenseTracker.Domain.Entities.Expense::get_Amount()
+FN:12,System.Decimal AAFinanceTracker.Domain.Entities.Expense::get_Amount()
+FNDA:6,System.Decimal AAFinanceTracker.Domain.Entities.Expense::get_Amount()
 DA:13,6
-FN:13,System.String AAExpenseTracker.Domain.Entities.Expense::get_Comments()
-FNDA:2,System.String AAExpenseTracker.Domain.Entities.Expense::get_Comments()
+FN:13,System.String AAFinanceTracker.Domain.Entities.Expense::get_Comments()
+FNDA:2,System.String AAFinanceTracker.Domain.Entities.Expense::get_Comments()
 DA:14,2
-FN:14,AAExpenseTracker.Domain.Entities.ExpenseCategory AAExpenseTracker.Domain.Entities.Expense::get_ExpenseCategory()
-FNDA:1,AAExpenseTracker.Domain.Entities.ExpenseCategory AAExpenseTracker.Domain.Entities.Expense::get_ExpenseCategory()
+FN:14,AAFinanceTracker.Domain.Entities.ExpenseCategory AAFinanceTracker.Domain.Entities.Expense::get_ExpenseCategory()
+FNDA:1,AAFinanceTracker.Domain.Entities.ExpenseCategory AAFinanceTracker.Domain.Entities.Expense::get_ExpenseCategory()
 DA:15,1
-FN:15,AAExpenseTracker.Domain.Entities.ExpenseType AAExpenseTracker.Domain.Entities.Expense::get_ExpenseType()
-FNDA:1,AAExpenseTracker.Domain.Entities.ExpenseType AAExpenseTracker.Domain.Entities.Expense::get_ExpenseType()
+FN:15,AAFinanceTracker.Domain.Entities.ExpenseType AAFinanceTracker.Domain.Entities.Expense::get_ExpenseType()
+FNDA:1,AAFinanceTracker.Domain.Entities.ExpenseType AAFinanceTracker.Domain.Entities.Expense::get_ExpenseType()
 DA:16,1
 LF:8
 LH:8
@@ -1353,21 +1353,21 @@ BRH:0
 FNF:8
 FNH:8
 end_of_record
-SF:D:\projects\AIP\aa-finance-tracker\AAExpenseTracker.Domain\Entities\ExpenseCategory.cs
-FN:4,System.String AAExpenseTracker.Domain.Entities.ExpenseCategory::get_Name()
-FNDA:14,System.String AAExpenseTracker.Domain.Entities.ExpenseCategory::get_Name()
+SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Domain\Entities\ExpenseCategory.cs
+FN:4,System.String AAFinanceTracker.Domain.Entities.ExpenseCategory::get_Name()
+FNDA:14,System.String AAFinanceTracker.Domain.Entities.ExpenseCategory::get_Name()
 DA:5,14
-FN:5,System.String AAExpenseTracker.Domain.Entities.ExpenseCategory::get_Description()
-FNDA:0,System.String AAExpenseTracker.Domain.Entities.ExpenseCategory::get_Description()
+FN:5,System.String AAFinanceTracker.Domain.Entities.ExpenseCategory::get_Description()
+FNDA:0,System.String AAFinanceTracker.Domain.Entities.ExpenseCategory::get_Description()
 DA:6,0
-FN:6,System.Decimal AAExpenseTracker.Domain.Entities.ExpenseCategory::get_Budget()
-FNDA:0,System.Decimal AAExpenseTracker.Domain.Entities.ExpenseCategory::get_Budget()
+FN:6,System.Decimal AAFinanceTracker.Domain.Entities.ExpenseCategory::get_Budget()
+FNDA:0,System.Decimal AAFinanceTracker.Domain.Entities.ExpenseCategory::get_Budget()
 DA:7,0
-FN:7,System.DateTime AAExpenseTracker.Domain.Entities.ExpenseCategory::get_CreatedDate()
-FNDA:0,System.DateTime AAExpenseTracker.Domain.Entities.ExpenseCategory::get_CreatedDate()
+FN:7,System.DateTime AAFinanceTracker.Domain.Entities.ExpenseCategory::get_CreatedDate()
+FNDA:0,System.DateTime AAFinanceTracker.Domain.Entities.ExpenseCategory::get_CreatedDate()
 DA:8,0
-FN:8,System.DateTime AAExpenseTracker.Domain.Entities.ExpenseCategory::get_UpdatedDate()
-FNDA:0,System.DateTime AAExpenseTracker.Domain.Entities.ExpenseCategory::get_UpdatedDate()
+FN:8,System.DateTime AAFinanceTracker.Domain.Entities.ExpenseCategory::get_UpdatedDate()
+FNDA:0,System.DateTime AAFinanceTracker.Domain.Entities.ExpenseCategory::get_UpdatedDate()
 DA:9,0
 LF:5
 LH:1
@@ -1376,18 +1376,18 @@ BRH:0
 FNF:5
 FNH:1
 end_of_record
-SF:D:\projects\AIP\aa-finance-tracker\AAExpenseTracker.Domain\Entities\ExpenseType.cs
-FN:4,System.String AAExpenseTracker.Domain.Entities.ExpenseType::get_Name()
-FNDA:10,System.String AAExpenseTracker.Domain.Entities.ExpenseType::get_Name()
+SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Domain\Entities\ExpenseType.cs
+FN:4,System.String AAFinanceTracker.Domain.Entities.ExpenseType::get_Name()
+FNDA:10,System.String AAFinanceTracker.Domain.Entities.ExpenseType::get_Name()
 DA:5,10
-FN:5,System.String AAExpenseTracker.Domain.Entities.ExpenseType::get_Description()
-FNDA:4,System.String AAExpenseTracker.Domain.Entities.ExpenseType::get_Description()
+FN:5,System.String AAFinanceTracker.Domain.Entities.ExpenseType::get_Description()
+FNDA:4,System.String AAFinanceTracker.Domain.Entities.ExpenseType::get_Description()
 DA:6,4
-FN:6,System.DateTime AAExpenseTracker.Domain.Entities.ExpenseType::get_CreatedDate()
-FNDA:0,System.DateTime AAExpenseTracker.Domain.Entities.ExpenseType::get_CreatedDate()
+FN:6,System.DateTime AAFinanceTracker.Domain.Entities.ExpenseType::get_CreatedDate()
+FNDA:0,System.DateTime AAFinanceTracker.Domain.Entities.ExpenseType::get_CreatedDate()
 DA:7,0
-FN:7,System.DateTime AAExpenseTracker.Domain.Entities.ExpenseType::get_UpdatedDate()
-FNDA:0,System.DateTime AAExpenseTracker.Domain.Entities.ExpenseType::get_UpdatedDate()
+FN:7,System.DateTime AAFinanceTracker.Domain.Entities.ExpenseType::get_UpdatedDate()
+FNDA:0,System.DateTime AAFinanceTracker.Domain.Entities.ExpenseType::get_UpdatedDate()
 DA:8,0
 LF:4
 LH:2
@@ -1396,30 +1396,30 @@ BRH:0
 FNF:4
 FNH:2
 end_of_record
-SF:D:\projects\AIP\aa-finance-tracker\AAExpenseTracker.Domain\Entities\Investment.cs
-FN:7,System.Int32 AAExpenseTracker.Domain.Entities.Investment::get_Id()
-FNDA:7,System.Int32 AAExpenseTracker.Domain.Entities.Investment::get_Id()
+SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Domain\Entities\Investment.cs
+FN:7,System.Int32 AAFinanceTracker.Domain.Entities.Investment::get_Id()
+FNDA:7,System.Int32 AAFinanceTracker.Domain.Entities.Investment::get_Id()
 DA:8,7
-FN:8,AAExpenseTracker.Domain.Entities.InvestmentType AAExpenseTracker.Domain.Entities.Investment::get_Type()
-FNDA:2,AAExpenseTracker.Domain.Entities.InvestmentType AAExpenseTracker.Domain.Entities.Investment::get_Type()
+FN:8,AAFinanceTracker.Domain.Entities.InvestmentType AAFinanceTracker.Domain.Entities.Investment::get_Type()
+FNDA:2,AAFinanceTracker.Domain.Entities.InvestmentType AAFinanceTracker.Domain.Entities.Investment::get_Type()
 DA:9,2
-FN:10,System.String AAExpenseTracker.Domain.Entities.Investment::get_InvestmentTypeName()
-FNDA:6,System.String AAExpenseTracker.Domain.Entities.Investment::get_InvestmentTypeName()
+FN:10,System.String AAFinanceTracker.Domain.Entities.Investment::get_InvestmentTypeName()
+FNDA:6,System.String AAFinanceTracker.Domain.Entities.Investment::get_InvestmentTypeName()
 DA:11,6
-FN:11,System.String AAExpenseTracker.Domain.Entities.Investment::get_Description()
-FNDA:0,System.String AAExpenseTracker.Domain.Entities.Investment::get_Description()
+FN:11,System.String AAFinanceTracker.Domain.Entities.Investment::get_Description()
+FNDA:0,System.String AAFinanceTracker.Domain.Entities.Investment::get_Description()
 DA:12,0
-FN:12,System.Decimal AAExpenseTracker.Domain.Entities.Investment::get_InitialInvestment()
-FNDA:6,System.Decimal AAExpenseTracker.Domain.Entities.Investment::get_InitialInvestment()
+FN:12,System.Decimal AAFinanceTracker.Domain.Entities.Investment::get_InitialInvestment()
+FNDA:6,System.Decimal AAFinanceTracker.Domain.Entities.Investment::get_InitialInvestment()
 DA:13,6
-FN:13,System.DateTime AAExpenseTracker.Domain.Entities.Investment::get_DateAdded()
-FNDA:1,System.DateTime AAExpenseTracker.Domain.Entities.Investment::get_DateAdded()
+FN:13,System.DateTime AAFinanceTracker.Domain.Entities.Investment::get_DateAdded()
+FNDA:1,System.DateTime AAFinanceTracker.Domain.Entities.Investment::get_DateAdded()
 DA:14,1
-FN:14,AAExpenseTracker.Domain.Entities.CustodianBank AAExpenseTracker.Domain.Entities.Investment::get_CustodianBank()
-FNDA:0,AAExpenseTracker.Domain.Entities.CustodianBank AAExpenseTracker.Domain.Entities.Investment::get_CustodianBank()
+FN:14,AAFinanceTracker.Domain.Entities.CustodianBank AAFinanceTracker.Domain.Entities.Investment::get_CustodianBank()
+FNDA:0,AAFinanceTracker.Domain.Entities.CustodianBank AAFinanceTracker.Domain.Entities.Investment::get_CustodianBank()
 DA:15,0
-FN:16,System.String AAExpenseTracker.Domain.Entities.Investment::get_CustodianBankName()
-FNDA:6,System.String AAExpenseTracker.Domain.Entities.Investment::get_CustodianBankName()
+FN:16,System.String AAFinanceTracker.Domain.Entities.Investment::get_CustodianBankName()
+FNDA:6,System.String AAFinanceTracker.Domain.Entities.Investment::get_CustodianBankName()
 DA:17,6
 LF:8
 LH:6
@@ -1428,12 +1428,12 @@ BRH:0
 FNF:8
 FNH:6
 end_of_record
-SF:D:\projects\AIP\aa-finance-tracker\AAExpenseTracker.Domain\Entities\InvestmentType.cs
-FN:4,System.String AAExpenseTracker.Domain.Entities.InvestmentType::get_TypeName()
-FNDA:28,System.String AAExpenseTracker.Domain.Entities.InvestmentType::get_TypeName()
+SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Domain\Entities\InvestmentType.cs
+FN:4,System.String AAFinanceTracker.Domain.Entities.InvestmentType::get_TypeName()
+FNDA:28,System.String AAFinanceTracker.Domain.Entities.InvestmentType::get_TypeName()
 DA:5,28
-FN:5,System.String AAExpenseTracker.Domain.Entities.InvestmentType::get_Description()
-FNDA:0,System.String AAExpenseTracker.Domain.Entities.InvestmentType::get_Description()
+FN:5,System.String AAFinanceTracker.Domain.Entities.InvestmentType::get_Description()
+FNDA:0,System.String AAFinanceTracker.Domain.Entities.InvestmentType::get_Description()
 DA:6,0
 LF:2
 LH:1
@@ -1442,32 +1442,32 @@ BRH:0
 FNF:2
 FNH:1
 end_of_record
-SF:D:\projects\AIP\aa-finance-tracker\AAExpenseTracker.Domain\Data\FinanceTrackerDbContext.cs
-FN:10,Microsoft.EntityFrameworkCore.DbSet`1<AAExpenseTracker.Domain.Entities.ExpenseType> AAExpenseTracker.Domain.Data.FinanceTrackerDbContext::get_ExpenseTypes()
-FNDA:0,Microsoft.EntityFrameworkCore.DbSet`1<AAExpenseTracker.Domain.Entities.ExpenseType> AAExpenseTracker.Domain.Data.FinanceTrackerDbContext::get_ExpenseTypes()
+SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Domain\Data\FinanceTrackerDbContext.cs
+FN:10,Microsoft.EntityFrameworkCore.DbSet`1<AAFinanceTracker.Domain.Entities.ExpenseType> AAFinanceTracker.Domain.Data.FinanceTrackerDbContext::get_ExpenseTypes()
+FNDA:0,Microsoft.EntityFrameworkCore.DbSet`1<AAFinanceTracker.Domain.Entities.ExpenseType> AAFinanceTracker.Domain.Data.FinanceTrackerDbContext::get_ExpenseTypes()
 DA:11,0
-FN:11,Microsoft.EntityFrameworkCore.DbSet`1<AAExpenseTracker.Domain.Entities.ExpenseCategory> AAExpenseTracker.Domain.Data.FinanceTrackerDbContext::get_ExpensesCategories()
-FNDA:0,Microsoft.EntityFrameworkCore.DbSet`1<AAExpenseTracker.Domain.Entities.ExpenseCategory> AAExpenseTracker.Domain.Data.FinanceTrackerDbContext::get_ExpensesCategories()
+FN:11,Microsoft.EntityFrameworkCore.DbSet`1<AAFinanceTracker.Domain.Entities.ExpenseCategory> AAFinanceTracker.Domain.Data.FinanceTrackerDbContext::get_ExpensesCategories()
+FNDA:0,Microsoft.EntityFrameworkCore.DbSet`1<AAFinanceTracker.Domain.Entities.ExpenseCategory> AAFinanceTracker.Domain.Data.FinanceTrackerDbContext::get_ExpensesCategories()
 DA:12,0
-FN:12,Microsoft.EntityFrameworkCore.DbSet`1<AAExpenseTracker.Domain.Entities.Expense> AAExpenseTracker.Domain.Data.FinanceTrackerDbContext::get_Expenses()
-FNDA:0,Microsoft.EntityFrameworkCore.DbSet`1<AAExpenseTracker.Domain.Entities.Expense> AAExpenseTracker.Domain.Data.FinanceTrackerDbContext::get_Expenses()
+FN:12,Microsoft.EntityFrameworkCore.DbSet`1<AAFinanceTracker.Domain.Entities.Expense> AAFinanceTracker.Domain.Data.FinanceTrackerDbContext::get_Expenses()
+FNDA:0,Microsoft.EntityFrameworkCore.DbSet`1<AAFinanceTracker.Domain.Entities.Expense> AAFinanceTracker.Domain.Data.FinanceTrackerDbContext::get_Expenses()
 DA:13,0
-FN:13,Microsoft.EntityFrameworkCore.DbSet`1<AAExpenseTracker.Domain.Entities.Investment> AAExpenseTracker.Domain.Data.FinanceTrackerDbContext::get_Investments()
-FNDA:0,Microsoft.EntityFrameworkCore.DbSet`1<AAExpenseTracker.Domain.Entities.Investment> AAExpenseTracker.Domain.Data.FinanceTrackerDbContext::get_Investments()
+FN:13,Microsoft.EntityFrameworkCore.DbSet`1<AAFinanceTracker.Domain.Entities.Investment> AAFinanceTracker.Domain.Data.FinanceTrackerDbContext::get_Investments()
+FNDA:0,Microsoft.EntityFrameworkCore.DbSet`1<AAFinanceTracker.Domain.Entities.Investment> AAFinanceTracker.Domain.Data.FinanceTrackerDbContext::get_Investments()
 DA:14,0
-FN:14,Microsoft.EntityFrameworkCore.DbSet`1<AAExpenseTracker.Domain.Entities.CustodianBank> AAExpenseTracker.Domain.Data.FinanceTrackerDbContext::get_CustodianBanks()
-FNDA:0,Microsoft.EntityFrameworkCore.DbSet`1<AAExpenseTracker.Domain.Entities.CustodianBank> AAExpenseTracker.Domain.Data.FinanceTrackerDbContext::get_CustodianBanks()
+FN:14,Microsoft.EntityFrameworkCore.DbSet`1<AAFinanceTracker.Domain.Entities.CustodianBank> AAFinanceTracker.Domain.Data.FinanceTrackerDbContext::get_CustodianBanks()
+FNDA:0,Microsoft.EntityFrameworkCore.DbSet`1<AAFinanceTracker.Domain.Entities.CustodianBank> AAFinanceTracker.Domain.Data.FinanceTrackerDbContext::get_CustodianBanks()
 DA:15,0
-FN:15,Microsoft.EntityFrameworkCore.DbSet`1<AAExpenseTracker.Domain.Entities.InvestmentType> AAExpenseTracker.Domain.Data.FinanceTrackerDbContext::get_InvestmentTypes()
-FNDA:0,Microsoft.EntityFrameworkCore.DbSet`1<AAExpenseTracker.Domain.Entities.InvestmentType> AAExpenseTracker.Domain.Data.FinanceTrackerDbContext::get_InvestmentTypes()
+FN:15,Microsoft.EntityFrameworkCore.DbSet`1<AAFinanceTracker.Domain.Entities.InvestmentType> AAFinanceTracker.Domain.Data.FinanceTrackerDbContext::get_InvestmentTypes()
+FNDA:0,Microsoft.EntityFrameworkCore.DbSet`1<AAFinanceTracker.Domain.Entities.InvestmentType> AAFinanceTracker.Domain.Data.FinanceTrackerDbContext::get_InvestmentTypes()
 DA:16,0
-FN:18,System.Void AAExpenseTracker.Domain.Data.FinanceTrackerDbContext::OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)
-FNDA:0,System.Void AAExpenseTracker.Domain.Data.FinanceTrackerDbContext::OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)
+FN:18,System.Void AAFinanceTracker.Domain.Data.FinanceTrackerDbContext::OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)
+FNDA:0,System.Void AAFinanceTracker.Domain.Data.FinanceTrackerDbContext::OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)
 DA:19,0
 DA:20,0
 DA:21,0
-FN:23,System.Void AAExpenseTracker.Domain.Data.FinanceTrackerDbContext::OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
-FNDA:0,System.Void AAExpenseTracker.Domain.Data.FinanceTrackerDbContext::OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
+FN:23,System.Void AAFinanceTracker.Domain.Data.FinanceTrackerDbContext::OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
+FNDA:0,System.Void AAFinanceTracker.Domain.Data.FinanceTrackerDbContext::OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
 DA:24,0
 DA:25,0
 DA:27,0
@@ -1498,8 +1498,8 @@ DA:57,0
 DA:58,0
 DA:59,0
 DA:60,0
-FN:8,System.Void AAExpenseTracker.Domain.Data.FinanceTrackerDbContext::.ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.EntityFrameworkCore.DbContextOptions`1<AAExpenseTracker.Domain.Data.FinanceTrackerDbContext>)
-FNDA:0,System.Void AAExpenseTracker.Domain.Data.FinanceTrackerDbContext::.ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.EntityFrameworkCore.DbContextOptions`1<AAExpenseTracker.Domain.Data.FinanceTrackerDbContext>)
+FN:8,System.Void AAFinanceTracker.Domain.Data.FinanceTrackerDbContext::.ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.EntityFrameworkCore.DbContextOptions`1<AAFinanceTracker.Domain.Data.FinanceTrackerDbContext>)
+FNDA:0,System.Void AAFinanceTracker.Domain.Data.FinanceTrackerDbContext::.ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.EntityFrameworkCore.DbContextOptions`1<AAFinanceTracker.Domain.Data.FinanceTrackerDbContext>)
 DA:9,0
 LF:40
 LH:0
@@ -1575,8 +1575,8 @@ DA:129,0
 DA:130,0
 DA:131,0
 DA:132,0
-FN:10,System.Void AAFinanceTracker.Controllers.InvestmentsController::.ctor(AAFinanceTracker.Infrastructure.Repositories.IRepository`1<AAExpenseTracker.Domain.Entities.Investment>)
-FNDA:4,System.Void AAFinanceTracker.Controllers.InvestmentsController::.ctor(AAFinanceTracker.Infrastructure.Repositories.IRepository`1<AAExpenseTracker.Domain.Entities.Investment>)
+FN:10,System.Void AAFinanceTracker.Controllers.InvestmentsController::.ctor(AAFinanceTracker.Infrastructure.Repositories.IRepository`1<AAFinanceTracker.Domain.Entities.Investment>)
+FNDA:4,System.Void AAFinanceTracker.Controllers.InvestmentsController::.ctor(AAFinanceTracker.Infrastructure.Repositories.IRepository`1<AAFinanceTracker.Domain.Entities.Investment>)
 DA:11,4
 FN:112,System.Void AAFinanceTracker.Controllers.InvestmentsController/<DeleteInvestment>d__6::MoveNext()
 FNDA:0,System.Void AAFinanceTracker.Controllers.InvestmentsController/<DeleteInvestment>d__6::MoveNext()
@@ -1687,8 +1687,8 @@ BRDA:119,126,0,0
 BRDA:119,126,1,1
 BRDA:119,147,0,1
 BRDA:119,147,1,0
-FN:9,System.Void AAFinanceTracker.Controllers.InvestmentTypesController::.ctor(AAFinanceTracker.Infrastructure.Repositories.IRepository`1<AAExpenseTracker.Domain.Entities.InvestmentType>)
-FNDA:9,System.Void AAFinanceTracker.Controllers.InvestmentTypesController::.ctor(AAFinanceTracker.Infrastructure.Repositories.IRepository`1<AAExpenseTracker.Domain.Entities.InvestmentType>)
+FN:9,System.Void AAFinanceTracker.Controllers.InvestmentTypesController::.ctor(AAFinanceTracker.Infrastructure.Repositories.IRepository`1<AAFinanceTracker.Domain.Entities.InvestmentType>)
+FNDA:9,System.Void AAFinanceTracker.Controllers.InvestmentTypesController::.ctor(AAFinanceTracker.Infrastructure.Repositories.IRepository`1<AAFinanceTracker.Domain.Entities.InvestmentType>)
 DA:10,9
 FN:100,System.Void AAFinanceTracker.Controllers.InvestmentTypesController/<DeleteInvestmentType>d__6::MoveNext()
 FNDA:2,System.Void AAFinanceTracker.Controllers.InvestmentTypesController/<DeleteInvestmentType>d__6::MoveNext()
@@ -1798,8 +1798,8 @@ SF:D:\projects\AIP\aa-finance-tracker\aa-finance-tracker\Models\InvestmentModel.
 FN:6,System.Int32 AAFinanceTracker.API.Models.InvestmentModel::get_Id()
 FNDA:0,System.Int32 AAFinanceTracker.API.Models.InvestmentModel::get_Id()
 DA:7,0
-FN:7,AAExpenseTracker.Domain.Entities.InvestmentType AAFinanceTracker.API.Models.InvestmentModel::get_InvestmentType()
-FNDA:3,AAExpenseTracker.Domain.Entities.InvestmentType AAFinanceTracker.API.Models.InvestmentModel::get_InvestmentType()
+FN:7,AAFinanceTracker.Domain.Entities.InvestmentType AAFinanceTracker.API.Models.InvestmentModel::get_InvestmentType()
+FNDA:3,AAFinanceTracker.Domain.Entities.InvestmentType AAFinanceTracker.API.Models.InvestmentModel::get_InvestmentType()
 DA:8,3
 FN:8,System.String AAFinanceTracker.API.Models.InvestmentModel::get_Description()
 FNDA:0,System.String AAFinanceTracker.API.Models.InvestmentModel::get_Description()
@@ -1843,8 +1843,8 @@ DA:98,0
 DA:99,0
 DA:100,0
 DA:101,0
-FN:9,System.Void AAFinanceTracker.API.Controllers.ExpenseCategoriesController::.ctor(AAFinanceTracker.Infrastructure.Repositories.IRepository`1<AAExpenseTracker.Domain.Entities.ExpenseCategory>)
-FNDA:5,System.Void AAFinanceTracker.API.Controllers.ExpenseCategoriesController::.ctor(AAFinanceTracker.Infrastructure.Repositories.IRepository`1<AAExpenseTracker.Domain.Entities.ExpenseCategory>)
+FN:9,System.Void AAFinanceTracker.API.Controllers.ExpenseCategoriesController::.ctor(AAFinanceTracker.Infrastructure.Repositories.IRepository`1<AAFinanceTracker.Domain.Entities.ExpenseCategory>)
+FNDA:5,System.Void AAFinanceTracker.API.Controllers.ExpenseCategoriesController::.ctor(AAFinanceTracker.Infrastructure.Repositories.IRepository`1<AAFinanceTracker.Domain.Entities.ExpenseCategory>)
 DA:10,5
 FN:79,System.Void AAFinanceTracker.API.Controllers.ExpenseCategoriesController/<DeleteExpenseCategory>d__6::MoveNext()
 FNDA:1,System.Void AAFinanceTracker.API.Controllers.ExpenseCategoriesController/<DeleteExpenseCategory>d__6::MoveNext()
@@ -1915,8 +1915,8 @@ FNF:7
 FNH:6
 end_of_record
 SF:D:\projects\AIP\aa-finance-tracker\aa-finance-tracker\Controllers\ExpensesController.cs
-FN:144,System.Boolean AAFinanceTracker.API.Controllers.ExpensesController::ExpenseExists(System.Int32,AAFinanceTracker.Infrastructure.Repositories.IRepository`1<AAExpenseTracker.Domain.Entities.Expense>)
-FNDA:0,System.Boolean AAFinanceTracker.API.Controllers.ExpensesController::ExpenseExists(System.Int32,AAFinanceTracker.Infrastructure.Repositories.IRepository`1<AAExpenseTracker.Domain.Entities.Expense>)
+FN:144,System.Boolean AAFinanceTracker.API.Controllers.ExpensesController::ExpenseExists(System.Int32,AAFinanceTracker.Infrastructure.Repositories.IRepository`1<AAFinanceTracker.Domain.Entities.Expense>)
+FNDA:0,System.Boolean AAFinanceTracker.API.Controllers.ExpensesController::ExpenseExists(System.Int32,AAFinanceTracker.Infrastructure.Repositories.IRepository`1<AAFinanceTracker.Domain.Entities.Expense>)
 DA:145,0
 DA:146,0
 DA:147,0
@@ -2037,8 +2037,8 @@ FNDA:0,System.Boolean AAFinanceTracker.API.Controllers.ExpenseTypesController::E
 DA:88,0
 DA:89,0
 DA:90,0
-FN:9,System.Void AAFinanceTracker.API.Controllers.ExpenseTypesController::.ctor(AAFinanceTracker.Infrastructure.Repositories.IRepository`1<AAExpenseTracker.Domain.Entities.ExpenseType>)
-FNDA:6,System.Void AAFinanceTracker.API.Controllers.ExpenseTypesController::.ctor(AAFinanceTracker.Infrastructure.Repositories.IRepository`1<AAExpenseTracker.Domain.Entities.ExpenseType>)
+FN:9,System.Void AAFinanceTracker.API.Controllers.ExpenseTypesController::.ctor(AAFinanceTracker.Infrastructure.Repositories.IRepository`1<AAFinanceTracker.Domain.Entities.ExpenseType>)
+FNDA:6,System.Void AAFinanceTracker.API.Controllers.ExpenseTypesController::.ctor(AAFinanceTracker.Infrastructure.Repositories.IRepository`1<AAFinanceTracker.Domain.Entities.ExpenseType>)
 DA:10,6
 FN:73,System.Void AAFinanceTracker.API.Controllers.ExpenseTypesController/<DeleteExpenseType>d__6::MoveNext()
 FNDA:2,System.Void AAFinanceTracker.API.Controllers.ExpenseTypesController/<DeleteExpenseType>d__6::MoveNext()
@@ -2160,8 +2160,8 @@ FNF:8
 FNH:0
 end_of_record
 SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Infrastructure\Repositories\Investment\InvestmentRepository.cs
-FN:6,System.Void AAFinanceTracker.Infrastructure.Repositories.InvestmentRepository::.ctor(AAExpenseTracker.Domain.Data.FinanceTrackerDbContext)
-FNDA:0,System.Void AAFinanceTracker.Infrastructure.Repositories.InvestmentRepository::.ctor(AAExpenseTracker.Domain.Data.FinanceTrackerDbContext)
+FN:6,System.Void AAFinanceTracker.Infrastructure.Repositories.InvestmentRepository::.ctor(AAFinanceTracker.Domain.Data.FinanceTrackerDbContext)
+FNDA:0,System.Void AAFinanceTracker.Infrastructure.Repositories.InvestmentRepository::.ctor(AAFinanceTracker.Domain.Data.FinanceTrackerDbContext)
 DA:7,0
 LF:1
 LH:0
@@ -2171,8 +2171,8 @@ FNF:1
 FNH:0
 end_of_record
 SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Infrastructure\Repositories\Investment\InvestmentTypeRepository.cs
-FN:6,System.Void AAFinanceTracker.Infrastructure.Repositories.InvestmentTypeRepository::.ctor(AAExpenseTracker.Domain.Data.FinanceTrackerDbContext)
-FNDA:0,System.Void AAFinanceTracker.Infrastructure.Repositories.InvestmentTypeRepository::.ctor(AAExpenseTracker.Domain.Data.FinanceTrackerDbContext)
+FN:6,System.Void AAFinanceTracker.Infrastructure.Repositories.InvestmentTypeRepository::.ctor(AAFinanceTracker.Domain.Data.FinanceTrackerDbContext)
+FNDA:0,System.Void AAFinanceTracker.Infrastructure.Repositories.InvestmentTypeRepository::.ctor(AAFinanceTracker.Domain.Data.FinanceTrackerDbContext)
 DA:7,0
 LF:1
 LH:0
@@ -2182,8 +2182,8 @@ FNF:1
 FNH:0
 end_of_record
 SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Infrastructure\Repositories\Expense\ExpenseCategoryRepository.cs
-FN:6,System.Void AAFinanceTracker.Infrastructure.Repositories.Expense.ExpenseCategoryRepository::.ctor(AAExpenseTracker.Domain.Data.FinanceTrackerDbContext)
-FNDA:0,System.Void AAFinanceTracker.Infrastructure.Repositories.Expense.ExpenseCategoryRepository::.ctor(AAExpenseTracker.Domain.Data.FinanceTrackerDbContext)
+FN:6,System.Void AAFinanceTracker.Infrastructure.Repositories.Expense.ExpenseCategoryRepository::.ctor(AAFinanceTracker.Domain.Data.FinanceTrackerDbContext)
+FNDA:0,System.Void AAFinanceTracker.Infrastructure.Repositories.Expense.ExpenseCategoryRepository::.ctor(AAFinanceTracker.Domain.Data.FinanceTrackerDbContext)
 DA:7,0
 LF:1
 LH:0
@@ -2193,8 +2193,8 @@ FNF:1
 FNH:0
 end_of_record
 SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Infrastructure\Repositories\Expense\ExpenseRepository.cs
-FN:6,System.Void AAFinanceTracker.Infrastructure.Repositories.Expense.ExpenseRepository::.ctor(AAExpenseTracker.Domain.Data.FinanceTrackerDbContext)
-FNDA:0,System.Void AAFinanceTracker.Infrastructure.Repositories.Expense.ExpenseRepository::.ctor(AAExpenseTracker.Domain.Data.FinanceTrackerDbContext)
+FN:6,System.Void AAFinanceTracker.Infrastructure.Repositories.Expense.ExpenseRepository::.ctor(AAFinanceTracker.Domain.Data.FinanceTrackerDbContext)
+FNDA:0,System.Void AAFinanceTracker.Infrastructure.Repositories.Expense.ExpenseRepository::.ctor(AAFinanceTracker.Domain.Data.FinanceTrackerDbContext)
 DA:7,0
 FN:9,System.Void AAFinanceTracker.Infrastructure.Repositories.Expense.ExpenseRepository/<GetExpensesByCategoryYearMonth>d__2::MoveNext()
 FNDA:0,System.Void AAFinanceTracker.Infrastructure.Repositories.Expense.ExpenseRepository/<GetExpensesByCategoryYearMonth>d__2::MoveNext()
@@ -2220,8 +2220,8 @@ FNF:3
 FNH:0
 end_of_record
 SF:D:\projects\AIP\aa-finance-tracker\AAFinanceTracker.Infrastructure\Repositories\Expense\ExpenseTypeRepository.cs
-FN:6,System.Void AAFinanceTracker.Infrastructure.Repositories.Expense.ExpenseTypeRepository::.ctor(AAExpenseTracker.Domain.Data.FinanceTrackerDbContext)
-FNDA:0,System.Void AAFinanceTracker.Infrastructure.Repositories.Expense.ExpenseTypeRepository::.ctor(AAExpenseTracker.Domain.Data.FinanceTrackerDbContext)
+FN:6,System.Void AAFinanceTracker.Infrastructure.Repositories.Expense.ExpenseTypeRepository::.ctor(AAFinanceTracker.Domain.Data.FinanceTrackerDbContext)
+FNDA:0,System.Void AAFinanceTracker.Infrastructure.Repositories.Expense.ExpenseTypeRepository::.ctor(AAFinanceTracker.Domain.Data.FinanceTrackerDbContext)
 DA:7,0
 LF:1
 LH:0

@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AAExpenseTracker.Domain\AAExpenseTracker.Domain.csproj" />
+    <ProjectReference Include="..\AAExpenseTracker.Domain\AAFinanceTracker.Domain.csproj" />
     <ProjectReference Include="..\AAFinanceTracker.Infrastructure\AAFinanceTracker.Infrastructure.csproj" />
   </ItemGroup>
 

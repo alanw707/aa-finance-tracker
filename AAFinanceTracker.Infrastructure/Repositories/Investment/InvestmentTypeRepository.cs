@@ -1,5 +1,5 @@
-﻿using AAExpenseTracker.Domain.Data;
-using AAExpenseTracker.Domain.Entities;
+﻿using AAFinanceTracker.Domain.Data;
+using AAFinanceTracker.Domain.Entities;
 
 namespace AAFinanceTracker.Infrastructure.Repositories.Investment;
 

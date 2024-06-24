@@ -1,4 +1,4 @@
-﻿using Entities = AAExpenseTracker.Domain.Entities;
+﻿using Entities = AAFinanceTracker.Domain.Entities;
 
 
 namespace AAFinanceTracker.Infrastructure.Repositories.Investment;

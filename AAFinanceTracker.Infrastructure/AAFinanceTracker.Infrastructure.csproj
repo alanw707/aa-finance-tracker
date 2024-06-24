@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AAExpenseTracker.Domain\AAExpenseTracker.Domain.csproj" />
+    <ProjectReference Include="..\AAExpenseTracker.Domain\AAFinanceTracker.Domain.csproj" />
   </ItemGroup>
 
 </Project>

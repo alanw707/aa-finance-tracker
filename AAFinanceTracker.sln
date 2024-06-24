@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AAFinanceTracker.API.Tests"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AAFinanceTracker.Infrastructure", "AAFinanceTracker.Infrastructure\AAFinanceTracker.Infrastructure.csproj", "{469DF666-7E71-49BF-BB75-4BD5D4E71854}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AAExpenseTracker.Domain", "AAExpenseTracker.Domain\AAExpenseTracker.Domain.csproj", "{21B75372-4413-4D6F-95FB-33F6F73F907D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AAFinanceTracker.Domain", "AAExpenseTracker.Domain\AAFinanceTracker.Domain.csproj", "{21B75372-4413-4D6F-95FB-33F6F73F907D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

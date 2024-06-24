@@ -1,11 +1,11 @@
-﻿using AAExpenseTracker.Domain.Entities;
+﻿using AAFinanceTracker.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 
-namespace AAExpenseTracker.Domain.Data
+namespace AAFinanceTracker.Domain.Data
 {
-    public class FinanceTrackerDbContext(IConfiguration _configuration, DbContextOptions<FinanceTrackerDbContext> options)
+    public class FinanceTrackerDbContext(DbContextOptions<FinanceTrackerDbContext> options)
             : DbContext(options)
     {
         public virtual DbSet<ExpenseType>? ExpenseTypes { get; set; }
@@ -14,11 +14,6 @@ namespace AAExpenseTracker.Domain.Data
         public DbSet<Investment>? Investments { get; set; }
         public DbSet<CustodianBank>? CustodianBanks { get; set; }
         public DbSet<InvestmentType>? InvestmentTypes { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("LocalDockerSQL"));
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

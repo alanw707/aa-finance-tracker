@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using AAExpenseTracker.Domain.Entities;
+using AAFinanceTracker.Domain.Entities;
 using AAFinanceTracker.API.Controllers;
 using AAFinanceTracker.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;

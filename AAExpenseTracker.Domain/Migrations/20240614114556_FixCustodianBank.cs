@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace AAExpenseTracker.Domain.Migrations
+namespace AAFinanceTracker.Domain.Migrations
 {
     /// <inheritdoc />
     public partial class FixCustodianBank : Migration

@@ -1,4 +1,4 @@
-﻿using AAExpenseTracker.Domain.Entities;
+﻿using AAFinanceTracker.Domain.Entities;
 using AAFinanceTracker.Infrastructure.Repositories.Investment;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
