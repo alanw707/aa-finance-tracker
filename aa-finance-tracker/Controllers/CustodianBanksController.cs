@@ -1,6 +1,7 @@
 ﻿using AAFinanceTracker.Domain.Entities;
 using AAFinanceTracker.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace YourNamespace.API.Controllers;
 
@@ -27,12 +28,12 @@ public class CustodianBanksController : ControllerBase
     }
 
     // GET: api/CustodianBanks/5
-    [HttpGet("{id}")]
-    public async Task<ActionResult<CustodianBank>> GetCustodianBank(int id, CancellationToken cancellationToken)
+    [HttpGet("{Id}")]
+    public async Task<ActionResult<CustodianBank>> GetCustodianBank(int Id, CancellationToken cancellationToken)
     {
-        var bank = await _custodianBankRepository.Find(c=>c.Id == id, cancellationToken);
+        var bank = await _custodianBankRepository.Find(c=>c.Id == Id, cancellationToken);
 
-        if (bank == null) return NotFound();
+        if (!bank.Any()) return NotFound();
 
         return Ok(bank);
     }
@@ -41,27 +42,42 @@ public class CustodianBanksController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<CustodianBank>> PostCustodianBank(CustodianBank bank, CancellationToken cancellationToken)
     {
-        await _custodianBankRepository.Add(bank, cancellationToken);
-        await _custodianBankRepository.SaveChangesAsync(cancellationToken);
+        try
+        {
+            await _custodianBankRepository.Add(bank, cancellationToken);
+            await _custodianBankRepository.SaveChangesAsync(cancellationToken);
+        }
+        catch (DbUpdateException e)
+        {
+            if(CustodianBankExists(bank.Id, cancellationToken)) return Conflict();
+            throw;
+        }
 
-        return CreatedAtAction("GetCustodianBank", new { id = bank.Id }, bank);
+        return CreatedAtAction("GetCustodianBank", new { Id = bank.Id }, bank);
     }
 
     // PUT: api/CustodianBanks/5
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutCustodianBank(int id, CustodianBank bank, CancellationToken cancellationToken)
+    [HttpPut("{Id}")]
+    public async Task<IActionResult> PutCustodianBank(int Id, CustodianBank bank, CancellationToken cancellationToken)
     {
-        if (id != bank.Id) return BadRequest();
+        if (Id != bank.Id) return BadRequest();
 
         try
         {
+            var existingBank = await _custodianBankRepository
+                .Find(cb => cb.Id == Id, cancellationToken);
+
+            if (!existingBank.Any())
+            {
+                return BadRequest();
+            }
+
             _custodianBankRepository.Update(bank);
             await _custodianBankRepository.SaveChangesAsync(cancellationToken);
         }
         catch (Exception)
         {
-            if (!CustodianBankExists(id, cancellationToken)) return NotFound();
-            else throw;
+            if (!CustodianBankExists(Id, cancellationToken)) return NotFound();
         }
 
         return NoContent();
@@ -73,7 +89,7 @@ public class CustodianBanksController : ControllerBase
     {
         var bank = await _custodianBankRepository.Find(c=>c.Id == Id, cancellationToken);
 
-        if (bank == null) return NotFound();
+        if (!bank.Any()) return NotFound();
 
         _custodianBankRepository.Delete(bank.First());
         await _custodianBankRepository.SaveChangesAsync(cancellationToken);
