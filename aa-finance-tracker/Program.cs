@@ -1,5 +1,5 @@
-using AAExpenseTracker.Domain.Data;
-using Entities = AAExpenseTracker.Domain.Entities;
+using AAFinanceTracker.Domain.Data;
+using Entities = AAFinanceTracker.Domain.Entities;
 using AAFinanceTracker.Infrastructure.Repositories;
 using AAFinanceTracker.Infrastructure.Repositories.Expense;
 using AAFinanceTracker.Infrastructure.Repositories.Investment;

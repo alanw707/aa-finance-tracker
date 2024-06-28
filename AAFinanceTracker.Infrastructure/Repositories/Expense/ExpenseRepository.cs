@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using AAExpenseTracker.Domain.Data;
-using Entities = AAExpenseTracker.Domain.Entities;
+using AAFinanceTracker.Domain.Data;
+using Entities = AAFinanceTracker.Domain.Entities;
 
 namespace AAFinanceTracker.Infrastructure.Repositories.Expense;
 
@@ -18,7 +18,7 @@ public class ExpenseRepository(FinanceTrackerDbContext context)
 
     public async Task<List<Entities.Expense>> GetExpensesByTimeframe(DateTime startDate, DateTime endDate, CancellationToken cancellationToken)
     {
-        return await context.Set<AAExpenseTracker.Domain.Entities.Expense>()
+        return await context.Set<AAFinanceTracker.Domain.Entities.Expense>()
             .Where(e => e.Date >= startDate && e.Date <= endDate)
             .ToListAsync(cancellationToken);
     }

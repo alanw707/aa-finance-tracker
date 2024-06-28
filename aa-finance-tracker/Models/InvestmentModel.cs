@@ -1,4 +1,4 @@
-using AAExpenseTracker.Domain.Entities;
+using AAFinanceTracker.Domain.Entities;
 
 namespace AAFinanceTracker.API.Models;
 

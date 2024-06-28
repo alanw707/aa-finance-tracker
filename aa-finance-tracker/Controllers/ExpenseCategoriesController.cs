@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AAExpenseTracker.Domain.Entities;
+using AAFinanceTracker.Domain.Entities;
 using AAFinanceTracker.Infrastructure.Repositories;
 
 namespace AAFinanceTracker.API.Controllers;

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AAExpenseTracker.Domain.Entities;
+namespace AAFinanceTracker.Domain.Entities;
 
 public class Expense
 {

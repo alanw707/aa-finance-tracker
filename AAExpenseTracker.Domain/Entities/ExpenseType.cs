@@ -1,4 +1,4 @@
-﻿namespace AAExpenseTracker.Domain.Entities;
+﻿namespace AAFinanceTracker.Domain.Entities;
 
 public class ExpenseType
 {
