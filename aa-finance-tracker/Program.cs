@@ -1,6 +1,7 @@
 using AAFinanceTracker.Domain.Data;
 using Entities = AAFinanceTracker.Domain.Entities;
 using AAFinanceTracker.Infrastructure.Repositories;
+using AAFinanceTracker.Infrastructure.Repositories.CustodianBank;
 using AAFinanceTracker.Infrastructure.Repositories.Expense;
 using AAFinanceTracker.Infrastructure.Repositories.Investment;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,7 @@ builder.Services.AddTransient<IExpenseRepository, ExpenseRepository>();
 builder.Services.AddTransient<IRepository<Entities.Investment>, InvestmentRepository>();
 builder.Services.AddTransient<IRepository<Entities.InvestmentType>, InvestmentTypeRepository>();
 builder.Services.AddTransient<IInvestmentRepository, InvestmentRepository>();
+builder.Services.AddTransient<IRepository<Entities.CustodianBank>, CustodianBankRepository>();
 
 // Add repositories for other entities here
 var app = builder.Build();
