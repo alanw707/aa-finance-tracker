@@ -1,6 +1,5 @@
 ﻿using AAFinanceTracker.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 
 namespace AAFinanceTracker.Domain.Data

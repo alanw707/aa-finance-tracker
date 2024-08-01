@@ -12,7 +12,7 @@ builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 // Add services to the container.
 builder.Services.AddDbContext<FinanceTrackerDbContext>(
     options => options.UseSqlServer(
-        builder.Configuration.GetConnectionString("LocalDockerSQL")));
+        builder.Configuration.GetConnectionString("AzureSQL")));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
