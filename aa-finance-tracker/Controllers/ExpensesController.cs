@@ -113,7 +113,11 @@ public class ExpensesController(IServiceProvider services) : ControllerBase
         }
         else
         {
-            expense.ExpenseCategory = new ExpenseCategory() { Name = expenseModel.CategoryName };
+            expense.ExpenseCategory = new ExpenseCategory
+            {
+                Name = expenseModel.CategoryName,
+                Description = null
+            };
         }
 
         await expenseRepository.Add(expense, cancellationToken);
