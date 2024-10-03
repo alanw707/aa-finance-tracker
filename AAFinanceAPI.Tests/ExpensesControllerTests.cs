@@ -97,7 +97,11 @@ public class ExpensesControllerTests
             .ReturnsAsync(new ExpenseType() { Name = expenseModel.TypeName });
 
         expenseCategoryRepoMock.Setup(repo => repo.Get(expenseModel.CategoryName, It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new ExpenseCategory() { Name = expenseModel.CategoryName });
+            .ReturnsAsync(new ExpenseCategory
+            {
+                Name = expenseModel.CategoryName,
+                Description = null
+            });
 
         expenseGenericRepoMock.Setup(repo => repo.Add(expense, It.IsAny<CancellationToken>()))
             .ReturnsAsync(It.IsAny<EntityEntry<Expense>>());

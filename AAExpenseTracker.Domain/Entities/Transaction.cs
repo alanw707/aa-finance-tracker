@@ -1,4 +1,4 @@
-namespace AAFinanceTracker.Domain;
+namespace AAFinanceTracker.Domain.Entities;
 
 public class Transaction
 {

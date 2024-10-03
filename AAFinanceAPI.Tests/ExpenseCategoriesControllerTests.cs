@@ -16,8 +16,16 @@ public class ExpenseCategoriesControllerTests
         // Arrange
         var expectedCategories = new List<ExpenseCategory>()
         {
-            new() { Name = "Food" },
-            new() { Name = "Transportation" }
+            new()
+            {
+                Name = "Food",
+                Description = null
+            },
+            new()
+            {
+                Name = "Transportation",
+                Description = null
+            }
         };
         _expenseCategoriesRepositoryMock.Setup(x => x.All(It.IsAny<CancellationToken>()))
             .ReturnsAsync(expectedCategories);
@@ -39,7 +47,11 @@ public class ExpenseCategoriesControllerTests
     public async Task GetExpenseCategory_ExistingName_ReturnsExpenseCategory()
     {
         // Arrange
-        var expectedCategory = new ExpenseCategory { Name = "Groceries" };
+        var expectedCategory = new ExpenseCategory
+        {
+            Name = "Groceries",
+            Description = null
+        };
         _expenseCategoriesRepositoryMock.Setup(x => x.Find(It.IsAny<Expression<Func<ExpenseCategory, bool>>>(), It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(new List<ExpenseCategory>() { expectedCategory }));
 
@@ -58,8 +70,16 @@ public class ExpenseCategoriesControllerTests
     public async Task PutExpenseCategory_ExistingName_UpdatesAndReturnsNoContent()
     {
         // Arrange        
-        var existingCategory = new ExpenseCategory { Name = "Travel" };
-        var updatedCategory = new ExpenseCategory { Name = "Business Travel" };
+        var existingCategory = new ExpenseCategory
+        {
+            Name = "Travel",
+            Description = null
+        };
+        var updatedCategory = new ExpenseCategory
+        {
+            Name = "Business Travel",
+            Description = null
+        };
 
         _expenseCategoriesRepositoryMock.Setup(x
                 => x.Find(It.IsAny<Expression<Func<ExpenseCategory, bool>>>(), It.IsAny<CancellationToken>()))
@@ -81,7 +101,11 @@ public class ExpenseCategoriesControllerTests
     public async Task PostExpenseCategory_ValidCategory_ReturnsCreatedResponse()
     {
         // Arrange
-        var newCategory = new ExpenseCategory { Name = "Utilities" };
+        var newCategory = new ExpenseCategory
+        {
+            Name = "Utilities",
+            Description = null
+        };
 
 
         var controller = new ExpenseCategoriesController(_expenseCategoriesRepositoryMock.Object);
@@ -102,7 +126,11 @@ public class ExpenseCategoriesControllerTests
     public async Task DeleteExpenseCategory_ReturnsNoContent_WhenCategoryExistsAndIsDeleted()
     {
         // Arrange
-        var existingCategory = new ExpenseCategory { Name = "Office Supplies" };
+        var existingCategory = new ExpenseCategory
+        {
+            Name = "Office Supplies",
+            Description = null
+        };
         _expenseCategoriesRepositoryMock.Setup(x => x.Find(It.IsAny<Expression<Func<ExpenseCategory, bool>>>(), It.IsAny<CancellationToken>()))
             .Returns(Task.FromResult(new List<ExpenseCategory>() { existingCategory }));
         _expenseCategoriesRepositoryMock.Setup(x => x.Delete(existingCategory))

@@ -1,15 +1,12 @@
-﻿namespace AAFinanceTracker.Domain;
+﻿namespace AAFinanceTracker.Domain.Entities;
 
-public class Account
+public class Account(int accountNumber, string bankId, string currency, Transaction[]? transactions)
 {
-    private int accountNumber;
-    private string bankId;
-    private string currency;
-    private Transaction[]? transactions;
+    public int AccountNumber { get; set; } = accountNumber;
 
-    public int AccountNumber { get => accountNumber; set => accountNumber = value; }
-    public string BankId { get => bankId; set => bankId = value; }
-    public string Currency { get => currency; set => currency = value; }
-    public Transaction[]? Transactions { get => transactions; set => transactions = value; }
+    public string BankId { get; set; } = bankId;
 
+    public string Currency { get; set; } = currency;
+
+    public Transaction[]? Transactions { get; set; } = transactions;
 }

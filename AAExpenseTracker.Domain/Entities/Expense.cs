@@ -4,14 +4,14 @@ namespace AAFinanceTracker.Domain.Entities;
 
 public class Expense
 {
-    public int ExpenseId { get; set; }
-    public DateTime Date { get; set; }
+    public int ExpenseId { get; init; }
+    public DateTime Date { get; init; }
     [ForeignKey("ExpenseCategoryName")]
-    public required string ExpenseCategoryName { get; set; }
+    public required string ExpenseCategoryName { get; init; }
     [ForeignKey("ExpenseTypeName")]
-    public required string ExpenseTypeName { get; set; }
-    public decimal Amount { get; set; }
-    public string? Comments { get; set; }
+    public required string ExpenseTypeName { get; init; }
+    public decimal Amount { get; init; }
+    public string? Comments { get; init; }
     public ExpenseCategory? ExpenseCategory { get; set; }
     public ExpenseType? ExpenseType { get; set; }
 
