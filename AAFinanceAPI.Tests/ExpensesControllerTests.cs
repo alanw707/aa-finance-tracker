@@ -1,6 +1,6 @@
 ﻿using AAFinanceTracker.Domain.Entities;
-using AAFinanceTracker.API.Controllers;
 using AAFinanceTracker.API.Models;
+using AAFinanceTracker.Controllers;
 using AAFinanceTracker.Infrastructure.Repositories;
 using AAFinanceTracker.Infrastructure.Repositories.Expense;
 using Microsoft.AspNetCore.Mvc;

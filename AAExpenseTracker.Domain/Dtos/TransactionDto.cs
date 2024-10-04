@@ -1,5 +1,7 @@
 using System.Runtime.Serialization;
 
+namespace AAFinanceTracker.Domain.Dtos;
+
 [DataContract]
 public class Transaction 
 {

@@ -1,5 +1,5 @@
+using AAFinanceTracker.Controllers;
 using AAFinanceTracker.Domain.Entities;
-using AAFinanceTracker.API.Controllers;
 using AAFinanceTracker.Infrastructure.Repositories.Expense;
 using Microsoft.AspNetCore.Mvc;
 using Moq;

@@ -3,19 +3,12 @@ using AAFinanceTracker.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace YourNamespace.API.Controllers;
+namespace AAFinanceTracker.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class CustodianBanksController : ControllerBase
+public class CustodianBanksController(IRepository<CustodianBank> _custodianBankRepository) : ControllerBase
 {
-    private readonly IRepository<CustodianBank> _custodianBankRepository;
-
-    public CustodianBanksController(IRepository<CustodianBank> _custodianBankRepository)
-    {
-        this._custodianBankRepository = _custodianBankRepository;
-    }
-
     // GET: api/CustodianBanks
     [HttpGet]
     public async Task<ActionResult<IEnumerable<CustodianBank>>> GetCustodianBanks(CancellationToken cancellationToken)
@@ -28,7 +21,7 @@ public class CustodianBanksController : ControllerBase
     }
 
     // GET: api/CustodianBanks/5
-    [HttpGet("{Id}")]
+    [HttpGet("{Id:int}")]
     public async Task<ActionResult<CustodianBank>> GetCustodianBank(int Id, CancellationToken cancellationToken)
     {
         var bank = await _custodianBankRepository.Find(c=>c.Id == Id, cancellationToken);

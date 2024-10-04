@@ -2,7 +2,7 @@
 using AAFinanceTracker.Infrastructure.Repositories.Expense;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AAFinanceTracker.API.Controllers;
+namespace AAFinanceTracker.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

@@ -1,7 +1,7 @@
 ﻿using AAFinanceTracker.Infrastructure.Repositories.Investment;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AAFinanceTracker;
+namespace AAFinanceTracker.Controllers;
 
 public class InvestmentStatsController : ControllerBase
 {
