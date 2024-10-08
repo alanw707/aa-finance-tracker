@@ -1,32 +1,28 @@
-﻿using System.Runtime.CompilerServices;
-using System.Text.Json;
+﻿using System.Data;
 using Going.Plaid;
 using Going.Plaid.Entity;
-using AAFinanceTracker.Domain.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
+using AAFinanceTracker.Domain.Dtos;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using PlaidAccount = Going.Plaid.Entity.Account;
 using PlaidError = AAFinanceTracker.Domain.Dtos.PlaidError;
 using Transaction = Going.Plaid.Entity.Transaction;
 
 namespace AAFinanceTracker.Controllers;
 
-/// <summary>
-/// Retrieve data from Plaid service for logged-in user
-/// </summary>
-/// <remarks>
-/// Handles all of the traffic from the Endpoint component
-/// </remarks>
 [ApiController]
 [Route("api/[controller]")]
 [Produces("application/json")]
-public class FetchController : ControllerBase
+public class PlaidLinkController : ControllerBase
 {
     private readonly ILogger<FetchController> _logger;
     private readonly PlaidCredentials _credentials;
     private readonly PlaidClient _client;
 
-    public FetchController(ILogger<FetchController> logger, IOptions<PlaidCredentials> credentials, PlaidClient client)
+    public PlaidLinkController(ILogger<FetchController> logger, IOptions<PlaidCredentials> credentials, PlaidClient client)
     {
         _logger = logger;
         _credentials = credentials.Value;
@@ -45,10 +41,10 @@ public class FetchController : ControllerBase
 
         if (response.Error is not null)
             return Error(response.Error);
-        
-        PlaidAccount? AccountFor(string? id) => response.Accounts.Where(x => x.AccountId == id).SingleOrDefault();
 
-        PlaidDataTable result = new ServerDataTable("Name", "Balance/r", "Account #", "Routing #")
+        PlaidAccount? AccountFor(string? id) => response.Accounts.SingleOrDefault(x => x.AccountId == id);
+
+        var result = new ServerDataTable("Name", "Balance/r", "Account #", "Routing #")
         {
             Rows = response.Numbers.Ach
                 .Select(x =>
@@ -164,8 +160,8 @@ public class FetchController : ControllerBase
         if (response.Error is not null)
             return Error(response.Error);
 
-        Security? SecurityFor(string? id) => (response?.Securities).SingleOrDefault(x => x.SecurityId == id);
-        PlaidAccount? AccountFor(string? id) => (response?.Accounts).SingleOrDefault(x => x.AccountId == id);
+        Security? SecurityFor(string? id) => response?.Securities.Where(x => x.SecurityId == id).SingleOrDefault();
+        Account? AccountFor(string? id) => response?.Accounts.Where(x => x.AccountId == id).SingleOrDefault();
 
         PlaidDataTable result = new ServerDataTable("Mask", "Name", "Quantity/r", "Close Price/r", "Value/r")
         {
@@ -326,7 +322,7 @@ public class FetchController : ControllerBase
         if (response.Error is not null)
             return Error(response.Error);
 
-        PlaidAccount? AccountFor(string? id) => response.Accounts.Where(x => x.AccountId == id).SingleOrDefault();
+        Account? AccountFor(string? id) => response.Accounts.Where(x => x.AccountId == id).SingleOrDefault();
 
         PlaidDataTable result = new ServerDataTable("Type", "Account", "Balance/r")
         {
@@ -384,8 +380,8 @@ public class FetchController : ControllerBase
 
         PlaidDataTable result = new ServerDataTable("Payment ID", "Amount/r", "Status", "Status Update", "Recipient ID")
         {
-            Rows =
-            [
+            Rows = new PlaidRow[]
+            {
                 new PlaidRow(
                     paymentid,
                     response.Amount?.Value.ToString("C2") ?? string.Empty,
@@ -393,7 +389,7 @@ public class FetchController : ControllerBase
                     response.LastStatusUpdate.ToString("MM-dd"),
                     response.RecipientId
                 )
-            ]
+            }
         };
 
         return Ok(result);
@@ -594,7 +590,7 @@ public class FetchController : ControllerBase
     /// Contains code used only on server side. 
     /// Don't want to pollute client side with needless code.
     /// </remarks>
-    internal class ServerDataTable : PlaidDataTable
+    private class ServerDataTable : PlaidDataTable
     {
         internal ServerDataTable(params string[] cols)
         {
@@ -653,3 +649,4 @@ public class FetchController : ControllerBase
         };
     }
 }
+
