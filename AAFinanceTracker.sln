@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AAFinanceTracker.Infrastruc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AAFinanceTracker.Domain", "AAExpenseTracker.Domain\AAFinanceTracker.Domain.csproj", "{21B75372-4413-4D6F-95FB-33F6F73F907D}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "AAFinanceTracker.UI", "AAFinanceTracker.UI\AAFinanceTracker.UI.esproj", "{48728CD3-0BEA-439D-B9E5-ADF51E6269E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,12 @@ Global
 		{21B75372-4413-4D6F-95FB-33F6F73F907D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21B75372-4413-4D6F-95FB-33F6F73F907D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21B75372-4413-4D6F-95FB-33F6F73F907D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48728CD3-0BEA-439D-B9E5-ADF51E6269E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48728CD3-0BEA-439D-B9E5-ADF51E6269E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48728CD3-0BEA-439D-B9E5-ADF51E6269E5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{48728CD3-0BEA-439D-B9E5-ADF51E6269E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48728CD3-0BEA-439D-B9E5-ADF51E6269E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48728CD3-0BEA-439D-B9E5-ADF51E6269E5}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,12 +1,10 @@
-﻿using System.Data;
-using Going.Plaid;
+﻿using Going.Plaid;
 using Going.Plaid.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using AAFinanceTracker.Domain.Dtos;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using PlaidAccount = Going.Plaid.Entity.Account;
 using PlaidError = AAFinanceTracker.Domain.Dtos.PlaidError;
 using Transaction = Going.Plaid.Entity.Transaction;
@@ -66,7 +64,7 @@ public class PlaidLinkController : ControllerBase
     public async Task<IActionResult> Transactions()
     {
         // Set cursor to empty to receive all historical updates
-        string cursor = String.Empty;
+        string cursor = string.Empty;
 
         // New transaction updates since "cursor"
         var added = new List<Transaction>();
@@ -533,7 +531,7 @@ public class PlaidLinkController : ControllerBase
         {
             Rows = new PlaidRow[]
             {
-                new PlaidRow(
+                new(
                     transferid,
                     response.Transfer.Amount,
                     response.Transfer.Type.ToString(),
